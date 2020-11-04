@@ -6,6 +6,7 @@ export default class HotelOperation {
   constructor(rawRoomsData) {
     this.roomsRecord = [];
     this.bookingsRecord = [];
+    this.users = [];
   }
 
   createRoom(rawRoomData) {
@@ -31,5 +32,4 @@ export default class HotelOperation {
       this.createBooking(rawBooking);
     })
   }
-
 }

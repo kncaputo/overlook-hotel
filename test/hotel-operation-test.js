@@ -28,6 +28,10 @@ describe('HotelOperation', () => {
     it('should start with an empty bookings record', () => {
       expect(hotelOperation.bookingsRecord).to.deep.equal([]);
     });
+
+    it('should start with an empty users record', () => {
+      expect(hotelOperation.users).to.deep.equal([]);
+    });
   });
 
   describe('Methods', () => {
@@ -75,12 +79,6 @@ describe('HotelOperation', () => {
       expect(hotelOperation.bookingsRecord[0]).to.be.an.instanceof(Booking);
       expect(hotelOperation.bookingsRecord[1]).to.be.an.instanceof(Booking);
     });
-
-
-
-
-
-
 
   });
 });
