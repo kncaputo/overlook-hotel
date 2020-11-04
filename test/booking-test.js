@@ -10,7 +10,7 @@ describe('Booking', () => {
     booking = new Booking(bookingData);
   });
 
-  describe.only('Constructor', () => {
+  describe('Constructor', () => {
     it('should be a function', () => {
       expect(Booking).to.be.a('function');
     });
@@ -35,4 +35,4 @@ describe('Booking', () => {
       expect(booking.serviceCharges).to.deep.equal([]);
     });
   });
-})
+});
