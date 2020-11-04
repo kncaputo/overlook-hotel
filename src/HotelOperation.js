@@ -2,7 +2,7 @@ import Room from '../src/Room';
 import Booking from '../src/Booking';
 import User from '../src/User';
 
-export default class Hotel {
+export default class HotelOperation {
   constructor(rawRoomsData) {
     this.roomsRecord = [];
     this.bookingsRecord = [];
