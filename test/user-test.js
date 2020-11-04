@@ -10,8 +10,7 @@ describe('User', () => {
   beforeEach(() => {
     user = new User(userData, false);
     user2 = new User(userData);
-  })
-
+  });
 
   describe('Constructor', () => {
     it('should be a function', () => {
