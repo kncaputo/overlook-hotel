@@ -1,6 +1,6 @@
 import chai from 'chai';
 const expect = chai.expect;
-import User from '../src/User'
+import User from '../src/User';
 
 describe('User', () => {
   let user;
