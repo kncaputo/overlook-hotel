@@ -100,5 +100,16 @@ export default class HotelOperation {
     return percentOccupied
   }
 
+  // TODO - Why is there a 0 in front of this when it's returned?
+  getTotalRevenue(date) {
+    let filteredBookings = this.filterBookingsByDate(date);
 
+    return filteredBookings.reduce((sum, booking) => {
+      this.roomsRecord.forEach(room => {
+        console.log(room.costPerNight)
+        if (booking.roomNumber === room.number) {sum += room.costPerNight}
+      })
+      return sum;
+    }, 0);
+  }
 }

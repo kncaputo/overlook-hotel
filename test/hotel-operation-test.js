@@ -172,5 +172,13 @@ describe('HotelOperation', () => {
       expect(results).to.deep.equal(33);
     });
 
-  });
+    it('should have a method that gets the total revenue for a given  date', () => {
+      hotelOperation.createRoomsRecord(roomsData);
+      hotelOperation.createBookingsRecord(bookingsData);
+
+      let results = hotelOperation.getTotalRevenue('2020/01/02');
+
+      expect(results).to.deep.equal(491.14);
+    });
+  });  
 });
