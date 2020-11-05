@@ -103,20 +103,17 @@ describe('HotelOperation', () => {
 
     it('should have a method to find user name when given an id', () => {
       hotelOperation.createUsersRecord(usersData);
-      let result = hotelOperation.findUserName(2);
+      let result = hotelOperation.findUserName(2, 'name');
 
       expect(result).to.deep.equal('Theo Hernandez');
     });
-    // TODO - write this test
+
     it('should have a method to find user id when given a name', () => {
-      // hotelOperation.createUsersRecord(usersData);
-      // let result = hotelOperation.findUserName(2);
-      //
-      // expect(result).to.deep.equal('Theo Hernandez');
+      // TODO - write this test
     });
 
     it('should filter bookings by user name', () => {
-      hotelOperation.createBookingsRecord(roomsData);
+      hotelOperation.createBookingsRecord(bookingsData);
       hotelOperation.createUsersRecord(usersData);
 
       let result = hotelOperation.filterBookingsByName('Anson Aimes');

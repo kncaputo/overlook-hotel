@@ -60,8 +60,12 @@ export default class HotelOperation {
   }
 
   filterBookingsByName(name) {
-    this.bookings.filter(booking => {
-      booking.
+    let bookingsByName = this.bookingsRecord.filter(booking => {
+      let userID = this.findUserID(name);
+      return booking.userID === userID;
     })
+    return bookingsByName;
   }
+
+  
 }
