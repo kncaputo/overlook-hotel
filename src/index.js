@@ -6,5 +6,12 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
+import Room from '../src/Room';
+import Booking from '../src/Booking';
+import User from '../src/User';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+window.onload = instantiateHotelOperations();
+
+function instantiateHotelOperations() {
+  
+}

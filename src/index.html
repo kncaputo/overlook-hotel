@@ -4,12 +4,12 @@
     <title>The Overlook Hotel</title>
   </head>
   <body>
-    <header class="flex-column hidden header" id="sign-in-header">
+    <header class="flex-column header" id="sign-in-header">
       <h1 class="" id="main-title">The Overlook Hotel</h1>
       <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
     </header>
     <!-- Sign in container -->
-    <section class="flex-row hidden" id="sign-in-container">
+    <section class="flex-row" id="sign-in-container">
       <article class="flex-column" id="sign-in-box">
         <p>Please Sign In<p>
         <form class="flex-column" id="sign-in-form-box">
@@ -22,27 +22,29 @@
       </article>
     </section>
     <!-- Dashboard View -->
-    <header class="flex-row header" id="dashboard-view">
-      <section class="flex-column" id="">
-          <h1 class="" id="main-title">The Overlook Hotel</h1>
-          <p class="">000.000.0000</p>
-      </section>
-      <section class="flex-row" id="nav-header">
-        <section class="flex-column" id="nav-container">
-          <nav class="flex-row" id="nav-box">
-            <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
-            <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
-            <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
-          </nav>
-          <form class="flex-row" id="availability-box">
-            <label for="date" aria-label="Choose Date"></label>
-            <input type="date" class="date" name="date">
-            <button>Check Availability</button>
-          </form>
+    <main class="hidden">
+      <header class="flex-row header" id="dashboard-view">
+        <section class="flex-column" id="">
+            <h1 class="" id="main-title">The Overlook Hotel</h1>
+            <p class="">000.000.0000</p>
         </section>
+        <section class="flex-row" id="nav-header">
+          <section class="flex-column" id="nav-container">
+            <nav class="flex-row" id="nav-box">
+              <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
+              <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
+              <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
+            </nav>
+            <form class="flex-row" id="availability-box">
+              <label for="date" aria-label="Choose Date"></label>
+              <input type="date" class="date" name="date">
+              <button>Check Availability</button>
+            </form>
+          </section>
+        </section>
+      </header>
+      <section>
       </section>
-    </header>
-    <main>
     </main>
 
 
