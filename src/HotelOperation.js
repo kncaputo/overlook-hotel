@@ -3,16 +3,19 @@ import Booking from '../src/Booking';
 import User from '../src/User';
 
 export default class HotelOperation {
-  constructor() {
+  constructor(roomsData, bookingsData, usersData) {
+    this.roomsData = roomsData;
+    this.bookingsData = bookingsData;
+    this.usersData = usersData;
     this.roomsRecord = [];
     this.bookingsRecord = [];
     this.usersRecord = [];
   }
 
-  start(roomsData, bookingsData, usersData) {
-    this.createRoomsRecord(roomsData);
-    this.createBookingsRecord(bookingsData);
-    this.createUsersRecord(rawUsersData);
+  start() {
+    this.createRoomsRecord();
+    this.createBookingsRecord();
+    this.createUsersRecord();
   }
 
   createRoom(rawRoom) {
@@ -34,19 +37,19 @@ export default class HotelOperation {
   }
 
   createRoomsRecord(rawRoomsData) {
-    let roomsRecord = rawRoomsData.forEach(rawRoom => {
+    let roomsRecord = this.roomsData.forEach(rawRoom => {
       this.createRoom(rawRoom);
     })
   }
 
   createBookingsRecord(rawBookingsData) {
-    let bookingsRecord = rawBookingsData.forEach(rawBooking => {
+    let bookingsRecord = this.bookingsData.forEach(rawBooking => {
       this.createBooking(rawBooking);
     })
   }
 
   createUsersRecord(rawUsersData) {
-    let users = rawUsersData.forEach(rawUser => {
+    let users = this.usersData.forEach(rawUser => {
       this.createUser(rawUser);
     })
   }

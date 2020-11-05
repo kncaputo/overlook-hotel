@@ -1,8 +1,8 @@
 let apiCalls = {
   fetchData(key) {
-    return fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/${key}/${key}`);
+    return fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/${key}/${key}`)
       .then(response => response.json())
-      .then(data => data[key])
+      .then(data => console.log(data[key]))
       .catch(err => console.log(err))
   },
 

@@ -8,27 +8,44 @@ import './css/base.scss';
 // import './images/turing-logo.png'
 import apiCalls from './apiCalls';
 
-import Room from './Room';
-import Booking from './Booking';
-import User from './User';
+import HotelOperation from './HotelOperation';
 import domElements from './domElements';
 
 
 let hotelOperation;
-let today = moment().format('YYYY/MM/DD')
 
 window.onload = fetchAllData();
 
+
 function fetchAllData() {
-  let roomsPromise = apiCalls.fetchData('rooms');
-  let bookingsPromise = apiCalls.fetchData('bookings');
-  let usersPromise = apiCalls.fetchData('users');
-  hotelOperation = new HotelOperation();
+  let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
+    .then(response => response.json())
+    .then(data => data.rooms)
+    .catch(err => console.log(err))
+  let bookingsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`)
+    .then(response => response.json())
+    .then(data => data.bookings)
+    .catch(err => console.log(err))
+  let usersPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users`)
+    .then(response => response.json())
+    .then(data => data.users)
+    .catch(err => console.log(err))
+  // hotelOperation = new HotelOperation();
+
   Promise.all([roomsPromise, bookingsPromise, usersPromise])
-    .then(data => hotelOperation.start(data[0], data[1], data[2]) = new HotelOperation())
+    .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
     .then(() => loadPage())
-    .catch(err => alert(`Sorry! Data cannot be loaded at this time ${err}`))
+    .catch(err => console.log(`Sorry! Data cannot be loaded at this time ${err}`))
 }
+
 function loadPage() {
-  console.log('hi kara')
+  hotelOperation.start()
+  // console.log("hotel ops", hotelOperation.roomsData)
+}
+
+function fetchData(key) {
+  return fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/${key}/${key}`)
+    .then(response => response.json())
+    .then(data => data[key])
+    .catch(err => console.log(err))
 }
