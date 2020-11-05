@@ -100,7 +100,6 @@ export default class HotelOperation {
     return percentOccupied
   }
 
-  // TODO - Why is there a 0 in front of this when it's returned?
   getTotalRevenue(date) {
     let filteredBookings = this.filterBookingsByDate(date);
 
