@@ -5,6 +5,6 @@ export default class Room {
     this.bidet = rawData.bidet;
     this.bedSize = rawData.bedSize;
     this.numBeds = rawData.numBeds;
-    this.costPerNight = rawData.costPerNight.toFixed(2);
+    this.costPerNight = rawData.costPerNight;
   }
 }

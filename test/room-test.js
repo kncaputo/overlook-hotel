@@ -10,7 +10,7 @@ describe('Room', () => {
     room = new Room(roomData);
   });
 
-  describe('Constructor', () => {
+  describe.only('Constructor', () => {
     it('should be a function', () => {
       expect(Room).to.be.a('function');
     });
@@ -36,7 +36,7 @@ describe('Room', () => {
     });
 
     it('should have a cost per night', () => {
-      expect(room.costPerNight).to.deep.equal('123.40');
+      expect(room.costPerNight).to.deep.equal(123.4);
     });
   });
 });
