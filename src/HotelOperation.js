@@ -9,6 +9,12 @@ export default class HotelOperation {
     this.usersRecord = [];
   }
 
+  start(roomsData, bookingsData, usersData) {
+    this.createRoomsRecord(roomsData);
+    this.createBookingsRecord(bookingsData);
+    this.createUsersRecord(rawUsersData);
+  }
+
   createRoom(rawRoom) {
     let room = new Room(rawRoom);
     this.roomsRecord.push(room);

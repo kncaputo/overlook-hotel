@@ -5,13 +5,30 @@
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-import Room from '../src/Room';
-import Booking from '../src/Booking';
-import User from '../src/User';
+// import './images/turing-logo.png'
+import apiCalls from './apiCalls';
 
-window.onload = instantiateHotelOperations();
+import Room from './Room';
+import Booking from './Booking';
+import User from './User';
+import domElements from './domElements';
 
-function instantiateHotelOperations() {
-  
+
+let hotelOperation;
+let today = moment().format('YYYY/MM/DD')
+
+window.onload = fetchAllData();
+
+function fetchAllData() {
+  let roomsPromise = apiCalls.fetchData('rooms');
+  let bookingsPromise = apiCalls.fetchData('bookings');
+  let usersPromise = apiCalls.fetchData('users');
+  hotelOperation = new HotelOperation();
+  Promise.all([roomsPromise, bookingsPromise, usersPromise])
+    .then(data => hotelOperation.start(data[0], data[1], data[2]) = new HotelOperation())
+    .then(() => loadPage())
+    .catch(err => alert(`Sorry! Data cannot be loaded at this time ${err}`))
+}
+function loadPage() {
+  console.log('hi kara')
 }
