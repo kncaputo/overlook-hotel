@@ -67,5 +67,35 @@ export default class HotelOperation {
     return bookingsByName;
   }
 
-  
+  findAvailableRooms(date) {
+    let filteredBookings = this.bookingsRecord.filter(booking => {
+      return booking.date === date;
+    })
+
+    let availableRooms = this.roomsRecord.reduce((rooms, room) => {
+      let isBooked = false;
+
+      filteredBookings.forEach(booking => {
+        if (room.number === booking.roomNumber) {
+          isBooked = true;
+        }
+      });
+
+      if (!isBooked) {
+        rooms.push(room);
+      }
+
+      return rooms;
+    }, []);
+
+    return availableRooms;
+  }
+
+  filterByRoomType(roomType, roomsArray) {
+
+  }
+
+  getNumOfAvaialble() {
+
+  }
 }
