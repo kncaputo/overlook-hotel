@@ -180,5 +180,5 @@ describe('HotelOperation', () => {
 
       expect(results).to.deep.equal(491.14);
     });
-  });  
+  });
 });

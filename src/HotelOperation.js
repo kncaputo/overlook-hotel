@@ -106,7 +106,6 @@ export default class HotelOperation {
 
     return filteredBookings.reduce((sum, booking) => {
       this.roomsRecord.forEach(room => {
-        console.log(room.costPerNight)
         if (booking.roomNumber === room.number) {sum += room.costPerNight}
       })
       return sum;
