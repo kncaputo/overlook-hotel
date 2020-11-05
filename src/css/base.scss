@@ -89,5 +89,46 @@ button {
 }
 
 button, .radio-filter label:hover {
-  cursor: pointer
+  cursor: pointer;
+}
+
+#nav-container {
+  background: $transparent-background;
+  border-radius: 5px;
+  height: 50px;
+  margin-top: 5px;
+  flex-direction: row-reverse;
+}
+
+// Drop down menu for Sign-out
+// #user-info-dropdown {
+//   background-color: $background-color;
+//   color: $primary-color;
+//   margin-left: 60%;
+//   margin-top: -1.2%;
+//   position: relative;
+//   text-align: center;
+//   z-index: 100;
+// }
+//
+// .dropdown-p {
+//   font-size: 1.2vw;
+//   font-weight: 300;
+//   padding-bottom: 1vw;
+//   padding-top: 0;
+//   text-align: center;
+//   width: 100%;
+// }
+
+#nav-box {
+  width: 300px;
+  align-content: space-between;
+  justify-content: space-around;
+}
+
+.nav-btn {
+  background: none;
+  color: black;
+  margin: 10px 5px;
+
 }

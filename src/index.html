@@ -8,11 +8,11 @@
       <h1 class="" id="main-title">The Overlook Hotel</h1>
       <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
     </header>
-    <!-- </section> -->
-    <section class="flex-row" id="sign-in-container">
+    <!-- Sign in container -->
+    <section class="flex-row hidden" id="sign-in-container">
       <article class="flex-column" id="sign-in-box">
         <p>Please Sign In<p>
-        <form class="flex-columnid="sign-in-form-box">
+        <form class="flex-column" id="sign-in-form-box">
           <label for="username">Username:</label>
           <input type="text" id="username">
           <label for="password">Password:</label>
@@ -20,6 +20,18 @@
           <button class="btn submit">Submit</button>
         </form>
       </article>
+    </section>
+    <!-- User page -->
+    <section class="flex-row" id="nav-container">
+      <nav class="flex-row" id="nav-box">
+        <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
+        <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
+        <!-- <section class="" id="user-info-dropdown">
+          <h5 id="dropdown-name"></h5>
+          <p class="dropdown-p" id="rewards-points"></p>
+          <p class="dropdown-p" id='sign-out'>Sign Out</p>
+        </section> -->
+      </nav>
     </section>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
