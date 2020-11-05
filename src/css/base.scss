@@ -13,21 +13,27 @@ body {
 
 .flex-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 .flex-column {
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .header {
-  text-align: center;
   height: 9vw;
   background: $transparent-background;
   border-radius: 5px;
-  text-align: center;
   height: 100px;
+}
+
+#sign-in-header {
+  text-align: center;
+}
+
+header#dashboard-view {
+  justify-content: space-between;
 }
 
 h1#main-title {
@@ -61,7 +67,7 @@ form > input {
 form > button {
   border: none;
   border-radius: 5px;
-  color: skyblue;
+  color: black;
   font-size: 16px;
   margin: 10px;
   padding: 10px 20px;
@@ -92,43 +98,28 @@ button, .radio-filter label:hover {
   cursor: pointer;
 }
 
-#nav-container {
-  background: $transparent-background;
-  border-radius: 5px;
-  height: 50px;
-  margin-top: 5px;
-  flex-direction: row-reverse;
-}
-
-// Drop down menu for Sign-out
-// #user-info-dropdown {
-//   background-color: $background-color;
-//   color: $primary-color;
-//   margin-left: 60%;
-//   margin-top: -1.2%;
-//   position: relative;
-//   text-align: center;
-//   z-index: 100;
-// }
-//
-// .dropdown-p {
-//   font-size: 1.2vw;
-//   font-weight: 300;
-//   padding-bottom: 1vw;
-//   padding-top: 0;
-//   text-align: center;
-//   width: 100%;
-// }
-
 #nav-box {
   width: 300px;
-  align-content: space-between;
+  // align-content: space-between;
   justify-content: space-around;
+  border-bottom: 1px solid darkgray;
 }
 
 .nav-btn {
   background: none;
   color: black;
-  margin: 10px 5px;
+  margin: 10px 5px 7px 10px;
 
+}
+
+#availability-box {
+  justify-content: space-around;
+  width: 500px
+}
+
+input.date {
+  margin-top: 10px;
+}
+main {
+  
 }
