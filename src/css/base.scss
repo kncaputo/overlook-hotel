@@ -1,7 +1,65 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+$transparent-background: rgba(255, 255, 255, 0.67);
 
 body {
-  background: $primary-background;
+  background:  url(../images/srilanka.jpg);
+  object-fit: cover;
+
+}
+
+.hidden {
+  display: none !important;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  height: 9vw;
+  background: $transparent-background;
+  border-radius: 5px;
+  text-align: center;
+  height: 100px;
+}
+
+h1#main-title {
+  botton-margin: 0;
+}
+
+#sign-in-box {
+  height: 200px;
+  width:
+  margin-top: 30%;
+
+  background: $transparent-background;
+  border-radius: 5px;
+  align-items: center;
+}
+
+button:active {
+  border: none;
+  outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+.btn {
+  background: white;
+  opacity: 0.8;
+  border-radius: 5%;
+}
+
+button, .radio-filter label:hover {
+  cursor: pointer
 }
