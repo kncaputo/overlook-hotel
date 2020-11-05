@@ -4,9 +4,23 @@
     <title>Webpack Starter Kit</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <header class="flex-column header">
+      <h1 class="" id="main-title">The Overlook Hotel</h1>
+      <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
+    </header>
+    <!-- </section> -->
+    <section class="flex-row" id="sign-in-container">
+      <article class="flex-column" id="sign-in-box">
+        <p>Please Sign In<p>
+        <form class="flex-columnid="sign-in-form-box">
+          <label for="username">Username:</label>
+          <input type="text" id="username">
+          <label for="password">Password:</label>
+          <input type="password" id="password">
+          <button class="btn submit">Submit</button>
+        </form>
+      </article>
+    </section>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
