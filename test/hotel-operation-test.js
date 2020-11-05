@@ -39,7 +39,7 @@ describe('HotelOperation', () => {
     beforeEach(() => {
       hotelOperation = new HotelOperation();
       bookingsData = [{"id":"1abcde2f3h11ij4lm","userID":1,"date":"2020/01/01","roomNumber":1,"roomServiceCharges":[]},{"id":"5fwrgu4i7k55hl6t6","userID":13,"date":"2020/01/10","roomNumber":12,"roomServiceCharges":[]},{"id":"5fwrgu4i7k55hl6t6","userID":1,"date":"2020/01/02","roomNumber":3,"roomServiceCharges":[]}];
-      roomsData = [{"number":1,"roomType":"residential suite","bidet":true,"bedSize":"queen","numBeds":1,"costPerNight":123.4},{"number":2,"roomType":"suite","bidet":false,"bedSize":"full","numBeds":2,"costPerNight":477.38},{"number":3,"roomType":"single room","bidet":false,"bedSize":"king","numBeds":1,"costPerNight":491.14}];
+      roomsData = [{"number":1,"roomType":"residential suite","bidet":true,"bedSize":"queen","numBeds":1,"costPerNight":123.4},{"number":2,"roomType":"suite","bidet":false,"bedSize":"full","numBeds":2,"costPerNight":477.38},{"number":3,"roomType":"suite","bidet":false,"bedSize":"king","numBeds":1,"costPerNight":491.14}];
       usersData = [{"id":1,"name":"Anson Aimes"},{"id":2,"name":"Theo Hernandez"},{"id":3,"name":"Jane Schmoe"}];
     });
 
@@ -134,16 +134,23 @@ describe('HotelOperation', () => {
       expect(results[1].number).to.deep.equal(2);
     });
 
-    it('should have a method that filters by room type when given a room type an an array', () => {
+    it('should have a method that filters by room type when given a room type and an array', () => {
       hotelOperation.createRoomsRecord(roomsData);
-      hotelOperation.createBookingsRecord(bookingsData);
 
-      let results = hotelOperation.findAvailableRooms('2020/01/02');
+      let results = hotelOperation.filterByRoomType('suite', roomsData);
 
+      expect(results.length).to.deep.equal(2);
+      expect(results[0].number).to.deep.equal(2);
+      expect(results[1].number).to.deep.equal(3);
     });
 
     it('should have a method that gets the number of avaialable rooms for a given  date', () => {
+      hotelOperation.createRoomsRecord(roomsData);
+      hotelOperation.createBookingsRecord(bookingsData);
 
+      let results = hotelOperation.getNumOfAvailable('2020/01/02');
+
+      expect(results).to.deep.equal(2);
     });
   });
 });

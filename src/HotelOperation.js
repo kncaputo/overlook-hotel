@@ -68,34 +68,24 @@ export default class HotelOperation {
   }
 
   findAvailableRooms(date) {
-    let filteredBookings = this.bookingsRecord.filter(booking => {
-      return booking.date === date;
-    })
+    let filteredBookings = this.bookingsRecord.filter(booking => booking.date === date)
 
-    let availableRooms = this.roomsRecord.reduce((rooms, room) => {
-      let isBooked = false;
-
+    return this.roomsRecord.reduce((rooms, room) => {
       filteredBookings.forEach(booking => {
-        if (room.number === booking.roomNumber) {
-          isBooked = true;
-        }
+        if (!(room.number === booking.roomNumber)) rooms.push(room);
       });
-
-      if (!isBooked) {
-        rooms.push(room);
-      }
 
       return rooms;
     }, []);
-
-    return availableRooms;
   }
 
-  filterByRoomType(roomType, roomsArray) {
-
+  filterByRoomType(roomType, roomsToFilter) {
+    return roomsToFilter.filter(room => {
+      return room.roomType === roomType;
+    })
   }
 
-  getNumOfAvaialble() {
-
+  getNumOfAvailable(date) {
+    return this.findAvailableRooms(date).length;
   }
 }
