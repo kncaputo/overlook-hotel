@@ -67,8 +67,12 @@ export default class HotelOperation {
     return bookingsByName;
   }
 
+  filterBookingsByDate(date) {
+    return this.bookingsRecord.filter(booking => booking.date === date);
+  }
+
   findAvailableRooms(date) {
-    let filteredBookings = this.bookingsRecord.filter(booking => booking.date === date)
+    let filteredBookings = this.filterBookingsByDate(date);
 
     return this.roomsRecord.reduce((rooms, room) => {
       filteredBookings.forEach(booking => {
@@ -88,4 +92,13 @@ export default class HotelOperation {
   getNumOfAvailable(date) {
     return this.findAvailableRooms(date).length;
   }
+
+
+  getPercentageOccupied(date) {
+    let filteredBookings = this.filterBookingsByDate(date);
+    let percentOccupied = Math.floor((filteredBookings.length  / this.roomsRecord.length) * 100);
+    return percentOccupied
+  }
+
+
 }
