@@ -3,10 +3,19 @@ import Booking from '../src/Booking';
 import User from '../src/User';
 
 export default class HotelOperation {
-  constructor() {
+  constructor(roomsData, bookingsData, usersData) {
+    this.roomsData = roomsData;
+    this.bookingsData = bookingsData;
+    this.usersData = usersData;
     this.roomsRecord = [];
     this.bookingsRecord = [];
     this.usersRecord = [];
+  }
+
+  start() {
+    this.createRoomsRecord();
+    this.createBookingsRecord();
+    this.createUsersRecord();
   }
 
   createRoom(rawRoom) {
@@ -28,19 +37,19 @@ export default class HotelOperation {
   }
 
   createRoomsRecord(rawRoomsData) {
-    let roomsRecord = rawRoomsData.forEach(rawRoom => {
+    let roomsRecord = this.roomsData.forEach(rawRoom => {
       this.createRoom(rawRoom);
     })
   }
 
   createBookingsRecord(rawBookingsData) {
-    let bookingsRecord = rawBookingsData.forEach(rawBooking => {
+    let bookingsRecord = this.bookingsData.forEach(rawBooking => {
       this.createBooking(rawBooking);
     })
   }
 
   createUsersRecord(rawUsersData) {
-    let users = rawUsersData.forEach(rawUser => {
+    let users = this.usersData.forEach(rawUser => {
       this.createUser(rawUser);
     })
   }
@@ -72,16 +81,36 @@ export default class HotelOperation {
   }
 
   findAvailableRooms(date) {
-    let filteredBookings = this.filterBookingsByDate(date);
+    let filteredBookings = this.bookingsRecord.filter(booking => {
+      return booking.date === date;
+    })
 
-    return this.roomsRecord.reduce((rooms, room) => {
+    let availableRooms = this.roomsRecord.reduce((rooms, room) => {
+      let isBooked = false;
+
       filteredBookings.forEach(booking => {
-        if (!(room.number === booking.roomNumber)) rooms.push(room);
+        if (room.number === booking.roomNumber) {isBooked = true}
       });
+
+      if (!isBooked) {rooms.push(room)}
 
       return rooms;
     }, []);
+
+    return availableRooms;
   }
+
+  // findAvailableRooms(date) {
+  //   let filteredBookings = this.filterBookingsByDate(date);
+  //
+  //   return this.roomsRecord.reduce((rooms, room) => {
+  //     filteredBookings.forEach(booking => {
+  //       if (!(room.number === booking.roomNumber)) rooms.push(room);
+  //     });
+  //
+  //     return rooms;
+  //   }, []);
+  // }
 
   filterByRoomType(roomType, roomsToFilter) {
     return roomsToFilter.filter(room => {
@@ -92,7 +121,6 @@ export default class HotelOperation {
   getNumOfAvailable(date) {
     return this.findAvailableRooms(date).length;
   }
-
 
   getPercentageOccupied(date) {
     let filteredBookings = this.filterBookingsByDate(date);

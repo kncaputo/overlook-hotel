@@ -2,47 +2,87 @@
 <html lang="en-US">
   <head>
     <title>The Overlook Hotel</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+    </style>
   </head>
   <body>
-    <header class="flex-column hidden header" id="sign-in-header">
+    <!-- Sign in Header -->
+    <header class="flex-column header" id="sign-in-header">
       <h1 class="" id="main-title">The Overlook Hotel</h1>
       <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
     </header>
-    <!-- Sign in container -->
-    <section class="flex-row hidden" id="sign-in-container">
+    <!-- Sign in Container -->
+    <section class="flex-row" id="sign-in-container">
       <article class="flex-column" id="sign-in-box">
         <p>Please Sign In<p>
         <form class="flex-column" id="sign-in-form-box">
           <label for="username">Username:</label>
-          <input type="text" id="username">
+          <input type="text" id="username-input" required>
           <label for="password">Password:</label>
-          <input type="password" id="password">
-          <button class="btn submit">Submit</button>
+          <input type="password" id="password-input" required>
+          <button class="btn" id="submit-btn">Submit</button>
         </form>
       </article>
     </section>
     <!-- Dashboard View -->
-    <header class="flex-row header" id="dashboard-view">
-      <section class="flex-column" id="">
-          <h1 class="" id="main-title">The Overlook Hotel</h1>
-          <p class="">000.000.0000</p>
-      </section>
-      <section class="flex-row" id="nav-header">
-        <section class="flex-column" id="nav-container">
-          <nav class="flex-row" id="nav-box">
-            <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
-            <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
-            <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
-          </nav>
-          <form class="flex-row" id="availability-box">
-            <label for="date" aria-label="Choose Date"></label>
-            <input type="date" class="date" name="date">
-            <button>Check Availability</button>
+    <main class="hidden" id="user-dashboard">
+      <header class="flex-row header" id="dashboard-header">
+        <section class="flex-column" id="">
+            <h1 class="" id="main-title">The Overlook Hotel</h1>
+            <p class="">000.000.0000</p>
+        </section>
+        <section class="flex-row" id="nav-header">
+          <section class="flex-column" id="nav-container">
+            <nav class="flex-row" id="nav-box">
+              <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
+              <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
+              <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
+            </nav>
+            <form class="flex-row" id="availability-box">
+              <p>Please select a date to see availability.<p>
+              <label for="date" aria-label="Choose Date"></label>
+              <input type="date" class="date" name="date" id="user-calendar">
+            </form>
+          </section>
+        </section>
+      </header>
+      <!-- Filters -->
+      <section class="flex-row" id="user-dashboard-container">
+        <aside class="flex-column" id="user-filter-containter">
+          <p>Filter Rooms:</p>
+          <form class="flex-row" id="user-filter">
+            <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
+            <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
+            <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
           </form>
+          <button id="reset-btn">Reset</button>
+        </aside>
+
+        <section class="flex-column" id="user-availability-container">
+
+          <!-- Room Card -->
+          <!-- <article class="flex-row rooms-card">
+            <section class="flex-column" id="room-img-box">
+              <img class="room-card-photo" src="images/presidential-villa-hottub.jpg" alt="">
+            </section>
+            <section class="flex-column" id="room-card-details">
+              <h6>Room Type</h6>
+              <p>Room details</p>
+              <p>Room details</p>
+              <p>Room details</p>
+            </section>
+            <section class="flex-column" id="room-card-price">
+              <article class="flex-column card-inner-contents">
+                <h3>$Price</h3>
+                <p>Per night</p>
+                <button id="card-btn-book-room">Book Room</button>
+              </article>
+            </section>
+          </article> -->
+
         </section>
       </section>
-    </header>
-    <main>
     </main>
 
 

@@ -10,7 +10,7 @@ describe('Room', () => {
     room = new Room(roomData);
   });
 
-  describe.only('Constructor', () => {
+  describe('Constructor', () => {
     it('should be a function', () => {
       expect(Room).to.be.a('function');
     });
