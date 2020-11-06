@@ -5,10 +5,11 @@ import './css/base.scss';
 // import './images/turing-logo.png'
 
 // import apiCalls from './apiCalls';
-
+import moment from 'moment';
 import HotelOperation from './HotelOperation';
 
 let hotelOperation;
+let today = moment().format('YYYY/MM/DD');
 
 let usernameInput = document.getElementById('username-input');
 let passwordInput = document.getElementById('password-input');
@@ -16,7 +17,7 @@ let submitBtn = document.getElementById('submit-btn');
 let signInHeader = document.getElementById('sign-in-header')
 let signInContainter = document.getElementById('sign-in-container');
 let userDashboard = document.getElementById('user-dashboard');
-let userCalendar = document.getElemenetById('user-calendar');
+let userCalendar = document.getElementById('user-calendar');
 
 window.onload = fetchAllData();
 submitBtn.addEventListener('click', verifyLogin);
@@ -72,17 +73,17 @@ function verifyPassword(currentUser) {
 }
 
 function deliverLoginError() {
-  console.log("Login Error");
+  console.log('Login Error');
 }
 
 function displayUserDashboard() {
-  console.log('display dash')
+  console.log('Display Dash')
   signInHeader.classList.add('hidden');
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
-  
+  displayFilteredByDate(today);
   // TODO - add styles for that Book A Room nav looks highlighted
 }
-function displayFilteredByDate() {
+function displayFilteredByDate(date) {
 
 }
