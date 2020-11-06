@@ -1,23 +1,31 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+// import {usernameInput, passwordInput, submitBtn} from './domElements.js';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
-import apiCalls from './apiCalls';
+
+// import apiCalls from './apiCalls';
 
 import HotelOperation from './HotelOperation';
-import domElements from './domElements';
-
 
 let hotelOperation;
 
+let usernameInput = document.getElementById('username-input');
+let passwordInput = document.getElementById('password-input');
+let submitBtn = document.getElementById('submit-btn');
+let signInHeader = document.getElementById('sign-in-header')
+let signInContainter = document.getElementById('sign-in-container');
+let userDashboard = document.getElementById('user-dashboard');
+
 window.onload = fetchAllData();
+submitBtn.addEventListener('click', verifyLogin);
 
 
 function fetchAllData() {
+  // let roomsPromise = apiCalls.fetchData('rooms');
+  // let bookingsPromise = apiCalls.fetchData('bookings');
+  // let usersPromise = apiCalls.fetchData('users');
+
   let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
     .then(response => response.json())
     .then(data => data.rooms)
@@ -30,7 +38,7 @@ function fetchAllData() {
     .then(response => response.json())
     .then(data => data.users)
     .catch(err => console.log(err))
-  // hotelOperation = new HotelOperation();
+  hotelOperation = new HotelOperation();
 
   Promise.all([roomsPromise, bookingsPromise, usersPromise])
     .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
@@ -40,12 +48,34 @@ function fetchAllData() {
 
 function loadPage() {
   hotelOperation.start()
-  // console.log("hotel ops", hotelOperation.roomsData)
 }
 
-function fetchData(key) {
-  return fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/${key}/${key}`)
-    .then(response => response.json())
-    .then(data => data[key])
-    .catch(err => console.log(err))
+function verifyLogin() {
+  event.preventDefault()
+
+  let attemptedUser = hotelOperation.usersRecord.find(user => {
+    return user.username === usernameInput.value
+  });
+  if (attemptedUser !== undefined) {
+    if (passwordInput.value === attemptedUser.password) {
+      return displayUserDashboard();
+    }
+    deliverLoginError();
+  }
+}
+
+function verifyPassword(currentUser) {
+  console.log('Verifying Password');
+  passwordInput.value === currentUser.password ? displayUserDashboard() : deliverLoginError()
+}
+
+function deliverLoginError() {
+  console.log("Login Error");
+}
+
+function displayUserDashboard() {
+  console.log('display dash')
+  signInHeader.classList.add('hidden');
+  signInContainter.classList.add('hidden');
+  userDashboard.classList.remove('hidden');
 }

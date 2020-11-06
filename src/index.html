@@ -4,25 +4,26 @@
     <title>The Overlook Hotel</title>
   </head>
   <body>
+    <!-- Sign in Header -->
     <header class="flex-column header" id="sign-in-header">
       <h1 class="" id="main-title">The Overlook Hotel</h1>
       <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
     </header>
-    <!-- Sign in container -->
+    <!-- Sign in Container -->
     <section class="flex-row" id="sign-in-container">
       <article class="flex-column" id="sign-in-box">
         <p>Please Sign In<p>
         <form class="flex-column" id="sign-in-form-box">
           <label for="username">Username:</label>
-          <input type="text" id="username">
+          <input type="text" id="username-input" required>
           <label for="password">Password:</label>
-          <input type="password" id="password">
-          <button class="btn submit">Submit</button>
+          <input type="password" id="password-input" required>
+          <button class="btn" id="submit-btn">Submit</button>
         </form>
       </article>
     </section>
     <!-- Dashboard View -->
-    <main class="hidden">
+    <main class="hidden" id="user-dashboard">
       <header class="flex-row header" id="dashboard-view">
         <section class="flex-column" id="">
             <h1 class="" id="main-title">The Overlook Hotel</h1>

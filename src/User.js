@@ -3,7 +3,7 @@ export default class User {
     this.id = rawData.id;
     this.name = rawData.name;
     this.isManager = managerStatus || false;
-    this.username = `customer${this.id}`;
+    this.username = `customer${rawData.id}`;
     this.password = 'overlook2020';
     this.bookings = [];
   }
