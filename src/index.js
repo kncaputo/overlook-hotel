@@ -25,6 +25,7 @@ let radioSingle = document.getElementById('radio-single');
 let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
 let resetBtn = document.getElementById('reset-btn');
+let myBookingsNav = document.getElementById('my-bookings');
 
 
 window.onload = fetchAllData();
@@ -34,8 +35,8 @@ window.onload = fetchAllData();
 submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
-// resetBtn.addEventListener('click', resetForm);
-
+resetBtn.addEventListener('click', resetForm);
+myBookingsNav.addEventListener('click', displayMyBookings);
 
 function fetchAllData() {
   let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
@@ -50,7 +51,6 @@ function fetchAllData() {
     .then(response => response.json())
     .then(data => data.users)
     .catch(err => console.log(err))
-  hotelOperation = new HotelOperation();
 
   Promise.all([roomsPromise, bookingsPromise, usersPromise])
     .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
@@ -103,7 +103,7 @@ function displayRooms(roomsToDisplay) {
 }
 
 function createRoomCard(room) {
-  return `<article class="flex-row rooms-card">
+  return `<article class="flex-row rooms-card" id="${room.number}">
     <section class="flex-column" id="room-img-box">
       <img class="room-card-photo" src=${room.src} alt="">
     </section>
@@ -162,5 +162,11 @@ function filterRoomsByDate() {
 
   let roomsToDisplay = hotelOperation.findAvailableRooms(formattedDate);
   return roomsToDisplay;
+}
 
+function resetForm() {
+  radioSingle.checked=false;
+  radioJunior.checked=false;
+  radioResidential.checked=false;
+  findRooms();
 }
