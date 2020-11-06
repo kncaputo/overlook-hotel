@@ -16,9 +16,11 @@ let submitBtn = document.getElementById('submit-btn');
 let signInHeader = document.getElementById('sign-in-header')
 let signInContainter = document.getElementById('sign-in-container');
 let userDashboard = document.getElementById('user-dashboard');
+let userCalendar = document.getElemenetById('user-calendar');
 
 window.onload = fetchAllData();
 submitBtn.addEventListener('click', verifyLogin);
+userCalendar.addEventListener('change', displayFilteredByDate);
 
 
 function fetchAllData() {
@@ -78,4 +80,9 @@ function displayUserDashboard() {
   signInHeader.classList.add('hidden');
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
+  
+  // TODO - add styles for that Book A Room nav looks highlighted
+}
+function displayFilteredByDate() {
+
 }
