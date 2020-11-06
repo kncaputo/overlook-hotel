@@ -19,20 +19,25 @@ let signInContainter = document.getElementById('sign-in-container');
 let userDashboard = document.getElementById('user-dashboard');
 let userCalendar = document.getElementById('user-calendar');
 let userAvailabilityContainer = document.getElementById('user-availability-container');
+let userRadio = document.querySelectorAll('user-radio');
+let userFilter = document.getElementById('user-filter');
+let radioSingle = document.getElementById('radio-single');
+let radioJunior = document.getElementById('radio-junior');
+let radioResidential = document.getElementById('radio-residential');
+let resetBtn = document.getElementById('reset-btn');
+
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
 // submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
 submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-userCalendar.addEventListener('change', displayFilteredByDate);
+userCalendar.addEventListener('change', findRooms);
+userFilter.addEventListener('click', findRooms);
+// resetBtn.addEventListener('click', resetForm);
 
 
 function fetchAllData() {
-  // let roomsPromise = apiCalls.fetchData('rooms');
-  // let bookingsPromise = apiCalls.fetchData('bookings');
-  // let usersPromise = apiCalls.fetchData('users');
-
   let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
     .then(response => response.json())
     .then(data => data.rooms)
@@ -85,13 +90,12 @@ function displayUserDashboard() {
   signInHeader.classList.add('hidden');
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
-  displayFilteredByDate(today);
+  displayRooms(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
 }
 
-function displayFilteredByDate(date) {
-  let roomsToDisplay = hotelOperation.findAvailableRooms(date);
-  console.log(roomsToDisplay)
+function displayRooms(roomsToDisplay) {
+  userAvailabilityContainer.innerHTML = '';
   roomsToDisplay.forEach(room => {
     let roomCardHtml = createRoomCard(room)
     userAvailabilityContainer.insertAdjacentHTML('beforeend', roomCardHtml);
@@ -101,7 +105,7 @@ function displayFilteredByDate(date) {
 function createRoomCard(room) {
   return `<article class="flex-row rooms-card">
     <section class="flex-column" id="room-img-box">
-      <img class="room-card-photo" src="${room.src}" alt="">
+      <img class="room-card-photo" src=${room.src} alt="">
     </section>
     <section class="flex-column" id="room-card-details">
       <h6>${room.roomType}</h6>
@@ -130,4 +134,33 @@ function determineBidet(room) {
     return `Yes`
   }
   return `No`
+}
+
+function determineSelection() {
+  if (radioSingle.checked) {return 'single room'}
+  else if (radioJunior.checked) {
+    return 'junior suite';
+  } else if (radioResidential.checked) {
+    return 'residential suite';
+  }
+  return false;
+}
+
+function findRooms() {
+  let filteredByDate = filterRoomsByDate();
+  let radioFilterValue = determineSelection();
+  if (radioFilterValue !== false) {
+    let roomsToDisplay = hotelOperation.filterByRoomType(radioFilterValue, filteredByDate)
+    return displayRooms(roomsToDisplay);
+  }
+  return displayRooms(filteredByDate)
+}
+
+function filterRoomsByDate() {
+  let formatDate = userCalendar.value.split('-');
+  let formattedDate = formatDate.join('/');
+
+  let roomsToDisplay = hotelOperation.findAvailableRooms(formattedDate);
+  return roomsToDisplay;
+
 }

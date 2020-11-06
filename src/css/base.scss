@@ -127,10 +127,15 @@ input.date {
 #user-filter-containter {
   background: $transparent-background;
   margin: 20px;
+  max-height: 300px;
 }
 
 #user-filter {
   flex-wrap: wrap;
+}
+
+#user-availability-container {
+ overflow: scroll;
 }
 
 .rooms-card {
@@ -138,6 +143,7 @@ input.date {
   background: $transparent-background;
   // flex-wrap: wrap;
   max-height: 210px;
+  min-width: 850px;
 }
 
 #room-img-box {
@@ -145,7 +151,7 @@ input.date {
 }
 
 .room-card-photo {
-  height: 200px;
+  height: 180px;
   width: 300px;
   object-fit: cover;
   margin: 13px;
@@ -163,10 +169,10 @@ input.date {
 }
 
 #room-card-price {
-  margin-left: 50px;
-  width: 140px;
+  margin-left: 10px;
+  width: 150px;
   border-left: 1px solid darkgray;
-  flex-grow: 3;
+  // flex-grow: 3;
 }
 
 #card-btn-book-room {

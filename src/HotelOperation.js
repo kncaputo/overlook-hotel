@@ -122,7 +122,6 @@ export default class HotelOperation {
     return this.findAvailableRooms(date).length;
   }
 
-
   getPercentageOccupied(date) {
     let filteredBookings = this.filterBookingsByDate(date);
     let percentOccupied = Math.floor((filteredBookings.length  / this.roomsRecord.length) * 100);

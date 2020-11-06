@@ -52,10 +52,11 @@
         <aside class="flex-column" id="user-filter-containter">
           <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
-            <input type="radio" name="choice" value="single-room"> Single Room
-            <input type="radio" name="choice" value="junior"> Junior
-            <input type="radio" name="choice" value="residential"> Residential
-            <input type="button" id="btn" value="Show Selected Value">
+            <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
+            <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
+            <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
+            <!-- <button id="user-filter-submit">Submit</button> -->
+            <button id="reset-btn">Reset</button>
           </form>
         </aside>
 
