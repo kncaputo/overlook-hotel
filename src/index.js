@@ -20,7 +20,10 @@ let userDashboard = document.getElementById('user-dashboard');
 let userCalendar = document.getElementById('user-calendar');
 
 window.onload = fetchAllData();
-submitBtn.addEventListener('click', verifyLogin);
+// --------- This is event listener wanted for production -------
+// submitBtn.addEventListener('click', verifyLogin);
+// --------------------------------------------------------------
+submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 userCalendar.addEventListener('change', displayFilteredByDate);
 
 

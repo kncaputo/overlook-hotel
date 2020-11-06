@@ -125,9 +125,27 @@ main {
 .rooms-card {
   margin: 10px;
   background: $transparent-background;
+  flex-wrap: wrap;
 }
+
+#room-img-box {
+
+}
+
 .room-card-photo {
   height: 200px;
   width: 300px;
   object-fit: cover;
+  margin: 13px;
+}
+
+#room-card-details {
+  margin-left: 13px;
+  flex-grow: 1;
+}
+
+#room-card-price {
+  margin-left: 50px;
+  flex-grow: 3;
+  border-left: 1px solid darkgray;
 }
