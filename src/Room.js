@@ -6,5 +6,6 @@ export default class Room {
     this.bedSize = rawData.bedSize;
     this.numBeds = rawData.numBeds;
     this.costPerNight = rawData.costPerNight;
+    this.src = '../images/presidential-villa-hot-tub.jpg';
   }
 }

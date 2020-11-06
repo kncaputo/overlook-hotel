@@ -18,6 +18,7 @@ let signInHeader = document.getElementById('sign-in-header')
 let signInContainter = document.getElementById('sign-in-container');
 let userDashboard = document.getElementById('user-dashboard');
 let userCalendar = document.getElementById('user-calendar');
+let userAvailabilityContainer = document.getElementById('user-availability-container');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -87,6 +88,46 @@ function displayUserDashboard() {
   displayFilteredByDate(today);
   // TODO - add styles for that Book A Room nav looks highlighted
 }
-function displayFilteredByDate(date) {
 
+function displayFilteredByDate(date) {
+  let roomsToDisplay = hotelOperation.findAvailableRooms(date);
+  console.log(roomsToDisplay)
+  roomsToDisplay.forEach(room => {
+    let roomCardHtml = createRoomCard(room)
+    userAvailabilityContainer.insertAdjacentHTML('beforeend', roomCardHtml);
+  })
+}
+
+function createRoomCard(room) {
+  return `<article class="flex-row rooms-card">
+    <section class="flex-column" id="room-img-box">
+      <img class="room-card-photo" src="${room.src}" alt="">
+    </section>
+    <section class="flex-column" id="room-card-details">
+      <h6>${room.roomType}</h6>
+      <p>${determineBedHtml(room)}<br>
+      <p>Bidet: ${determineBidet(room)}</p>
+    </section>
+    <section class="flex-column" id="room-card-price">
+      <article class="flex-column card-inner-contents">
+        <h3>${room.costPerNight}</h3>
+        <p>Per night</p>
+        <button id="card-btn-book-room">Book Room</button>
+      </article>
+    </section>
+  </article>`
+}
+
+function determineBedHtml(room) {
+  if (room.numBeds > 1) {
+    return `This room boasts ${room.numBeds} ${room.bedSize} beds.`;
+  }
+  return `This room boasts ${room.numBeds} ${room.bedSize} bed.`
+}
+
+function determineBidet(room) {
+  if (room.bidet) {
+    return `Yes`
+  }
+  return `No`
 }
