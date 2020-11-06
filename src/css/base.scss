@@ -122,3 +122,12 @@ input.date {
 main {
 
 }
+.rooms-card {
+  margin: 10px;
+  background: $transparent-background;
+}
+.room-card-photo {
+  height: 200px;
+  width: 300px;
+  object-fit: cover;
+}
