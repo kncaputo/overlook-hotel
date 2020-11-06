@@ -1,9 +1,13 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $transparent-background: rgba(255, 255, 255, 0.67);
 
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 body {
   background:  url(../images/srilanka.jpg);
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hidden {
@@ -31,7 +35,7 @@ body {
   text-align: center;
 }
 
-header#dashboard-view {
+header#dashboard-header {
   justify-content: space-between;
 }
 
@@ -119,13 +123,21 @@ button, .radio-filter label:hover {
 input.date {
   margin-top: 10px;
 }
-main {
 
-}
-.rooms-card {
-  margin: 10px;
+#user-filter-containter {
   background: $transparent-background;
+  margin: 20px;
+}
+
+#user-filter {
   flex-wrap: wrap;
+}
+
+.rooms-card {
+  margin: 20px;
+  background: $transparent-background;
+  // flex-wrap: wrap;
+  max-height: 210px;
 }
 
 #room-img-box {
@@ -141,11 +153,22 @@ main {
 
 #room-card-details {
   margin-left: 13px;
-  flex-grow: 1;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.card-inner-contents {
+  padding-top: 30px;
+  padding-right: 10px;
 }
 
 #room-card-price {
   margin-left: 50px;
-  flex-grow: 3;
+  width: 140px;
   border-left: 1px solid darkgray;
+  flex-grow: 3;
+}
+
+#card-btn-book-room {
+
 }

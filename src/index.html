@@ -2,6 +2,9 @@
 <html lang="en-US">
   <head>
     <title>The Overlook Hotel</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+    </style>
   </head>
   <body>
     <!-- Sign in Header -->
@@ -24,7 +27,7 @@
     </section>
     <!-- Dashboard View -->
     <main class="hidden" id="user-dashboard">
-      <header class="flex-row header" id="dashboard-view">
+      <header class="flex-row header" id="dashboard-header">
         <section class="flex-column" id="">
             <h1 class="" id="main-title">The Overlook Hotel</h1>
             <p class="">000.000.0000</p>
@@ -44,24 +47,38 @@
           </section>
         </section>
       </header>
+      <!-- Filters -->
+      <section class="flex-row" id="user-dashboard-container">
+        <section class="flex-column" id="user-filter-containter">
+          <p>Filter Rooms:</p>
+          <form class="flex-row" id="user-filter">
+            <input type="radio" name="choice" value="single-room"> Single Room
+            <input type="radio" name="choice" value="junior"> Junior
+            <input type="radio" name="choice" value="residential"> Residential
+            <input type="button" id="btn" value="Show Selected Value">
+          </form>
+        </section>
 
-      <section class="flex-column" id="user-availability-container">
-        <article class="flex-row rooms-card">
-          <section class="flex-column" id="room-img-box">
-            <img class="room-card-photo" src="./images/presidential-villa-hottub.jpg" alt="">
-          </section>
-          <section class="flex-column" id="room-card-details">
-            <h6>Room Type</h6>
-            <p>Room details</p>
-            <p>Room details</p>
-            <p>Room details</p>
-          </section>
-          <section class="flex-column" id="room-card-price">
-            <h3>$Price</h3>
-            <p>Per night</p>
-            <button>Book Room</button>
-          </section>
-        </article>
+        <section class="flex-column" id="user-availability-container">
+          <article class="flex-row rooms-card">
+            <section class="flex-column" id="room-img-box">
+              <img class="room-card-photo" src="../images/presidential-villa-hottub.jpg" alt="">
+            </section>
+            <section class="flex-column" id="room-card-details">
+              <h6>Room Type</h6>
+              <p>Room details</p>
+              <p>Room details</p>
+              <p>Room details</p>
+            </section>
+            <section class="flex-column" id="room-card-price">
+              <article class="flex-column card-inner-contents">
+                <h3>$Price</h3>
+                <p>Per night</p>
+                <button id="card-btn-book-room">Book Room</button>
+              </article>
+            </section>
+          </article>
+        </section>
       </section>
     </main>
 
