@@ -19,8 +19,6 @@ let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
 let radioSingle = document.getElementById('radio-single');
 let resetBtn = document.getElementById('reset-btn');
-let signInContainter = document.getElementById('sign-in-container');
-let signInHeader = document.getElementById('sign-in-header')
 let submitBtn = document.getElementById('submit-btn');
 let userAvailabilityContainer = document.getElementById('user-availability-container');
 let userCalendar = document.getElementById('user-calendar');
@@ -34,6 +32,8 @@ let userWelcome = document.getElementById('user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
 let bookRoomNav = document.getElementById('book-room-nav');
 let modal = document.getElementById('modal');
+let signOutNav = document.getElementById('sign-out-nav');
+let signInPage = document.getElementById('sign-in-page');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -45,6 +45,7 @@ resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 bookRoomNav.addEventListener('click', displayBookRoomDash);
+signOutNav.addEventListener('click', signOut);
 userAvailabilityContainer.addEventListener('click', () => {
   bookRoom(event);
 })
@@ -94,8 +95,7 @@ function displayUserDashboard() {
   currentUser = hotelOperation.usersRecord[0];
 
   console.log('Display Dash')
-  signInHeader.classList.add('hidden');
-  signInContainter.classList.add('hidden');
+  signInPage.classList.add('hidden');
   userDashboard.classList.remove('hidden');
   myBookingsContainer.classList.add('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
@@ -270,4 +270,10 @@ function sortBookingsByDate(bookings) {
   return bookings.sort((a, b) => {
     return new Date(b.date) - new Date(a.date)
   })
+}
+
+function signOut() {
+  currentUser = "";
+  userDashboard.classList.add('hidden');
+  signInPage.classList.remove('hidden')
 }
