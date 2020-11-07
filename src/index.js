@@ -4,28 +4,30 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
 
-// import apiCalls from './apiCalls';
+import apiCalls from './apiCalls';
 import moment from 'moment';
 import HotelOperation from './HotelOperation';
 
 let hotelOperation;
 let today = moment().format('YYYY/MM/DD');
 
-let usernameInput = document.getElementById('username-input');
+let availabilityBox = document.getElementById('availability-box');
+let myBookingsNav = document.getElementById('my-bookings');
 let passwordInput = document.getElementById('password-input');
-let submitBtn = document.getElementById('submit-btn');
-let signInHeader = document.getElementById('sign-in-header')
-let signInContainter = document.getElementById('sign-in-container');
-let userDashboard = document.getElementById('user-dashboard');
-let userCalendar = document.getElementById('user-calendar');
-let userAvailabilityContainer = document.getElementById('user-availability-container');
-let userRadio = document.querySelectorAll('user-radio');
-let userFilter = document.getElementById('user-filter');
-let radioSingle = document.getElementById('radio-single');
 let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
+let radioSingle = document.getElementById('radio-single');
 let resetBtn = document.getElementById('reset-btn');
-let myBookingsNav = document.getElementById('my-bookings');
+let signInContainter = document.getElementById('sign-in-container');
+let signInHeader = document.getElementById('sign-in-header')
+let submitBtn = document.getElementById('submit-btn');
+let userAvailabilityContainer = document.getElementById('user-availability-container');
+let userCalendar = document.getElementById('user-calendar');
+let userDashboard = document.getElementById('user-dashboard');
+let userDashboardContainer = document.getElementById('user-dashboard-container');
+let userFilter = document.getElementById('user-filter');
+let usernameInput = document.getElementById('username-input');
+let userRadio = document.querySelectorAll('user-radio');
 
 
 window.onload = fetchAllData();
@@ -33,29 +35,40 @@ window.onload = fetchAllData();
 // submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
 submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+myBookingsNav.addEventListener('click', displayMyBookings);
+resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
-resetBtn.addEventListener('click', resetForm);
-myBookingsNav.addEventListener('click', displayMyBookings);
+
+// function fetchAllData() {
+//   let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
+//     .then(response => response.json())
+//     .then(data => data.rooms)
+//     .catch(err => console.log(err))
+//   let bookingsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`)
+//     .then(response => response.json())
+//     .then(data => data.bookings)
+//     .catch(err => console.log(err))
+//   let usersPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users`)
+//     .then(response => response.json())
+//     .then(data => data.users)
+//     .catch(err => console.log(err))
+//
+//   Promise.all([roomsPromise, bookingsPromise, usersPromise])
+//     .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
+//     .then(() => loadPage())
+//     .catch(err => console.log(`Sorry! Data cannot be loaded at this time ${err}`))
+// }
 
 function fetchAllData() {
-  let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
-    .then(response => response.json())
-    .then(data => data.rooms)
-    .catch(err => console.log(err))
-  let bookingsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`)
-    .then(response => response.json())
-    .then(data => data.bookings)
-    .catch(err => console.log(err))
-  let usersPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users`)
-    .then(response => response.json())
-    .then(data => data.users)
-    .catch(err => console.log(err))
+let roomsPromise = apiCalls.fetchData('rooms');
+let bookingsPromise = apiCalls.fetchData('bookings');
+let usersPromise = apiCalls.fetchData('users');
 
-  Promise.all([roomsPromise, bookingsPromise, usersPromise])
-    .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
-    .then(() => loadPage())
-    .catch(err => console.log(`Sorry! Data cannot be loaded at this time ${err}`))
+Promise.all([roomsPromise, bookingsPromise, usersPromise])
+.then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
+.then(() => loadPage())
+.catch(err => console.log(err))
 }
 
 function loadPage() {
@@ -169,4 +182,9 @@ function resetForm() {
   radioJunior.checked=false;
   radioResidential.checked=false;
   findRooms();
+}
+
+function displayMyBookings() {
+  availabilityBox.classList.add('hidden');
+  let userDashboardContainer = document.getElementById('user-dashboard-container');
 }
