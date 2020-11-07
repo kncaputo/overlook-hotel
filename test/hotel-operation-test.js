@@ -9,13 +9,13 @@ import User from '../src/User';
 describe('HotelOperation', () => {
   let hotelOperation;
   let room;
-  let bookingsData;
-  let roomsData;
-  let usersData;
+  let bookingsData = [{"id":"1abcde2f3h11ij4lm","userID":1,"date":"2020/01/01","roomNumber":1,"roomServiceCharges":[]},{"id":"5fwrgu4i7k55hl6t6","userID":1,"date":"2020/01/02","roomNumber":3,"roomServiceCharges":[]}, {"id":"5fwrgu4i7k55hl6t6","userID":13,"date":"2020/01/10","roomNumber":12,"roomServiceCharges":[]}];
+  let roomsData = [{"number":1,"roomType":"residential suite","bidet":true,"bedSize":"queen","numBeds":1,"costPerNight":123.4},{"number":2,"roomType":"suite","bidet":false,"bedSize":"full","numBeds":2,"costPerNight":477.38},{"number":3,"roomType":"suite","bidet":false,"bedSize":"king","numBeds":1,"costPerNight":491.14}];
+  let usersData = [{"id":1,"name":"Anson Aimes"},{"id":2,"name":"Theo Hernandez"},{"id":3,"name":"Jane Schmoe"}];
 
   describe('Constructor', () => {
     beforeEach(() => {
-      hotelOperation = new HotelOperation();
+      hotelOperation = new HotelOperation(roomsData, bookingsData, usersData);
     });
 
     it('should be a function', () => {
@@ -35,12 +35,39 @@ describe('HotelOperation', () => {
     });
   });
 
+  describe('Start', () => {
+    beforeEach(() => {
+        hotelOperation = new HotelOperation(roomsData, bookingsData, usersData);
+    });
+
+    it('should have a start method that creates rooms record', () => {
+      expect(hotelOperation.roomsRecord).to.deep.equal([]);
+
+      hotelOperation.start();
+
+      expect(hotelOperation.roomsRecord.length).to.deep.equal(3);
+    });
+
+    it('should have a start method that creates bookings record', () => {
+      expect(hotelOperation.bookingsRecord).to.deep.equal([]);
+
+      hotelOperation.start();
+
+      expect(hotelOperation.bookingsRecord.length).to.deep.equal(3);
+    });
+
+    it('should have a start method that creates users record', () => {
+      expect(hotelOperation.usersRecord).to.deep.equal([]);
+
+      hotelOperation.start();
+
+      expect(hotelOperation.usersRecord.length).to.deep.equal(3);
+    });
+  });
+
   describe('Methods', () => {
     beforeEach(() => {
-      hotelOperation = new HotelOperation();
-      bookingsData = [{"id":"1abcde2f3h11ij4lm","userID":1,"date":"2020/01/01","roomNumber":1,"roomServiceCharges":[]},{"id":"5fwrgu4i7k55hl6t6","userID":1,"date":"2020/01/02","roomNumber":3,"roomServiceCharges":[]}, {"id":"5fwrgu4i7k55hl6t6","userID":13,"date":"2020/01/10","roomNumber":12,"roomServiceCharges":[]}];
-      roomsData = [{"number":1,"roomType":"residential suite","bidet":true,"bedSize":"queen","numBeds":1,"costPerNight":123.4},{"number":2,"roomType":"suite","bidet":false,"bedSize":"full","numBeds":2,"costPerNight":477.38},{"number":3,"roomType":"suite","bidet":false,"bedSize":"king","numBeds":1,"costPerNight":491.14}];
-      usersData = [{"id":1,"name":"Anson Aimes"},{"id":2,"name":"Theo Hernandez"},{"id":3,"name":"Jane Schmoe"}];
+      hotelOperation = new HotelOperation(roomsData, bookingsData, usersData);
     });
 
     it('should have a method to create instances of room when passed an array', () => {
@@ -109,7 +136,12 @@ describe('HotelOperation', () => {
     });
 
     it('should have a method to find user id when given a name', () => {
-      // TODO - write this test
+      hotelOperation.createBookingsRecord(bookingsData);
+      hotelOperation.createUsersRecord(usersData);
+
+      let result = hotelOperation.findUserID('Anson Aimes');
+
+      expect(result).to.deep.equal(1);
     });
 
     it('should filter bookings by user name', () => {
@@ -172,13 +204,22 @@ describe('HotelOperation', () => {
       expect(results).to.deep.equal(33);
     });
 
-    it('should have a method that gets the total revenue for a given  date', () => {
+    it('should have a method that gets the total revenue for a given date', () => {
       hotelOperation.createRoomsRecord(roomsData);
       hotelOperation.createBookingsRecord(bookingsData);
 
       let results = hotelOperation.getTotalRevenue('2020/01/02');
 
       expect(results).to.deep.equal(491.14);
+    });
+
+    it('should have a method that gets room details when given a room number', () => {
+      hotelOperation.createRoomsRecord(roomsData);
+      hotelOperation.createBookingsRecord(bookingsData);
+
+      let results = hotelOperation.getRoomDetails(2);
+
+      expect(results.roomType).to.deep.equal('suite');
     });
   });
 });

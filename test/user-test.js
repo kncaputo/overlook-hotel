@@ -45,8 +45,4 @@ describe('User', () => {
       expect(user.bookings).to.deep.equal([]);
     })
   });
-
-
-
-
 });

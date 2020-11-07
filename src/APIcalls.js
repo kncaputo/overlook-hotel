@@ -1,13 +1,15 @@
+let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/`
+
 let apiCalls = {
   fetchData(key) {
-    return fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/${key}/${key}`)
+    return fetch(`${url}${key}/${key}`)
       .then(response => response.json())
-      .then(data => console.log(data[key]))
-      .catch(err => console.log(err))
+      .then(data => data[key])
+      .catch(err => err)
   },
 
   postData(newPost, onSuccess) {
-    return fetch(this.url, {
+    return fetch(`${url}bookings/bookings`, {
       method: 'POST',
       headers: {
   	    'Content-Type': 'application/json'

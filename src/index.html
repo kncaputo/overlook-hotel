@@ -8,37 +8,40 @@
   </head>
   <body>
     <!-- Sign in Header -->
-    <header class="flex-column header" id="sign-in-header">
-      <h1 class="" id="main-title">The Overlook Hotel</h1>
-      <p class="">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
-    </header>
-    <!-- Sign in Container -->
-    <section class="flex-row" id="sign-in-container">
-      <article class="flex-column" id="sign-in-box">
-        <p>Please Sign In<p>
-        <form class="flex-column" id="sign-in-form-box">
-          <label for="username">Username:</label>
-          <input type="text" id="username-input" required>
-          <label for="password">Password:</label>
-          <input type="password" id="password-input" required>
-          <button class="btn" id="submit-btn">Submit</button>
-        </form>
-      </article>
-    </section>
+    <main id="sign-in-page">
+      <header class="flex-column header" id="sign-in-header">
+        <h1 class="" id="main-title">The Overlook Hotel</h1>
+        <p class="" id="sign-in-fine-print">1000 Address Goes Here, Fabulous Country   |   000.000.0000   |   bookings@theoverlookhotel.com</p>
+      </header>
+      <!-- Sign in Container -->
+      <section class="flex-row" id="sign-in-container">
+        <article class="flex-column" id="sign-in-box">
+          <p>Please Sign In<p>
+          <form class="flex-column" id="sign-in-form-box">
+            <label for="username">Username:</label>
+            <input type="text" id="username-input" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password-input" required>
+            <button class="btn" id="submit-btn">Submit</button>
+          </form>
+        </article>
+      </section>
+    </main>
     <!-- Dashboard View -->
     <main class="hidden" id="user-dashboard">
       <header class="flex-row header" id="dashboard-header">
-        <section class="flex-column" id="">
+        <section class="flex-column" id="left-dashboard-header">
             <h1 class="" id="main-title">The Overlook Hotel</h1>
-            <p class="">000.000.0000</p>
+            <p class="" id="user-welcome"></p>
         </section>
         <section class="flex-row" id="nav-header">
           <section class="flex-column" id="nav-container">
             <nav class="flex-row" id="nav-box">
-              <button class="nav-btn" id="book-a-room" aria-label="Book a Room">Book a Room</button>
-              <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
-              <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
+              <button class="nav-btn" id="book-room-nav" aria-label="Book a Room">Book a Room</button>
+              <button class="nav-btn" id="my-bookings-nav" aria-label="My Bookings">My Bookings</button>
+              <button class="nav-btn" id="sign-out-nav" aria-label="Sign Out">Sign Out</button>
             </nav>
+            <!-- User Availability Box w Calendar -->
             <form class="flex-row" id="availability-box">
               <p>Please select a date to see availability.<p>
               <label for="date" aria-label="Choose Date"></label>
@@ -47,8 +50,9 @@
           </section>
         </section>
       </header>
-      <!-- Filters -->
+      <!-- User Dashboard Container / Book a Room -->
       <section class="flex-row" id="user-dashboard-container">
+        <!-- Filters -->
         <aside class="flex-column" id="user-filter-containter">
           <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
@@ -81,8 +85,45 @@
             </section>
           </article> -->
 
+        <!-- Book Room Modal -->
+        <div class="modal hidden" id="modal">
+          <div class="modal-content flex-column">
+            <div class="modal-header">
+              <div>
+                <img id="modal-img" src="" alt="recipe image" class="modal-banner">
+              </div>
+            </div>
+            <div class="modal-body flex-column">
+            <div class="modal-header-text flex-row">
+              <h1>Book Room</h1>
+            </div>
+              <div class="flex-row">
+              <div class="card-effect"
+                <h2>Ingredients</h2>
+                <p class="ingredients-display"></p>
+                <p><b>Total Cost of Ingredients</b></p>
+                <p class="ingredients-display"></p>
+              </div>
+                <div class="card-effect"
+                  <h2>How To Cook This</h2>
+                  <p>ARE YOU SURE YOU WANT TO DO A MODAL?<p>
+                </div>
+              </div>
+            </div>
+           </div>
+         </div>
+
         </section>
       </section>
+      <!-- User My Bookings Container -->
+        <section class="flex-column" id="my-bookings-container">
+          <section class="flex-column future-bookings-box" id="user-future-bookings">
+            <p>Future and Past bookings:</p>
+          </section>
+          <section class="flex-column past-bookings-box" id="user-bookings-container">
+            <p></p>
+          </section>
+        </section>
     </main>
 
 
