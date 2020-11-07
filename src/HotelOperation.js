@@ -100,18 +100,6 @@ export default class HotelOperation {
     return availableRooms;
   }
 
-  // findAvailableRooms(date) {
-  //   let filteredBookings = this.filterBookingsByDate(date);
-  //
-  //   return this.roomsRecord.reduce((rooms, room) => {
-  //     filteredBookings.forEach(booking => {
-  //       if (!(room.number === booking.roomNumber)) rooms.push(room);
-  //     });
-  //
-  //     return rooms;
-  //   }, []);
-  // }
-
   filterByRoomType(roomType, roomsToFilter) {
     return roomsToFilter.filter(room => {
       return room.roomType === roomType;
