@@ -143,12 +143,14 @@ input.date {
   flex-wrap: wrap;
 }
 
-#user-availability-container {
+#user-availability-container, #my-bookings-container {
+ max-height: 700px;
  overflow: scroll !important;
+ margin-top: 20px;
 }
 
 .rooms-card {
-  margin: 20px;
+  margin: 0px 20px 20px 20px;
   background: $transparent-background;
   max-height: 210px;
   min-width: 850px;
