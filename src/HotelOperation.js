@@ -36,19 +36,19 @@ export default class HotelOperation {
     return user;
   }
 
-  createRoomsRecord(rawRoomsData) {
+  createRoomsRecord() {
     let roomsRecord = this.roomsData.forEach(rawRoom => {
       this.createRoom(rawRoom);
     })
   }
 
-  createBookingsRecord(rawBookingsData) {
+  createBookingsRecord() {
     let bookingsRecord = this.bookingsData.forEach(rawBooking => {
       this.createBooking(rawBooking);
     })
   }
 
-  createUsersRecord(rawUsersData) {
+  createUsersRecord() {
     let users = this.usersData.forEach(rawUser => {
       this.createUser(rawUser);
     })
@@ -139,8 +139,9 @@ export default class HotelOperation {
     }, 0);
   }
 
-  // when given a roomnumber
-    // I want to be able to the room details
-
-    
+  getRoomDetails(roomNumber) {
+    return this.roomsRecord.find(room => {
+      return room.number === roomNumber;
+    })
+  }
 }
