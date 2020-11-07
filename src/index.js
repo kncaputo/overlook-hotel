@@ -31,6 +31,7 @@ let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let myBookingsContainer  = document.getElementById('my-bookings-container');
 let userWelcome = document.getElementById('user-welcome');
+let userBookingsContainer = document.getElementById('user-bookings-container');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -42,35 +43,15 @@ resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 
-// function fetchAllData() {
-//   let roomsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms`)
-//     .then(response => response.json())
-//     .then(data => data.rooms)
-//     .catch(err => console.log(err))
-//   let bookingsPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`)
-//     .then(response => response.json())
-//     .then(data => data.bookings)
-//     .catch(err => console.log(err))
-//   let usersPromise = fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users`)
-//     .then(response => response.json())
-//     .then(data => data.users)
-//     .catch(err => console.log(err))
-//
-//   Promise.all([roomsPromise, bookingsPromise, usersPromise])
-//     .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
-//     .then(() => loadPage())
-//     .catch(err => console.log(`Sorry! Data cannot be loaded at this time ${err}`))
-// }
-
 function fetchAllData() {
-let roomsPromise = apiCalls.fetchData('rooms');
-let bookingsPromise = apiCalls.fetchData('bookings');
-let usersPromise = apiCalls.fetchData('users');
+  let roomsPromise = apiCalls.fetchData('rooms');
+  let bookingsPromise = apiCalls.fetchData('bookings');
+  let usersPromise = apiCalls.fetchData('users');
 
-Promise.all([roomsPromise, bookingsPromise, usersPromise])
-.then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
-.then(() => loadPage())
-.catch(err => console.log(err))
+  Promise.all([roomsPromise, bookingsPromise, usersPromise])
+  .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
+  .then(() => loadPage())
+  .catch(err => console.log(err))
 }
 
 function loadPage() {
@@ -108,11 +89,11 @@ function displayUserDashboard() {
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
-  displayRooms(hotelOperation.findAvailableRooms(today));
+  displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
 }
 
-function displayRooms(roomsToDisplay, htmlElement) {
+function displayRoomsToUserAvailability(roomsToDisplay) {
   userAvailabilityContainer.innerHTML = '';
   roomsToDisplay.forEach(room => {
     let roomCardHtml = createRoomCard(room)
@@ -169,9 +150,9 @@ function findRooms() {
   let radioFilterValue = determineSelection();
   if (radioFilterValue !== false) {
     let roomsToDisplay = hotelOperation.filterByRoomType(radioFilterValue, filteredByDate)
-    return displayRooms(roomsToDisplay);
+    return displayRoomsToUserAvailability(roomsToDisplay);
   }
-  return displayRooms(filteredByDate)
+  return displayRoomsToUserAvailability(filteredByDate)
 }
 
 function filterRoomsByDate() {
@@ -193,10 +174,35 @@ function displayMyBookingsDash() {
   availabilityBox.classList.add('hidden');
   userDashboardContainer.classList.add('hidden');
   myBookingsContainer.classList.remove('hidden');
-  findAndDisplayBookings()
+  displayRoomsToMyBookings();
 }
 
-function findAndDisplayBookings() {
+function displayRoomsToMyBookings() {
+  userBookingsContainer.innerHTML = '';
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
-  console.log(userBookings)
+  userBookings.forEach(booking => {
+    let roomCardHtml = createBookingCard(booking)
+    userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
+  })
+}
+
+// This does not yet work -------
+function createBookingCard(booking) {
+  return `<article class="flex-row rooms-card" id="${booking.roomNumber}">
+    <section class="flex-column" id="room-img-box">
+      <img class="room-card-photo" src=${room.src} alt="">
+    </section>
+    <section class="flex-column" id="room-card-details">
+      <h6>${room.roomType}</h6>
+      <p>${determineBedHtml(room)}<br>
+      <p>Bidet: ${determineBidet(room)}</p>
+    </section>
+    <section class="flex-column" id="room-card-price">
+      <article class="flex-column card-inner-contents">
+        <h3>${room.costPerNight}</h3>
+        <p>Per night</p>
+        <button id="card-btn-book-room">Book Room</button>
+      </article>
+    </section>
+  </article>`
 }

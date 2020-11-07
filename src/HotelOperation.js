@@ -138,4 +138,9 @@ export default class HotelOperation {
       return sum;
     }, 0);
   }
+
+  // when given a roomnumber
+    // I want to be able to the room details
+
+    
 }
