@@ -146,7 +146,7 @@ input.date {
   min-width: 850px;
 }
 
-#room-img-box {
+.room-img-box {
 
 }
 
@@ -157,7 +157,7 @@ input.date {
   margin: 13px;
 }
 
-#room-card-details {
+.room-card-details {
   margin-left: 13px;
   max-width: 400px;
   min-width: 300px;
@@ -168,18 +168,23 @@ input.date {
   padding-right: 10px;
 }
 
-.room-details-text. {
-
+.primary-details-text {
+  margin: 7px 0px;
 }
 
-#room-card-price {
+.secondary-details-text {
+  margin: 1px 0px;
+  font-size: 12px;
+}
+
+.room-card-price {
   margin-left: 10px;
   width: 150px;
   border-left: 1px solid darkgray;
   // flex-grow: 3;
 }
 
-#card-btn-book-room {
+.card-btn-book-room {
 
 }
 

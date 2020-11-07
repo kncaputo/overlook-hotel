@@ -103,19 +103,19 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
 
 function createRoomCard(room) {
   return `<article class="flex-row rooms-card" id="${room.number}">
-    <section class="flex-column" id="room-img-box">
+    <section class="flex-column room-img-box">
       <img class="room-card-photo" src=${room.src} alt="">
     </section>
-    <section class="flex-column" id="room-card-details">
+    <section class="flex-column room-card-details">
       <h3>${room.roomType.toUpperCase()}</h3>
-      <p>${determineBedHtml(room)}<br>
-      <p>Bidet: ${determineBidet(room)}</p>
+      <p class="primary-details-text">${determineBedHtml(room)}<br>
+      <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
     </section>
-    <section class="flex-column" id="room-card-price">
+    <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
         <h3>${room.costPerNight}</h3>
         <p>Per night</p>
-        <button id="card-btn-book-room">Book Room</button>
+        <button class="card-btn-book-room">Book Room</button>
       </article>
     </section>
   </article>`
@@ -189,18 +189,18 @@ function displayRoomsToMyBookings() {
 function createBookingCard(booking) {
   let roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
 
-  return `<article class="flex-row rooms-card" id="${booking.roomNumber}">
-    <section class="flex-column" id="room-img-box">
+  return `<article class="flex-row rooms-card" id="${booking.id}">
+    <section class="flex-column room-img-box">
       <img class="room-card-photo" src=${roomBooked.src} alt="">
     </section>
-    <section class="flex-column" id="room-card-details">
+    <section class="flex-column room-card-details">
       <h3>${booking.date}</h3>
-      <p class="room-details-text">${roomBooked.roomType.toUpperCase()}</p>
-      <p class="room-details-text">Booking id: ${booking.id}</p>
-      <p class="room-details-text">${determineBedHtml(roomBooked)}<br>
-      <p class="room-details-text">Bidet: ${determineBidet(roomBooked)}</p>
+      <p class="primary-details-text">${roomBooked.roomType.toUpperCase()}</p>
+      <p class="primary-details-text">Booking id: ${booking.id}</p>
+      <p class="secondary-details-text">${determineBedHtml(roomBooked)}<br>
+      <p class="secondary-details-text">Bidet: ${determineBidet(roomBooked)}</p>
     </section>
-    <section class="flex-column" id="room-card-price">
+    <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
         <h3>${roomBooked.costPerNight}</h3>
         <p>Per night</p>
