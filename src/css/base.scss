@@ -39,8 +39,17 @@ header#dashboard-header {
   justify-content: space-between;
 }
 
+#left-dashboard-header {
+  margin-left: 20px;
+}
+
+
 h1#main-title {
   margin-bottom: 0;
+}
+
+#sign-in-fine-print {
+  font-size: 12px;
 }
 
 #sign-in-container {

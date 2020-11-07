@@ -32,7 +32,7 @@ let userRadio = document.querySelectorAll('user-radio');
 let myBookingsContainer  = document.getElementById('my-bookings-container');
 let userWelcome = document.getElementById('user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
-let bookRoomNav = document.getElementById('book-room-nav')
+let bookRoomNav = document.getElementById('book-room-nav');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -43,7 +43,10 @@ myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
-bookRoomNav.addEventListener('click', displayBookRoomDash)
+bookRoomNav.addEventListener('click', displayBookRoomDash);
+userAvailabilityContainer.addEventListener('click', () => {
+  bookRoom(event);
+})
 
 function fetchAllData() {
   let roomsPromise = apiCalls.fetchData('rooms');
@@ -141,6 +144,20 @@ function determineBidet(room) {
     return `Yes`
   }
   return `No`
+}
+
+function bookRoom(event) {
+  let roomToBook = hotelOperation.roomsRecord.find(room => {
+    return room.number === event.target.id;
+  })
+
+  // iterate over the rooms array
+    // if current room number === event.target.id
+      // post
+      // create booking instance
+      // update bookings under user
+  // update rooms being displayed
+  if (event.target.id)
 }
 
 function determineSelection() {
