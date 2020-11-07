@@ -112,7 +112,7 @@ function displayUserDashboard() {
   // TODO - add styles for that Book A Room nav looks highlighted
 }
 
-function displayRooms(roomsToDisplay) {
+function displayRooms(roomsToDisplay, htmlElement) {
   userAvailabilityContainer.innerHTML = '';
   roomsToDisplay.forEach(room => {
     let roomCardHtml = createRoomCard(room)
@@ -193,5 +193,10 @@ function displayMyBookingsDash() {
   availabilityBox.classList.add('hidden');
   userDashboardContainer.classList.add('hidden');
   myBookingsContainer.classList.remove('hidden');
+  findAndDisplayBookings()
+}
 
+function findAndDisplayBookings() {
+  let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
+  console.log(userBookings)
 }
