@@ -151,26 +151,32 @@ function determineBidet(room) {
   return `No`
 }
 
+// function updateBookings() {
+//   let bookingsPromise = apiCalls.fetchData('bookings');
+//
+//   Promise.all([bookingsPromise])
+//   .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
+//   .then(() => loadPage())
+//   .catch(err => console.log(err))
+// }
+
 function bookRoom(event) {
   // modal.classList.remove('hidden');
+  let bookingDate = getFormatDate();
+  let onSuccess = () => {
+    console.log("THIS IS SUCCESS")
+  }
 
-  console.log(event.target.id)
-  let roomToBook = hotelOperation.roomsRecord.filter(room => {
+  let roomToBook = hotelOperation.roomsRecord.find(room => {
     return room.number == event.target.id;
   })
-  console.log(roomToBook)
 
-  // iterate over the rooms array
-    // if current room number === event.target.id
-      // post
-      // create booking instance
-      // update bookings under user
-  // update rooms being displayed
-  // if (event.target.id)
-}
-
-function onSuccess() {
-    console.log("POST SUCCESS");
+  let bookingData = {
+    userID: currentUser.id,
+    date: bookingDate,
+    roomNumber: roomToBook.number
+  }
+  apiCalls.postData(bookingData, onSuccess)
 }
 
 function determineSelection() {
@@ -193,11 +199,16 @@ function findRooms() {
   return displayRoomsToUserAvailability(filteredByDate)
 }
 
-function filterRoomsByDate() {
+function getFormatDate() {
   let formatDate = userCalendar.value.split('-');
   let formattedDate = formatDate.join('/');
+  return formattedDate
+}
 
-  let roomsToDisplay = hotelOperation.findAvailableRooms(formattedDate);
+function filterRoomsByDate() {
+  let date = getFormatDate();
+
+  let roomsToDisplay = hotelOperation.findAvailableRooms(date);
   return roomsToDisplay;
 }
 
