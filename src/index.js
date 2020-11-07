@@ -9,6 +9,7 @@ import moment from 'moment';
 import HotelOperation from './HotelOperation';
 
 let hotelOperation;
+let currentUser;
 let today = moment().format('YYYY/MM/DD');
 
 let availabilityBox = document.getElementById('availability-box');
@@ -28,7 +29,7 @@ let userDashboardContainer = document.getElementById('user-dashboard-container')
 let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
-
+let myBookingsContainer  = document.getElementById('my-bookings-container');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -186,5 +187,7 @@ function resetForm() {
 
 function displayMyBookings() {
   availabilityBox.classList.add('hidden');
-  let userDashboardContainer = document.getElementById('user-dashboard-container');
+  userDashboardContainer.classList.add('hidden');
+  myBookingsContainer.classList.remove('hidden');
+
 }

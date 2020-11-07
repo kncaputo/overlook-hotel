@@ -39,6 +39,7 @@
               <button class="nav-btn" id="my-bookings" aria-label="My Bookings">My Bookings</button>
               <button class="nav-btn" id="sign-out" aria-label="Sign Out">Sign Out</button>
             </nav>
+            <!-- User Availability Box w Calendar -->
             <form class="flex-row" id="availability-box">
               <p>Please select a date to see availability.<p>
               <label for="date" aria-label="Choose Date"></label>
@@ -47,8 +48,9 @@
           </section>
         </section>
       </header>
-      <!-- Filters -->
+      <!-- User Dashboard Container / Book a Room -->
       <section class="flex-row" id="user-dashboard-container">
+        <!-- Filters -->
         <aside class="flex-column" id="user-filter-containter">
           <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
@@ -83,6 +85,15 @@
 
         </section>
       </section>
+      <!-- User My Bookings Container -->
+        <section class="flex-column" id="my-bookings-container">
+          <section class="flex-column future-bookings-box" id="user-future-bookings">
+            <p>You don't have any future bookings at this time.</p>
+          </section>
+          <section class="flex-column past-bookings-box" id="user-past-bookings">
+            <p>You don't have any future bookings at this time.</p>
+          </section>
+        </section>
     </main>
 
 

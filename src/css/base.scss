@@ -135,7 +135,7 @@ input.date {
 }
 
 #user-availability-container {
- overflow: scroll;
+ overflow: scroll !important;
 }
 
 .rooms-card {
@@ -177,4 +177,9 @@ input.date {
 
 #card-btn-book-room {
 
+}
+
+// shared w Manager and User
+.future-bookings-box {
+  border-bottom: 1px solid darkgray;
 }
