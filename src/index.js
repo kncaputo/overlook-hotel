@@ -28,18 +28,19 @@ let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let myBookingsContainer  = document.getElementById('my-bookings-container');
-let userWelcome = document.getElementById('user-welcome');
+let userWelcome = document.querySelector('.user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
 let bookRoomNav = document.getElementById('book-room-nav');
 let modal = document.getElementById('modal');
-let signOutNav = document.getElementById('sign-out-nav');
+let signOutNav = document.querySelector('.sign-out-nav');
 let signInPage = document.getElementById('sign-in-page');
+let managerDashboard = document.getElementById('manager-dashboard');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
-// submitBtn.addEventListener('click', verifyLogin);
+submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
@@ -67,23 +68,42 @@ function loadPage() {
 
 function verifyLogin() {
   event.preventDefault()
+  if (usernameInput.value === 'manager') {
+    if (passwordInput.value === 'overlook2020') {
+      currentUser = {name: 'Manager'};
+      usernameInput.value = "";
+      passwordInput.value = "";
+      return displayManagerDashboard();
+    }
+      deliverLoginError();
+  }
 
   let attemptedUser = hotelOperation.usersRecord.find(user => {
     return user.username === usernameInput.value
   });
+
   if (attemptedUser !== undefined) {
-    if (passwordInput.value === attemptedUser.password) {
-      currentUser = attemptedUser;
-      console.log(currentUser)
-      return displayUserDashboard();
-    }
-    deliverLoginError();
+    verifyPassword(attemptedUser);
   }
+
 }
 
-function verifyPassword(currentUser) {
+function displayManagerDashboard() {
+  console.log('Display Manager Dash')
+  signInPage.classList.add('hidden');
+  managerDashboard.classList.remove('hidden');
+  displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
+}
+
+function verifyPassword(attemptedUser) {
   console.log('Verifying Password');
-  passwordInput.value === currentUser.password ? displayUserDashboard() : deliverLoginError()
+  if (passwordInput.value === attemptedUser.password) {
+    currentUser = attemptedUser;
+    usernameInput.value = "";
+    passwordInput.value = "";
+    displayUserDashboard()
+  }
+  deliverLoginError()
 }
 
 function deliverLoginError() {
@@ -92,7 +112,7 @@ function deliverLoginError() {
 
 function displayUserDashboard() {
   // ------ Just for dev mode
-  currentUser = hotelOperation.usersRecord[0];
+  // currentUser = hotelOperation.usersRecord[0];
 
   console.log('Display Dash')
   signInPage.classList.add('hidden');

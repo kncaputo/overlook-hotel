@@ -24,6 +24,11 @@ body {
   flex-direction: column !important;
 }
 
+#sign-in-header {
+  text-align: center;
+  height: 130px;
+}
+
 .header {
   height: 9vw;
   background: $transparent-background;
@@ -31,20 +36,16 @@ body {
   height: 100px;
 }
 
-#sign-in-header {
-  text-align: center;
-}
-
-header#dashboard-header {
+header#dashboard-header, #manager-dashboard-header {
   justify-content: space-between;
 }
 
-#left-dashboard-header {
+.left-dashboard-header {
   margin-left: 20px;
 }
 
 
-h1#main-title {
+h1.main-title {
   margin-bottom: 0;
 }
 

@@ -30,16 +30,16 @@
     <!-- Dashboard View -->
     <main class="hidden" id="user-dashboard">
       <header class="flex-row header" id="dashboard-header">
-        <section class="flex-column" id="left-dashboard-header">
-            <h1 class="" id="main-title">The Overlook Hotel</h1>
-            <p class="" id="user-welcome"></p>
+        <section class="flex-column left-dashboard-header">
+            <h1 class="main-title">The Overlook Hotel</h1>
+            <p class="user-welcome"></p>
         </section>
-        <section class="flex-row" id="nav-header">
-          <section class="flex-column" id="nav-container">
+        <section class="flex-row nav-header">
+          <section class="flex-column nav-container">
             <nav class="flex-row" id="nav-box">
               <button class="nav-btn" id="book-room-nav" aria-label="Book a Room">Book a Room</button>
               <button class="nav-btn" id="my-bookings-nav" aria-label="My Bookings">My Bookings</button>
-              <button class="nav-btn" id="sign-out-nav" aria-label="Sign Out">Sign Out</button>
+              <button class="nav-btn sign-out-nav" id="sign-out-nav" aria-label="Sign Out">Sign Out</button>
             </nav>
             <!-- User Availability Box w Calendar -->
             <form class="flex-row" id="availability-box">
@@ -126,6 +126,52 @@
         </section>
     </main>
 
+    <!-- Manager View -->
+    <main class="hidden" id="manager-dashboard">
+      <header class="flex-row header" id="manager-dashboard-header">
+        <section class="flex-column left-dashboard-header">
+            <h1 class="main-title">The Overlook Hotel</h1>
+            <p class="user-welcome">Manager View</p>
+        </section>
+        <section class="flex-row nav-header">
+          <section class="flex-column nav-container">
+            <nav class="flex-row" id="manager-nav-box">
+              <label for="date" aria-label="Choose Date"></label>
+              <input type="date" class="date" name="date" id="manager-stats-calendar">
+              <section class="flex-column">
+                <p>For selected date:</p>
+                <p>Total Available Rooms: **</p>
+                <p>Total Revenue for Date: **</p>
+                <p>Percentage Occupied: **</p>
+              </section>
+              <button class="nav-btn sign-out-nav" aria-label="Sign Out">Sign Out</button>
+            </nav>
+            <!-- User Availability Box w Calendar -->
+            <form class="flex-row" id="availability-box">
+              <p>Please select a date to see availability.<p>
+              <label for="date" aria-label="Choose Date"></label>
+              <input type="date" class="date" name="date" id="user-calendar">
+            </form>
+          </section>
+        </section>
+      </header>
+      <!-- User Dashboard Container / Book a Room -->
+      <section class="flex-row" id="user-dashboard-container">
+        <!-- Filters -->
+        <aside class="flex-column" id="user-filter-containter">
+          <p>Filter Rooms:</p>
+          <form class="flex-row" id="user-filter">
+            <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
+            <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
+            <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
+          </form>
+          <button id="reset-btn">Reset</button>
+        </aside>
+
+        <section class="flex-column" id="user-availability-container">
+
+        </section>
+      </section>
 
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
