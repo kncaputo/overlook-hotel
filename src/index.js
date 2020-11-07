@@ -118,7 +118,7 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
 }
 
 function createRoomCard(room) {
-  return `<article class="flex-row rooms-card">
+  return `<article class="flex-row rooms-card" id="container${room.number}">
     <section class="flex-column room-img-box">
       <img class="room-card-photo" src=${room.src} alt="">
     </section>
@@ -152,21 +152,19 @@ function determineBidet(room) {
 }
 
 function updateBookings() {
-  console.log("before Promise: ", hotelOperation.bookingsData.length)
   let bookingsPromise = apiCalls.fetchData('bookings');
 
   Promise.all([bookingsPromise])
   .then(data => hotelOperation.bookingsData = data[0])
   .then(() => hotelOperation.createBookingsRecord())
   .catch(err => console.log(err))
-
-  console.log("After Promise: ", hotelOperation.bookingsData.length)
 }
 
 function bookRoom(event) {
   // modal.classList.remove('hidden');
   let bookingDate = getFormatDate();
   let onSuccess = () => {
+    removeRoomBooked(event)
     console.log("THIS IS SUCCESS")
   }
 
@@ -181,6 +179,11 @@ function bookRoom(event) {
   }
   apiCalls.postData(bookingData, onSuccess)
   updateBookings();
+}
+
+function removeRoomBooked(event) {
+  let roomToDeleteId = event.target.id;
+  document.getElementById(`container${roomToDeleteId}`).remove();
 }
 
 function determineSelection() {
