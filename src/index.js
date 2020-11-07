@@ -33,12 +33,13 @@ let myBookingsContainer  = document.getElementById('my-bookings-container');
 let userWelcome = document.getElementById('user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
 let bookRoomNav = document.getElementById('book-room-nav');
+let modal = document.getElementById('modal');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
-submitBtn.addEventListener('click', verifyLogin);
+// submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
@@ -89,10 +90,14 @@ function deliverLoginError() {
 }
 
 function displayUserDashboard() {
+  // ------ Just for dev mode
+  currentUser = hotelOperation.usersRecord[0];
+
   console.log('Display Dash')
   signInHeader.classList.add('hidden');
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
+  myBookingsContainer.classList.add('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
@@ -113,7 +118,7 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
 }
 
 function createRoomCard(room) {
-  return `<article class="flex-row rooms-card" id="${room.number}">
+  return `<article class="flex-row rooms-card">
     <section class="flex-column room-img-box">
       <img class="room-card-photo" src=${room.src} alt="">
     </section>
@@ -126,7 +131,7 @@ function createRoomCard(room) {
       <article class="flex-column card-inner-contents">
         <h3>${room.costPerNight}</h3>
         <p>Per night</p>
-        <button class="card-btn-book-room">Book Room</button>
+        <button class="card-btn-book-room" id="${room.number}">Book Room</button>
       </article>
     </section>
   </article>`
@@ -147,9 +152,13 @@ function determineBidet(room) {
 }
 
 function bookRoom(event) {
-  let roomToBook = hotelOperation.roomsRecord.find(room => {
-    return room.number === event.target.id;
+  // modal.classList.remove('hidden');
+
+  console.log(event.target.id)
+  let roomToBook = hotelOperation.roomsRecord.filter(room => {
+    return room.number == event.target.id;
   })
+  console.log(roomToBook)
 
   // iterate over the rooms array
     // if current room number === event.target.id
@@ -157,7 +166,11 @@ function bookRoom(event) {
       // create booking instance
       // update bookings under user
   // update rooms being displayed
-  if (event.target.id)
+  // if (event.target.id)
+}
+
+function onSuccess() {
+    console.log("POST SUCCESS");
 }
 
 function determineSelection() {
