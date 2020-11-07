@@ -236,7 +236,8 @@ function displayMyBookingsDash() {
 function displayRoomsToMyBookings() {
   userBookingsContainer.innerHTML = '';
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
-  userBookings.forEach(booking => {
+  let sortedBookings = sortBookingsByDate(userBookings)
+  sortedBookings.forEach(booking => {
     let roomCardHtml = createBookingCard(booking)
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
   })
@@ -263,4 +264,10 @@ function createBookingCard(booking) {
       </article>
     </section>
   </article>`
+}
+
+function sortBookingsByDate(bookings) {
+  return bookings.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date)
+  })
 }
