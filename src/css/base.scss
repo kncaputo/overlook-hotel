@@ -118,6 +118,10 @@ button, .radio-filter label:hover {
   border-bottom: 1px solid darkgray;
 }
 
+#manager-sign-out-nav {
+  margin: 7px 20px 7px 40px;
+}
+
 .nav-btn {
   background: none;
   color: black;
@@ -239,4 +243,36 @@ input.date {
 // shared w Manager and User
 .future-bookings-box {
   border-bottom: 1px solid darkgray;
+}
+
+// Manager dashboard
+#manager-cal-container {
+  // margin: 10px;
+  align-items: flex-end;
+  height: 100px;
+}
+
+#manager-cal-container > p {
+  font-size: 14px;
+  margin-top: 23px;
+  margin-bottom: 2px;
+}
+
+#manager-stats-container {
+  border-left: 1px solid darkgray;
+  margin-right: 70px;
+  margin: 10px;
+  height: 80px;
+  justify-content: space-evenly;
+}
+
+.manager-stats {
+  font-size: 12px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+#manager-stats-calendar {
+  height: 15px;
 }

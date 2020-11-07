@@ -27,7 +27,7 @@ let userDashboardContainer = document.getElementById('user-dashboard-container')
 let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
-let myBookingsContainer  = document.getElementById('my-bookings-container');
+let myBookingsContainer = document.getElementById('my-bookings-container');
 let userWelcome = document.querySelector('.user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
 let bookRoomNav = document.getElementById('book-room-nav');
@@ -38,9 +38,11 @@ let managerDashboard = document.getElementById('manager-dashboard');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
-submitBtn.addEventListener('click', verifyLogin);
+// submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
 // submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
+
 myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
