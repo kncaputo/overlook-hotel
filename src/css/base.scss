@@ -141,9 +141,9 @@ input.date {
 .rooms-card {
   margin: 20px;
   background: $transparent-background;
-  // flex-wrap: wrap;
   max-height: 210px;
   min-width: 850px;
+  max-width: fit-content;
 }
 
 .room-img-box {

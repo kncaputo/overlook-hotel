@@ -13,7 +13,7 @@ let currentUser;
 let today = moment().format('YYYY/MM/DD');
 
 let availabilityBox = document.getElementById('availability-box');
-let myBookingsNav = document.getElementById('my-bookings');
+let myBookingsNav = document.getElementById('my-bookings-nav');
 let passwordInput = document.getElementById('password-input');
 let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
@@ -32,6 +32,7 @@ let userRadio = document.querySelectorAll('user-radio');
 let myBookingsContainer  = document.getElementById('my-bookings-container');
 let userWelcome = document.getElementById('user-welcome');
 let userBookingsContainer = document.getElementById('user-bookings-container');
+let bookRoomNav = document.getElementById('book-room-nav')
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -42,6 +43,7 @@ myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
+bookRoomNav.addEventListener('click', displayBookRoomDash)
 
 function fetchAllData() {
   let roomsPromise = apiCalls.fetchData('rooms');
@@ -91,6 +93,12 @@ function displayUserDashboard() {
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
+}
+
+function displayBookRoomDash() {
+  availabilityBox.classList.remove('hidden');
+  userDashboardContainer.classList.remove('hidden');
+  myBookingsContainer.classList.add('hidden');
 }
 
 function displayRoomsToUserAvailability(roomsToDisplay) {
