@@ -43,6 +43,7 @@ export default class HotelOperation {
   }
 
   createBookingsRecord() {
+    this.bookingsRecord = [];
     let bookingsRecord = this.bookingsData.forEach(rawBooking => {
       this.createBooking(rawBooking);
     })

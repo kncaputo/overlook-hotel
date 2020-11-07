@@ -151,14 +151,17 @@ function determineBidet(room) {
   return `No`
 }
 
-// function updateBookings() {
-//   let bookingsPromise = apiCalls.fetchData('bookings');
-//
-//   Promise.all([bookingsPromise])
-//   .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
-//   .then(() => loadPage())
-//   .catch(err => console.log(err))
-// }
+function updateBookings() {
+  console.log("before Promise: ", hotelOperation.bookingsData.length)
+  let bookingsPromise = apiCalls.fetchData('bookings');
+
+  Promise.all([bookingsPromise])
+  .then(data => hotelOperation.bookingsData = data[0])
+  .then(() => hotelOperation.createBookingsRecord())
+  .catch(err => console.log(err))
+
+  console.log("After Promise: ", hotelOperation.bookingsData.length)
+}
 
 function bookRoom(event) {
   // modal.classList.remove('hidden');
@@ -177,6 +180,7 @@ function bookRoom(event) {
     roomNumber: roomToBook.number
   }
   apiCalls.postData(bookingData, onSuccess)
+  updateBookings();
 }
 
 function determineSelection() {
