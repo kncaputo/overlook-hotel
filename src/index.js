@@ -30,13 +30,14 @@ let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let myBookingsContainer  = document.getElementById('my-bookings-container');
+let userWelcome = document.getElementById('user-welcome');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
-// submitBtn.addEventListener('click', verifyLogin);
+submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-myBookingsNav.addEventListener('click', displayMyBookings);
+// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+myBookingsNav.addEventListener('click', displayMyBookingsDash);
 resetBtn.addEventListener('click', resetForm);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
@@ -84,6 +85,8 @@ function verifyLogin() {
   });
   if (attemptedUser !== undefined) {
     if (passwordInput.value === attemptedUser.password) {
+      currentUser = attemptedUser;
+      console.log(currentUser)
       return displayUserDashboard();
     }
     deliverLoginError();
@@ -104,6 +107,7 @@ function displayUserDashboard() {
   signInHeader.classList.add('hidden');
   signInContainter.classList.add('hidden');
   userDashboard.classList.remove('hidden');
+  userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRooms(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
 }
@@ -185,7 +189,7 @@ function resetForm() {
   findRooms();
 }
 
-function displayMyBookings() {
+function displayMyBookingsDash() {
   availabilityBox.classList.add('hidden');
   userDashboardContainer.classList.add('hidden');
   myBookingsContainer.classList.remove('hidden');
