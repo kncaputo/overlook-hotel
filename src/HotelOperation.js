@@ -64,7 +64,7 @@ export default class HotelOperation {
 
   findUserID(name) {
     let searchedUser = this.usersRecord.find(user => {
-      return user.name === name;
+      return user.name.toLowerCase() === name.toLowerCase();
     });
     return searchedUser.id;
   }

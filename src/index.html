@@ -53,17 +53,17 @@
       <!-- User Dashboard Container / Book a Room -->
       <section class="flex-row" id="user-dashboard-container">
         <!-- Filters -->
-        <aside class="flex-column" id="user-filter-containter">
+        <aside class="flex-column filter-container" id="user-filter-container">
           <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
             <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
             <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
             <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
           </form>
-          <button id="reset-btn">Reset</button>
+          <button class="btn" id="user-reset-btn">Reset</button>
         </aside>
 
-        <section class="flex-column" id="user-availability-container">
+        <section class="flex-column cards-container" id="user-availability-container">
 
           <!-- Room Card -->
           <!-- <article class="flex-row rooms-card">
@@ -116,7 +116,7 @@
         </section>
       </section>
       <!-- User My Bookings Container -->
-        <section class="flex-column" id="my-bookings-container">
+        <section class="flex-column cards-container" id="my-bookings-container">
           <section class="flex-column future-bookings-box" id="user-future-bookings">
             <p>Future and Past bookings:</p>
           </section>
@@ -149,29 +149,34 @@
               </section>
               <button class="nav-btn sign-out-nav" id="manager-sign-out-nav" aria-label="Sign Out">Sign Out</button>
             </nav>
-            <!-- User Availability Box w Calendar -->
-
           </section>
         </section>
       </header>
       <!-- User Dashboard Container / Book a Room -->
       <section class="flex-row" id="user-dashboard-container">
         <!-- Filters -->
-        <aside class="flex-column" id="user-filter-containter">
-          <p>Filter Rooms:</p>
+        <aside class="flex-column filter-container" id="manager-filter-container">
+          <form class="flex-column" id="search-form">
+            <label name="search-users">Search Customers:</label>
+            <input class="" type="text" name="search-users" id="search-input">
+          </form>
+          <!-- <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
             <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
             <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
             <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
-          </form>
-          <button id="reset-btn">Reset</button>
+          </form> -->
+          <section class="flex-row">
+            <button class="btn" id="manager-clear-btn">Clear</button>
+            <button class="btn" id="manager-search-btn">Search</button>
+          </section>
         </aside>
 
-        <section class="flex-column" id="user-availability-container">
+        <section class="flex-column cards-container" id="manager-results-container">
 
         </section>
       </section>
-
+    </main>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>

@@ -13,28 +13,31 @@ let currentUser;
 let today = moment().format('YYYY/MM/DD');
 
 let availabilityBox = document.getElementById('availability-box');
+let bookRoomNav = document.getElementById('book-room-nav');
+let managerClearBtn = document.getElementById('manager-clear-btn');
+let managerDashboard = document.getElementById('manager-dashboard');
+let managerSearchBtn = document.getElementById('manager-search-btn');
+let modal = document.getElementById('modal');
+let myBookingsContainer = document.getElementById('my-bookings-container');
 let myBookingsNav = document.getElementById('my-bookings-nav');
 let passwordInput = document.getElementById('password-input');
 let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
 let radioSingle = document.getElementById('radio-single');
-let resetBtn = document.getElementById('reset-btn');
+let signInPage = document.getElementById('sign-in-page');
+let signOutNav = document.querySelector('.sign-out-nav');
 let submitBtn = document.getElementById('submit-btn');
 let userAvailabilityContainer = document.getElementById('user-availability-container');
+let userBookingsContainer = document.getElementById('user-bookings-container');
 let userCalendar = document.getElementById('user-calendar');
 let userDashboard = document.getElementById('user-dashboard');
 let userDashboardContainer = document.getElementById('user-dashboard-container');
 let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
-let myBookingsContainer = document.getElementById('my-bookings-container');
+let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
-let userBookingsContainer = document.getElementById('user-bookings-container');
-let bookRoomNav = document.getElementById('book-room-nav');
-let modal = document.getElementById('modal');
-let signOutNav = document.querySelector('.sign-out-nav');
-let signInPage = document.getElementById('sign-in-page');
-let managerDashboard = document.getElementById('manager-dashboard');
+let managerResultsContainer = document.getElementById('manager-results-container');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -43,12 +46,14 @@ window.onload = fetchAllData();
 // submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
+bookRoomNav.addEventListener('click', displayBookRoomDash);
+managerClearBtn.addEventListener('click', clearSearchForm);
+managerSearchBtn.addEventListener('click', searchUserBookings);
 myBookingsNav.addEventListener('click', displayMyBookingsDash);
-resetBtn.addEventListener('click', resetForm);
+signOutNav.addEventListener('click', signOut);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
-bookRoomNav.addEventListener('click', displayBookRoomDash);
-signOutNav.addEventListener('click', signOut);
+userResetBtn.addEventListener('click', resetRadioForm);
 userAvailabilityContainer.addEventListener('click', () => {
   bookRoom(event);
 })
@@ -241,7 +246,7 @@ function filterRoomsByDate() {
   return roomsToDisplay;
 }
 
-function resetForm() {
+function resetRadioForm() {
   radioSingle.checked=false;
   radioJunior.checked=false;
   radioResidential.checked=false;
@@ -290,8 +295,61 @@ function createBookingCard(booking) {
 
 function sortBookingsByDate(bookings) {
   return bookings.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date)
-  })
+    return new Date(b.date) - new Date(a.date);
+  });
+}
+
+function searchUserBookings() {
+  let searchInput = document.getElementById('search-input').value;
+  let userBookings = hotelOperation.filterBookingsByName(searchInput);
+  let sortedBookings = sortBookingsByDate(userBookings);
+  displaySearchedBookings(sortedBookings);
+}
+
+function displaySearchedBookings(bookings) {
+  managerResultsContainer.innerHTML = '';
+  bookings.forEach(booking => {
+    let bookingCard = createManagerBookingCard(booking);
+    managerResultsContainer.insertAdjacentHTML('beforeend', bookingCard);
+  });
+}
+
+function createManagerBookingCard(booking) {
+  let roomBooked;
+  if (booking.roomNumber > 25) {
+    roomBooked = {
+      number: 26,
+      roomType: 'Honeymoon Suite',
+      id: booking.id,
+      bidet: true,
+      bedSize: 'king',
+      numBeds: 1,
+      costPerNight: 599,
+      src: './images/presidential-villa-hottub.jpg'
+    }
+  } else {
+      roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
+  }
+
+  return `<article class="flex-row rooms-card" id="${booking.id}">
+    <section class="flex-column room-card-details">
+      <h3>${booking.date}</h3>
+      <p class="primary-details-text">${roomBooked.roomType.toUpperCase()}</p>
+      <p class="primary-details-text">Booking id: ${booking.id}</p>
+      <p class="secondary-details-text">${roomBooked.numBeds} ${roomBooked.bedSize} bed/s<br>
+      <p class="secondary-details-text">Bidet: ${determineBidet(roomBooked)}</p>
+    </section>
+    <section class="flex-column room-card-price">
+      <article class="flex-column card-inner-contents">
+        <h3>${roomBooked.costPerNight}</h3>
+        <p>Per night</p>
+      </article>
+    </section>
+  </article>`
+}
+
+function clearSearchForm() {
+
 }
 
 function signOut() {

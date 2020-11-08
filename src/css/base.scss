@@ -138,21 +138,32 @@ input.date {
   margin-top: 10px;
 }
 
-#user-filter-containter {
+aside.filter-container {
   background: $transparent-background;
   margin: 20px;
-  max-height: 300px;
+  height: 200px;
+  width: 300px;
+  padding: 20px;
+}
+
+#search-form {
+  justify-content: space-around;
 }
 
 #user-filter {
   flex-wrap: wrap;
 }
 
-#user-availability-container, #my-bookings-container {
- max-height: 700px;
- overflow: scroll !important;
- margin-top: 20px;
+.cards-container {
+  max-height: 700px;
+  overflow: scroll !important;
+  margin-top: 20px;
 }
+// #user-availability-container, #my-bookings-container {
+//  max-height: 700px;
+//  overflow: scroll !important;
+//  margin-top: 20px;
+// }
 
 .rooms-card {
   margin: 0px 20px 20px 20px;
