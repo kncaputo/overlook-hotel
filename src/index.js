@@ -44,8 +44,8 @@ window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
 // submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
+submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+// submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
 bookRoomNav.addEventListener('click', displayBookRoomDash);
 managerClearBtn.addEventListener('click', clearSearchForm);
@@ -197,10 +197,11 @@ function updateBookings() {
 
 function bookRoom(event) {
   // modal.classList.remove('hidden');
+  console.log("Pre Post", hotelOperation.bookingsRecord.length)
   let bookingDate = getFormatDate();
   let onSuccess = () => {
     removeRoomBooked(event)
-    console.log("THIS IS SUCCESS")
+    console.log("Post Post", hotelOperation.bookingsRecord.length)
   }
 
   let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -242,9 +243,13 @@ function findRooms() {
 }
 
 function getFormatDate() {
-  let formatDate = userCalendar.value.split('-');
-  let formattedDate = formatDate.join('/');
-  return formattedDate
+  if (!userCalendar.value) {
+    return today;
+  } else {
+    let formatDate = userCalendar.value.split('-');
+    let formattedDate = formatDate.join('/');
+    return formattedDate;
+  }
 }
 
 function filterRoomsByDate() {
