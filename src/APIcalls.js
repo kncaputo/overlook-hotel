@@ -22,6 +22,22 @@ let apiCalls = {
       onSuccess();
     })
     .catch(err => console.log(err))
+  },
+
+  deleteData(id, onSuccess) {
+    return fetch(`${url}bookings/bookings`, {
+      method: 'DELETE',
+      headers: {
+  	    'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newPost)
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+      onSuccess();
+    })
+    .catch(err => console.log(err))
   }
 }
 

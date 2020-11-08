@@ -27,6 +27,14 @@ body {
   flex-direction: column !important;
 }
 
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
 #sign-in-header {
   text-align: center;
   height: 130px;
@@ -35,7 +43,7 @@ body {
 .header {
   height: 9vw;
   background: $transparent-background;
-  border-radius: 5px;
+  // border-radius: 5px;
   height: 100px;
 }
 
@@ -145,13 +153,14 @@ aside.filter-container {
   background: $transparent-background;
   margin: 20px;
   height: 200px;
-  width: 300px;
+  // Don't want 300 for manager
+  // width: 300px;
   padding: 20px;
 }
 
-#search-form {
-  justify-content: space-around;
-}
+// #search-form-btns {
+//   justify-content: space-evenly;
+// }
 
 #user-filter {
   flex-wrap: wrap;

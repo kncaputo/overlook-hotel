@@ -3,6 +3,7 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
+import './images/5.jpg';
 
 import apiCalls from './apiCalls';
 import moment from 'moment';
@@ -82,7 +83,7 @@ function verifyLogin() {
       passwordInput.value = "";
       return displayManagerDashboard();
     }
-      deliverLoginError();
+    deliverLoginError();
   }
 
   let attemptedUser = hotelOperation.usersRecord.find(user => {
@@ -92,7 +93,6 @@ function verifyLogin() {
   if (attemptedUser !== undefined) {
     verifyPassword(attemptedUser);
   }
-
 }
 
 function displayManagerDashboard() {
@@ -119,7 +119,11 @@ function deliverLoginError() {
 
 function displayUserDashboard() {
   // ------ Just for dev mode
-  // currentUser = hotelOperation.usersRecord[0];
+  if (!hotelOperation.usersRecord[0]) {
+    currentUser = {name: 'User'};
+  } else {
+    currentUser = hotelOperation.usersRecord[0];
+  }
 
   console.log('Display Dash')
   signInPage.classList.add('hidden');
@@ -147,10 +151,11 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
 function createRoomCard(room) {
   return `<article class="flex-row rooms-card" id="container${room.number}">
     <section class="flex-column room-img-box">
-      <img class="room-card-photo" src=${room.src} alt="">
+      <img class="room-card-photo" src="./images/5.jpg" alt="${room.roomType}">
     </section>
     <section class="flex-column room-card-details">
       <h3>${room.roomType.toUpperCase()}</h3>
+      <p class="primary-details-text">Room Number ${room.number}</p>
       <p class="primary-details-text">${determineBedHtml(room)}<br>
       <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
     </section>
@@ -343,9 +348,18 @@ function createManagerBookingCard(booking) {
       <article class="flex-column card-inner-contents">
         <h3>${roomBooked.costPerNight}</h3>
         <p>Per night</p>
+        ${determineFutureBooking(booking.date)}
       </article>
     </section>
   </article>`
+}
+
+function determineFutureBooking(date) {
+  if (date > today) {
+    return `<button class="btn">Delete Booking</button>`
+  } else {
+    return '';
+  }
 }
 
 function clearSearchForm() {
