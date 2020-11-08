@@ -154,7 +154,7 @@
         <aside class="flex-column filter-container" id="manager-filter-container">
           <form class="flex-column" id="search-form">
             <label name="search-users">Search Customers:</label>
-            <input class="" type="text" name="search-users" id="search-input">
+            <input class="" type="text" name="search-users" id="search-input" required>
           </form>
           <!-- <p>Filter Rooms:</p>
           <form class="flex-row" id="user-filter">
@@ -166,10 +166,13 @@
             <button class="btn" id="manager-clear-btn">Clear</button>
             <button class="btn" id="manager-search-btn">Search</button>
           </section>
+          <form class="flex-column hidden" id="manager-booking-form">
+            <label name="search-availability">Add new booking for user:</label>
+            <input class="date" type="date" name="manager-booking-cal" id="manager-booking-cal">
+          </form>
         </aside>
 
         <section class="flex-column cards-container" id="manager-results-container">
-
         </section>
       </section>
     </main>

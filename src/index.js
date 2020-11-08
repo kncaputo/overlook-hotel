@@ -41,6 +41,7 @@ let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
 let managerStatsCal = document.getElementById('manager-stats-calendar');
+let managerBookingForm = document.getElementById('manager-booking-form');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -107,6 +108,7 @@ function displayManagerDashboard() {
   updateStats();
   signInPage.classList.add('hidden');
   managerDashboard.classList.remove('hidden');
+
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
 }
 
@@ -352,6 +354,7 @@ function searchUserBookings() {
   let searchInput = document.getElementById('search-input').value;
   let userBookings = hotelOperation.filterBookingsByName(searchInput);
   let sortedBookings = sortBookingsByDate(userBookings);
+  managerBookingForm.classList.remove('hidden');
   displaySearchedBookings(sortedBookings);
 }
 
@@ -413,7 +416,6 @@ function deleteBooking(event) {
 
   let onSuccess = () => {
     removeDeletedBooking(bookingId)
-    console.log("THIS IS SUCCESS")
   }
   let parsedInt = parseInt(bookingId);
   if (typeof parsedInt === 'number') {
@@ -430,13 +432,14 @@ function deleteBooking(event) {
   updateBookings();
   document.getElementById(`${bookingId}`).remove();
 }
-
-function removeDeletedBooking(bookingId) {
-  document.getElementById(`${bookingId}`).remove();
-}
+//
+// function removeDeletedBooking(bookingId) {
+//   document.getElementById(`${bookingId}`).remove();
+// }
 
 function clearSearchForm() {
-
+  searchInput.value = '';
+  managerBookingForm.classList.add('hidden');
 }
 
 function signOut() {
