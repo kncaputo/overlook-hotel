@@ -42,6 +42,7 @@ let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
 let managerStatsCal = document.getElementById('manager-stats-calendar');
 let managerBookingForm = document.getElementById('manager-booking-form');
+let searchInput = document.getElementById('search-input');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -326,7 +327,7 @@ function createBookingCard(booking) {
 
   return `<article class="flex-row rooms-card" id="${booking.id}">
     <section class="flex-column room-img-box">
-      <img class="room-card-photo" src=${roomBooked.src} alt="">
+      <img class="room-card-photo" src=${roomBooked.number} alt="">
     </section>
     <section class="flex-column room-card-details">
       <h3>${booking.date}</h3>
@@ -351,11 +352,19 @@ function sortBookingsByDate(bookings) {
 }
 
 function searchUserBookings() {
-  let searchInput = document.getElementById('search-input').value;
-  let userBookings = hotelOperation.filterBookingsByName(searchInput);
+  let query = searchInput.value;
+  let userBookings = hotelOperation.filterBookingsByName(query);
+  if (typeof userBookings === 'string') {
+    return displayManagerSearchError(userBookings);
+  }
   let sortedBookings = sortBookingsByDate(userBookings);
   managerBookingForm.classList.remove('hidden');
   displaySearchedBookings(sortedBookings);
+}
+
+function displayManagerSearchError(error) {
+  managerResultsContainer.innerHTML = '';
+  managerResultsContainer.insertAdjacentHTML('beforeend', error);
 }
 
 function displaySearchedBookings(bookings) {
@@ -438,7 +447,10 @@ function deleteBooking(event) {
 // }
 
 function clearSearchForm() {
-  searchInput.value = '';
+  if (searchInput.value) {
+    searchInput.value = '';
+  }
+  managerResultsContainer.innerHTML = '';
   managerBookingForm.classList.add('hidden');
 }
 
