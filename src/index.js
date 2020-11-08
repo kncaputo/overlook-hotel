@@ -128,13 +128,25 @@ function displayUserDashboard() {
     currentUser = hotelOperation.usersRecord[0];
   }
 
-  console.log('Display Dash')
+  setDateUserCalendar();
   signInPage.classList.add('hidden');
   userDashboard.classList.remove('hidden');
   myBookingsContainer.classList.add('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
   // TODO - add styles for that Book A Room nav looks highlighted
+}
+
+function setDateUserCalendar() {
+  let formatDate = today.split('/');
+  let formattedDate = formatDate.join('-');
+
+  userCalendar.setAttribute('value', `${formattedDate}`);
+  userCalendar.setAttribute('min', `${formattedDate}`);
+}
+
+function setDateManagerCalendar() {
+  
 }
 
 function displayBookRoomDash() {
