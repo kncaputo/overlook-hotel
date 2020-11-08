@@ -24,13 +24,13 @@ let apiCalls = {
     .catch(err => console.log(err))
   },
 
-  deleteData(id, onSuccess) {
+  deleteData(deleteRequest, onSuccess) {
     return fetch(`${url}bookings/bookings`, {
       method: 'DELETE',
       headers: {
   	    'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newPost)
+      body: JSON.stringify(deleteRequest)
     })
     .then(response => response.json())
     .then(json => {

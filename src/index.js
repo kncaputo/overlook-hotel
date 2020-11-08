@@ -55,9 +55,12 @@ signOutNav.addEventListener('click', signOut);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 userResetBtn.addEventListener('click', resetRadioForm);
+managerResultsContainer.addEventListener('click', () => {
+  deleteBooking(event);
+});
 userAvailabilityContainer.addEventListener('click', () => {
   bookRoom(event);
-})
+});
 
 function fetchAllData() {
   let roomsPromise = apiCalls.fetchData('rooms');
@@ -348,18 +351,39 @@ function createManagerBookingCard(booking) {
       <article class="flex-column card-inner-contents">
         <h3>${roomBooked.costPerNight}</h3>
         <p>Per night</p>
-        ${determineFutureBooking(booking.date)}
+        ${determineFutureBooking(booking)}
       </article>
     </section>
   </article>`
 }
 
-function determineFutureBooking(date) {
-  if (date > today) {
-    return `<button class="btn">Delete Booking</button>`
+function determineFutureBooking(booking) {
+  if (booking.date > today) {
+    return `<button class="btn" id="${booking.id}">Delete Booking</button>`
   } else {
     return '';
   }
+}
+
+function deleteBooking(event) {
+  let bookingId = event.target.id;
+  console.log(bookingId)
+
+  let onSuccess = () => {
+    removeDeletedBooking(bookingId)
+    console.log("THIS IS SUCCESS")
+  }
+
+  let deleteRequest = {
+    id: bookingId
+  }
+  apiCalls.deleteData(deleteRequest, onSuccess);
+  updateBookings();
+  // document.getElementById(`${bookingId}`).remove();
+}
+
+function removeDeletedBooking(bookingId) {
+  document.getElementById(`${bookingId}`).remove();
 }
 
 function clearSearchForm() {
