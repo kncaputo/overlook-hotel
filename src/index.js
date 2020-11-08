@@ -17,6 +17,7 @@ let availabilityBox = document.getElementById('availability-box');
 let bookRoomNav = document.getElementById('book-room-nav');
 let managerClearBtn = document.getElementById('manager-clear-btn');
 let managerDashboard = document.getElementById('manager-dashboard');
+let managerResultsContainer = document.getElementById('manager-results-container');
 let managerSearchBtn = document.getElementById('manager-search-btn');
 let modal = document.getElementById('modal');
 let myBookingsContainer = document.getElementById('my-bookings-container');
@@ -38,14 +39,14 @@ let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
-let managerResultsContainer = document.getElementById('manager-results-container');
+let managerStatsCal = document.getElementById('manager-stats-calendar');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
 // submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-// submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
+// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
 bookRoomNav.addEventListener('click', displayBookRoomDash);
 managerClearBtn.addEventListener('click', clearSearchForm);
@@ -55,6 +56,7 @@ signOutNav.addEventListener('click', signOut);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 userResetBtn.addEventListener('click', resetRadioForm);
+managerStatsCal.addEventListener('click', updateStats);
 managerResultsContainer.addEventListener('click', () => {
   deleteBooking(event);
 });
@@ -99,7 +101,9 @@ function verifyLogin() {
 }
 
 function displayManagerDashboard() {
-  console.log('Display Manager Dash')
+  managerStatsCal.setAttribute('value', `${formatCalendarDate()}`);
+  managerStatsCal.setAttribute('max', `${formatCalendarDate()}`);
+  updateStats();
   signInPage.classList.add('hidden');
   managerDashboard.classList.remove('hidden');
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
@@ -128,7 +132,8 @@ function displayUserDashboard() {
     currentUser = hotelOperation.usersRecord[0];
   }
 
-  setDateUserCalendar();
+  userCalendar.setAttribute('value', `${formatCalendarDate()}`);
+  userCalendar.setAttribute('min', `${formatCalendarDate()}`);
   signInPage.classList.add('hidden');
   userDashboard.classList.remove('hidden');
   myBookingsContainer.classList.add('hidden');
@@ -137,16 +142,18 @@ function displayUserDashboard() {
   // TODO - add styles for that Book A Room nav looks highlighted
 }
 
-function setDateUserCalendar() {
+function formatCalendarDate() {
   let formatDate = today.split('/');
   let formattedDate = formatDate.join('-');
-
-  userCalendar.setAttribute('value', `${formattedDate}`);
-  userCalendar.setAttribute('min', `${formattedDate}`);
+  return formattedDate;
 }
 
-function setDateManagerCalendar() {
-  
+function updateStats() {
+  let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(today)}</p>
+  <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(today).toFixed(2)}</p>
+  <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(today)}%</p>`
+
+  document.getElementById('manager-stats-container').insertAdjacentHTML('afterbegin', html);
 }
 
 function displayBookRoomDash() {
@@ -385,15 +392,23 @@ function determineFutureBooking(booking) {
 function deleteBooking(event) {
   let bookingId = event.target.id;
   console.log(bookingId)
+  let deleteRequest;
 
   let onSuccess = () => {
     removeDeletedBooking(bookingId)
     console.log("THIS IS SUCCESS")
   }
-
-  let deleteRequest = {
-    id: bookingId
+  let parsedInt = parseInt(bookingId);
+  if (typeof parsedInt === 'number') {
+    deleteRequest = {
+      id: parsedInt
+    }
+  } else {
+    deleteRequest = {
+      id: bookingId
+    }
   }
+
   apiCalls.deleteData(deleteRequest, onSuccess);
   updateBookings();
   // document.getElementById(`${bookingId}`).remove();
