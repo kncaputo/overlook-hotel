@@ -319,13 +319,13 @@ function createManagerBookingCard(booking) {
   if (booking.roomNumber > 25) {
     roomBooked = {
       number: 26,
-      roomType: 'Honeymoon Suite',
+      roomType: 'honeymoon suite',
       id: booking.id,
       bidet: true,
       bedSize: 'king',
       numBeds: 1,
       costPerNight: 599,
-      src: './images/presidential-villa-hottub.jpg'
+      src: './images/honeymoon-suite.jpg'
     }
   } else {
       roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);

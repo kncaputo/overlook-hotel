@@ -6,8 +6,11 @@ $transparent-background: rgba(255, 255, 255, 0.67);
 }
 
 body {
-  background:  url(../images/srilanka.jpg);
-  object-fit: contain;
+  background:  url(../images/overlook.jpg);
+  // object-fit: contain;
+  background-size: cover;
+  // height: 100vh;
+  // width: 100vw;
 }
 
 .hidden {
