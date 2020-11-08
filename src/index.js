@@ -43,6 +43,9 @@ let userWelcome = document.querySelector('.user-welcome');
 let managerStatsCal = document.getElementById('manager-stats-calendar');
 let managerBookingForm = document.getElementById('manager-booking-form');
 let searchInput = document.getElementById('search-input');
+let managerBookingCal = document.getElementById('manager-booking-cal');
+let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
+let managerSearchSubject = document.getElementById('manager-search-subject');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -147,10 +150,7 @@ function displayUserDashboard() {
 }
 
 function updateStats() {
-  console.log("calendar value: ", managerStatsCal.value)
   let date = formatDateForStats()
-  console.log("date", date)
-  console.log("hotelOperation.getTotalRevenue(date).toFixed(2)", hotelOperation.getTotalRevenue(date).toFixed(2))
   let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(date)}</p>
   <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
   <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(date)}%</p>`
@@ -351,15 +351,38 @@ function sortBookingsByDate(bookings) {
   });
 }
 
+// MANAGER SEARCH USER BOOKINGS --------------------
+
 function searchUserBookings() {
   let query = searchInput.value;
+  let userId = hotelOperation.findUserID(query);
   let userBookings = hotelOperation.filterBookingsByName(query);
+
   if (typeof userBookings === 'string') {
     return displayManagerSearchError(userBookings);
+  } else if (userBookings.length === 0) {
+
   }
   let sortedBookings = sortBookingsByDate(userBookings);
-  managerBookingForm.classList.remove('hidden');
+  let userName = hotelOperation.
+  revealManagerCalendar();
+  managerNewBookingsContainer.classList.remove('hidden');
+  managerResultsContainer.innerHTML = '';
+  displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
+}
+
+function displaySearchSubject(userId) {
+  let userName = hotelOperation.findUserName(userId);
+  let html = `<h2>Bookings for ${userName}</h2>
+  <h3>Total Spent: $${}`
+  managerSearchSubject.insertAdjacentHTML('beforeend', );
+}
+
+function revealManagerCalendar() {
+  managerBookingForm.classList.remove('hidden');
+  managerBookingCal.setAttribute('value', `${todayDashes}`);
+  managerBookingCal.setAttribute('min', `${todayDashes}`);
 }
 
 function displayManagerSearchError(error) {
@@ -368,7 +391,6 @@ function displayManagerSearchError(error) {
 }
 
 function displaySearchedBookings(bookings) {
-  managerResultsContainer.innerHTML = '';
   bookings.forEach(booking => {
     let bookingCard = createManagerBookingCard(booking);
     managerResultsContainer.insertAdjacentHTML('beforeend', bookingCard);
@@ -441,10 +463,6 @@ function deleteBooking(event) {
   updateBookings();
   document.getElementById(`${bookingId}`).remove();
 }
-//
-// function removeDeletedBooking(bookingId) {
-//   document.getElementById(`${bookingId}`).remove();
-// }
 
 function clearSearchForm() {
   if (searchInput.value) {

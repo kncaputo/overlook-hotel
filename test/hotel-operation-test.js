@@ -246,5 +246,13 @@ describe('HotelOperation', () => {
 
       expect(results.roomType).to.deep.equal('suite');
     });
+
+    it('should have a method that calculates a user\'s total spending', () => {
+      hotelOperation.start();
+
+      let result = hotelOperation.calculateUserSpending('Anson Aimes');
+
+      expect(result).to.deep.equal(614.54);
+    });
   });
 });

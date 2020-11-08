@@ -65,9 +65,9 @@ export default class HotelOperation {
     return false;
   }
 
-  findUserID(name) {
+  findUserID(userName) {
     let searchedUser = this.usersRecord.find(user => {
-      return user.name.toLowerCase() === name.toLowerCase();
+      return user.name.toLowerCase().includes(userName.toLowerCase())
     });
     if (searchedUser) {
       return searchedUser.id;
@@ -143,5 +143,16 @@ export default class HotelOperation {
     return this.roomsRecord.find(room => {
       return room.number === roomNumber;
     })
+  }
+
+  calculateUserSpending(name) {
+    let bookings = this.filterBookingsByName(name);
+
+    return bookings.reduce((sum, booking) => {
+      this.roomsRecord.forEach(room => {
+        if (booking.roomNumber === room.number) {sum += room.costPerNight}
+      })
+      return sum;
+    }, 0);
   }
 }
