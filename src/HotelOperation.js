@@ -59,19 +59,30 @@ export default class HotelOperation {
     let searchedUser = this.usersRecord.find(user => {
       return user.id === userID;
     });
-    return searchedUser.name;
+    if (searchedUser) {
+      return searchedUser.name;
+    }
+    return false;
   }
 
   findUserID(name) {
     let searchedUser = this.usersRecord.find(user => {
       return user.name.toLowerCase() === name.toLowerCase();
     });
-    return searchedUser.id;
+    if (searchedUser) {
+      return searchedUser.id;
+    }
+    return false;
   }
 
   filterBookingsByName(name) {
+    let userID = this.findUserID(name);
+
+    if (!userID) {
+      return 'User not in database.'
+    }
+
     let bookingsByName = this.bookingsRecord.filter(booking => {
-      let userID = this.findUserID(name);
       return booking.userID === userID;
     })
     return bookingsByName;

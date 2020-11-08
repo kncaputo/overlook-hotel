@@ -21,14 +21,6 @@ describe('Booking', () => {
       expect(booking.id).to.deep.equal('1abcde2f3h11ij4lm');
     });
 
-    it('should have an name', () => {
-      expect(booking.name).to.deep.equal('Carlton');
-    });
-
-    it('should default to null when a name isn\'t provided', () => {
-      expect(booking2.name).to.deep.equal(null);
-    });
-
     it('should have a user id', () => {
       expect(booking.userID).to.deep.equal(1);
     });

@@ -130,9 +130,16 @@ describe('HotelOperation', () => {
 
     it('should have a method to find user name when given an id', () => {
       hotelOperation.createUsersRecord(usersData);
-      let result = hotelOperation.findUserName(2, 'name');
+      let result = hotelOperation.findUserName(2);
 
       expect(result).to.deep.equal('Theo Hernandez');
+    });
+
+    it('should return false if given an id not associated with any user', () => {
+      hotelOperation.createUsersRecord(usersData);
+      let result = hotelOperation.findUserName(666);
+
+      expect(result).to.deep.equal(false);
     });
 
     it('should have a method to find user id when given a name', () => {
@@ -144,6 +151,15 @@ describe('HotelOperation', () => {
       expect(result).to.deep.equal(1);
     });
 
+    it('should return false when a name that doesn\'t match a user id', () => {
+      hotelOperation.createBookingsRecord(bookingsData);
+      hotelOperation.createUsersRecord(usersData);
+
+      let result = hotelOperation.findUserID('Alyssa Bull');
+
+      expect(result).to.deep.equal(false);
+    });
+
     it('should filter bookings by user name', () => {
       hotelOperation.createBookingsRecord(bookingsData);
       hotelOperation.createUsersRecord(usersData);
@@ -153,6 +169,15 @@ describe('HotelOperation', () => {
       expect(result.length).to.deep.equal(2);
       expect(result[0].userID).to.deep.equal(1);
       expect(result[1].userID).to.deep.equal(1);
+    });
+
+    it('should return a message when a name not in the database is passed into filtering bookings method', () => {
+      hotelOperation.createBookingsRecord(bookingsData);
+      hotelOperation.createUsersRecord(usersData);
+
+      let result = hotelOperation.filterBookingsByName('Bailey Dunning');
+
+      expect(result).to.deep.equal('User not in database.');
     });
 
     it('should have a method that filters bookings when given a date', () => {

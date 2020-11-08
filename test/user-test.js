@@ -25,14 +25,6 @@ describe('User', () => {
       expect(user.name).to.deep.equal("Lila Jones");
     });
 
-    it('should take in manager status as an argument and assign to a property', () => {
-      expect(user.isManager).to.deep.equal(false);
-    });
-
-    it('should default to false if no manager status is provided', () => {
-      expect(user2.isManager).to.deep.equal(false);
-    });
-
     it('should have a username', () => {
       expect(user.username).to.deep.equal('customer1');
     });
