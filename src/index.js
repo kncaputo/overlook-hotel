@@ -411,7 +411,7 @@ function deleteBooking(event) {
 
   apiCalls.deleteData(deleteRequest, onSuccess);
   updateBookings();
-  // document.getElementById(`${bookingId}`).remove();
+  document.getElementById(`${bookingId}`).remove();
 }
 
 function removeDeletedBooking(bookingId) {
