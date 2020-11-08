@@ -12,6 +12,7 @@ import HotelOperation from './HotelOperation';
 let hotelOperation;
 let currentUser;
 let today = moment().format('YYYY/MM/DD');
+let todayDashes = moment().format('YYYY-MM-DD');
 
 let availabilityBox = document.getElementById('availability-box');
 let bookRoomNav = document.getElementById('book-room-nav');
@@ -56,7 +57,7 @@ signOutNav.addEventListener('click', signOut);
 userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 userResetBtn.addEventListener('click', resetRadioForm);
-managerStatsCal.addEventListener('click', updateStats);
+managerStatsCal.addEventListener('change', updateStats);
 managerResultsContainer.addEventListener('click', () => {
   deleteBooking(event);
 });
@@ -101,8 +102,8 @@ function verifyLogin() {
 }
 
 function displayManagerDashboard() {
-  managerStatsCal.setAttribute('value', `${formatCalendarDate()}`);
-  managerStatsCal.setAttribute('max', `${formatCalendarDate()}`);
+  managerStatsCal.setAttribute('value', `${todayDashes}`);
+  managerStatsCal.setAttribute('max', `${todayDashes}`);
   updateStats();
   signInPage.classList.add('hidden');
   managerDashboard.classList.remove('hidden');
@@ -132,8 +133,8 @@ function displayUserDashboard() {
     currentUser = hotelOperation.usersRecord[0];
   }
 
-  userCalendar.setAttribute('value', `${formatCalendarDate()}`);
-  userCalendar.setAttribute('min', `${formatCalendarDate()}`);
+  userCalendar.setAttribute('value', `${todayDashes}`);
+  userCalendar.setAttribute('min', `${todayDashes}`);
   signInPage.classList.add('hidden');
   userDashboard.classList.remove('hidden');
   myBookingsContainer.classList.add('hidden');
@@ -142,17 +143,15 @@ function displayUserDashboard() {
   // TODO - add styles for that Book A Room nav looks highlighted
 }
 
-function formatCalendarDate() {
-  let formatDate = today.split('/');
-  let formattedDate = formatDate.join('-');
-  return formattedDate;
-}
-
 function updateStats() {
-  let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(today)}</p>
-  <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(today).toFixed(2)}</p>
-  <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(today)}%</p>`
-
+  console.log("calendar value: ", managerStatsCal.value)
+  let date = formatDateForStats()
+  console.log("date", date)
+  console.log("hotelOperation.getTotalRevenue(date).toFixed(2)", hotelOperation.getTotalRevenue(date).toFixed(2))
+  let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(date)}</p>
+  <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
+  <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(date)}%</p>`
+  document.getElementById('manager-stats-container').innerHTML = '';
   document.getElementById('manager-stats-container').insertAdjacentHTML('afterbegin', html);
 }
 
@@ -261,6 +260,7 @@ function findRooms() {
   return displayRoomsToUserAvailability(filteredByDate)
 }
 
+// --------------- DATE FORMATTING ---------------------
 function getFormatDate() {
   if (!userCalendar.value) {
     return today;
@@ -270,6 +270,23 @@ function getFormatDate() {
     return formattedDate;
   }
 }
+
+// function formatTodayCalendarDate() {
+//   let formatDate = today.split('/');
+//   let formattedDate = formatDate.join('-');
+//   return formattedDate;
+// }
+
+function formatDateForStats() {
+  if (!managerStatsCal.value) {
+    return today;
+  } else {
+    let formatDate = managerStatsCal.value.split('-');
+    let formattedDate = formatDate.join('/');
+    return formattedDate;
+  }
+}
+// -----------------------------------
 
 function filterRoomsByDate() {
   let date = getFormatDate();
