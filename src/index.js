@@ -400,8 +400,12 @@ function sortBookingsByDate(bookings) {
 
 function searchUserBookings() {
   let query = searchInput.value;
+  
+  if (query === '') {
+    return displayManagerSearchError('Please enter a valid customer name.');
+  }
+
   let userId = hotelOperation.findUserID(query);
-  // getSearchedUserId();
   let userBookings = hotelOperation.filterBookingsByName(query);
 
   if (typeof userBookings === 'string') {
@@ -418,13 +422,9 @@ function searchUserBookings() {
   displaySearchedBookings(sortedBookings);
 }
 
-// function getSearchedUserId() {
-//   let query = searchInput.value;
-//   return hotelOperation.findUserID(query);
-// }
-
 function displaySearchSubject(userId) {
   let userName = hotelOperation.findUserName(userId);
+
   let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
   let html = `<h3>Customer: ${userName}</h3>
   <h3>Total Spent: $${spent}</h3>`
@@ -439,10 +439,13 @@ function showManagerCalendar() {
   managerBookingCal.setAttribute('min', `${todayDashes}`);
 }
 
+// TO DO - THIS IS NOT BEING CALLED
+
 function displayManagerSearchError(error) {
-  managerResultsContainer.innerHTML = '';
-  managerResultsContainer.classList.remove('hidden');
-  managerResultsContainer.insertAdjacentHTML('beforeend', error);
+  managerSearchSubject.innerHTML = '';
+  managerSearchSubject.classList.remove('hidden');
+  let html = `<p>${error}</p>`
+  managerSearchSubject.insertAdjacentHTML('beforeend', html);
 }
 
 function displaySearchedBookings(bookings) {
@@ -529,10 +532,13 @@ function clearSearchForm() {
     searchInput.value = '';
   }
   managerResultsContainer.innerHTML = '';
+  customersBookings.classList.add('hidden');
+  managerSearchSubject.innerHTML = '';
   managerSearchSubject.classList.add('hidden');
   managerSelectRoom.classList.add('hidden');
   managerBookingForm.classList.add('hidden');
   managerResultsContainer.classList.add('hidden');
+  managerNewBookingContainer.innerHTML = '';
   managerNewBookingContainer.classList.remove('hidden');
 }
 
