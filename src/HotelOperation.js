@@ -25,6 +25,7 @@ export default class HotelOperation {
   }
 
   createBooking(rawBooking) {
+    rawBooking.roomNumber = parseInt(rawBooking.roomNumber);
     let booking = new Booking(rawBooking);
     this.bookingsRecord.push(booking);
     return booking;

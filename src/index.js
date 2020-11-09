@@ -293,6 +293,11 @@ function managerBookRoom(event) {
   updateBookings();
 }
 
+function getSearchedUserId() {
+  let query = searchInput.value;
+  return hotelOperation.findUserID(query);
+}
+
 function managerRemoveRoomBooked(event) {
   let roomToDeleteId = event.target.id;
   document.getElementById(`room${roomToDeleteId}`).remove();
