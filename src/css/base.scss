@@ -349,15 +349,24 @@ aside.filter-container {
 }
 
 .mgr-card-text {
+  text-align: center;
   font-size: 14px;
   margin: 0 10px;
   width: 120px;
 }
 
 .mgr-card-small {
+  text-align: center;
   font-size: 14px;
   margin: 0 10px;
   width: 60px;
+}
+
+.mgr-card-large {
+  text-align: center;
+  font-size: 14px;
+  margin: 0 13px;
+  width: 130px;
 }
 
 .mgr-cards-container {
@@ -367,5 +376,8 @@ aside.filter-container {
 
 .manager-rooms-card-header {
   position: sticky;
+  text-align: center;
   border: 1px solid darkgray;
+  background: $transparent-background;
+  padding: 10px 20px 10px 20px;
 }

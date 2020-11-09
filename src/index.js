@@ -48,6 +48,7 @@ let managerNewBookingContainer = document.getElementById('manager-new-booking-co
 let managerSearchSubject = document.getElementById('manager-search-subject');
 let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
 let customersBookings = document.getElementById('customers-bookings');
+let managerSelectRoom = document.getElementById('manager-select-room');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -67,6 +68,9 @@ userResetBtn.addEventListener('click', resetRadioForm);
 managerStatsCal.addEventListener('change', updateStats);
 mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
 managerBookingCal.addEventListener('change', showMgrAvailableRooms);
+managerSelectRoom.addEventListener('click', () => {
+  managerBookRoom(event);
+});
 managerResultsContainer.addEventListener('click', () => {
   deleteBooking(event);
 });
@@ -242,6 +246,33 @@ function bookRoom(event) {
   updateBookings();
 }
 
+function managerBookRoom(event) {
+  // modal.classList.remove('hidden');
+  console.log("Pre Post", hotelOperation.bookingsRecord.length)
+  let bookingDate = formatMgrAvailabilityDate();
+  let onSuccess = () => {
+    managerRemoveRoomBooked(event)
+    console.log("Post Post", hotelOperation.bookingsRecord.length)
+  }
+
+  let roomToBook = hotelOperation.roomsRecord.find(room => {
+    return room.number == event.target.id;
+  })
+  let userId = getSearchedUserId();
+  let bookingData = {
+    userID: userId,
+    date: bookingDate,
+    roomNumber: roomToBook.number
+  }
+  apiCalls.postData(bookingData, onSuccess)
+  updateBookings();
+}
+
+function managerRemoveRoomBooked(event) {
+  let roomToDeleteId = event.target.id;
+  document.getElementById(`room${roomToDeleteId}`).remove();
+}
+
 function removeRoomBooked(event) {
   let roomToDeleteId = event.target.id;
   document.getElementById(`container${roomToDeleteId}`).remove();
@@ -370,6 +401,7 @@ function sortBookingsByDate(bookings) {
 function searchUserBookings() {
   let query = searchInput.value;
   let userId = hotelOperation.findUserID(query);
+  // getSearchedUserId();
   let userBookings = hotelOperation.filterBookingsByName(query);
 
   if (typeof userBookings === 'string') {
@@ -385,6 +417,11 @@ function searchUserBookings() {
   displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
 }
+
+// function getSearchedUserId() {
+//   let query = searchInput.value;
+//   return hotelOperation.findUserID(query);
+// }
 
 function displaySearchSubject(userId) {
   let userName = hotelOperation.findUserName(userId);
@@ -434,13 +471,15 @@ function createManagerBookingCard(booking) {
 
   return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="${booking.id}">
     <p class="mgr-card-small">${booking.date}</p>
-    <p class="mgr-card-text">${roomBooked.roomType.toUpperCase()}</p>
+    <p class="mgr-card-large">${roomBooked.roomType.toUpperCase()}</p>
     <p class="mgr-card-small">${roomBooked.number}</p>
     <p class="mgr-card-text">${booking.id}</p>
-    <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}<br>
+    <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(roomBooked)}</p>
     <p class="mgr-card-small">${roomBooked.costPerNight}</p>
+    <div class="mgr-card-text">
     ${determineFutureBooking(booking)}
+    </div>
   </article>`
 }
 //
@@ -490,6 +529,8 @@ function clearSearchForm() {
     searchInput.value = '';
   }
   managerResultsContainer.innerHTML = '';
+  managerSearchSubject.classList.add('hidden');
+  managerSelectRoom.classList.add('hidden');
   managerBookingForm.classList.add('hidden');
   managerResultsContainer.classList.add('hidden');
   managerNewBookingContainer.classList.remove('hidden');
@@ -498,7 +539,7 @@ function clearSearchForm() {
 function showMgrAvailableRooms() {
   let date = formatMgrAvailabilityDate();
   let availableRooms = hotelOperation.findAvailableRooms(date);
-  document.getElementById('select-date').classList.remove('hidden');
+  managerSelectRoom.classList.remove('hidden');
   managerNewBookingContainer.classList.remove('hidden');
   availableRooms.forEach(room => {
     let html = createManagerRoomCard(room);
@@ -507,12 +548,12 @@ function showMgrAvailableRooms() {
 }
 
 function createManagerRoomCard(room) {
-  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="container${room.number}">
-    <p class="mgr-card-text">${room.roomType.toUpperCase()}</hp>
-    <p class="mgr-card-text">${room.number}</p>
-    <p class="mgr-card-text">${room.numBeds} ${room.bedSize} bed/s<br>
-    <p class="mgr-card-text">${determineBidet(room)}</p>
-    <p class="mgr-card-text">${room.costPerNight}</p>
+  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="room${room.number}">
+    <p class="mgr-card-large">${room.roomType.toUpperCase()}</p>
+    <p class="mgr-card-small">${room.number}</p>
+    <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
+    <p class="mgr-card-small">${determineBidet(room)}</p>
+    <p class="mgr-card-small">${room.costPerNight}</p>
     <button class="card-btn-book-room" id="${room.number}">Book Room</button>
   </article>`
 }
