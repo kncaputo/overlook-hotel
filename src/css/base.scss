@@ -137,6 +137,10 @@ button, .radio-filter label:hover {
   margin: 7px 20px 7px 40px;
 }
 
+.nav-container {
+  align-items: flex-end;
+}
+
 .nav-btn {
   background: none;
   color: black;
@@ -148,10 +152,10 @@ button, .radio-filter label:hover {
   justify-content: space-around;
   width: 500px
 }
-
-input.date {
-  margin-top: 10px;
-}
+// TO-DO check that manager dash looks okay before deleting
+// input.date {
+//   margin-top: 10px;
+// }
 
 aside.filter-container {
   background: $transparent-background;
@@ -160,6 +164,7 @@ aside.filter-container {
   // Don't want 300 for manager
   // width: 300px;
   padding: 20px;
+  border-radius: 2px;
   justify-content: center;
 }
 

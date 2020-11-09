@@ -27,6 +27,7 @@ let passwordInput = document.getElementById('password-input');
 let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
 let radioSingle = document.getElementById('radio-single');
+let radioSuite = document.getElementById('radio-suite');
 let signInPage = document.getElementById('sign-in-page');
 let signOutNav = document.querySelector('.sign-out-nav');
 let submitBtn = document.getElementById('submit-btn');
@@ -54,8 +55,8 @@ window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
 // submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
+submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+// submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
 bookRoomNav.addEventListener('click', displayBookRoomDash);
 managerClearBtn.addEventListener('click', clearSearchForm);
@@ -282,6 +283,8 @@ function determineSelection() {
   if (radioSingle.checked) {return 'single room'}
   else if (radioJunior.checked) {
     return 'junior suite';
+  } else if (radioSuite.checked) {
+    return 'suite';
   } else if (radioResidential.checked) {
     return 'residential suite';
   }
@@ -344,9 +347,10 @@ function filterRoomsByDate() {
 }
 
 function resetRadioForm() {
-  radioSingle.checked=false;
-  radioJunior.checked=false;
-  radioResidential.checked=false;
+  radioSingle.checked = false;
+  radioJunior.checked = false;
+  radioSuite.checked = false;
+  radioResidential.checked = false;
   findRooms();
 }
 
@@ -372,7 +376,7 @@ function createBookingCard(booking) {
 
   return `<article class="flex-row rooms-card" id="${booking.id}">
     <section class="flex-column room-img-box">
-      <img class="room-card-photo" src=${roomBooked.number} alt="">
+      <img class="room-card-photo" src="./images/5.jpg" alt="">
     </section>
     <section class="flex-column room-card-details">
       <h3>${booking.date}</h3>
@@ -400,7 +404,7 @@ function sortBookingsByDate(bookings) {
 
 function searchUserBookings() {
   let query = searchInput.value;
-  
+
   if (query === '') {
     return displayManagerSearchError('Please enter a valid customer name.');
   }
