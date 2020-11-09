@@ -3,7 +3,31 @@ import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
+import './images/1.jpg';
+import './images/2.jpg';
+import './images/3.jpg';
+import './images/4.jpg';
 import './images/5.jpg';
+import './images/6.jpg';
+import './images/7.jpg';
+import './images/8.jpg';
+import './images/9.jpg';
+import './images/10.jpg';
+import './images/11.jpg';
+import './images/12.jpg';
+import './images/13.jpg';
+import './images/14.jpg';
+import './images/15.jpg';
+import './images/16.jpg';
+import './images/17.jpg';
+import './images/18.jpg';
+import './images/19.jpg';
+import './images/20.jpg';
+import './images/21.jpg';
+import './images/22.jpg';
+import './images/23.jpg';
+import './images/24.jpg';
+import './images/25.jpg';
 
 import apiCalls from './apiCalls';
 import moment from 'moment';
@@ -184,7 +208,7 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
 function createRoomCard(room) {
   return `<article class="flex-row rooms-card" id="container${room.number}">
     <section class="flex-column room-img-box">
-      <img class="room-card-photo" src="./images/5.jpg" alt="${room.roomType}">
+      <img class="room-card-photo" src="./images/${room.number}.jpg" alt="${room.roomType}">
     </section>
     <section class="flex-column room-card-details">
       <h3>${room.roomType.toUpperCase()}</h3>
@@ -376,7 +400,7 @@ function createBookingCard(booking) {
 
   return `<article class="flex-row rooms-card" id="${booking.id}">
     <section class="flex-column room-img-box">
-      <img class="room-card-photo" src="./images/5.jpg" alt="">
+      <img class="room-card-photo" src="./images/${booking.roomNumber}.jpg" alt="">
     </section>
     <section class="flex-column room-card-details">
       <h3>${booking.date}</h3>
