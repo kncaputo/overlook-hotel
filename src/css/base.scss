@@ -6,8 +6,11 @@ $transparent-background: rgba(255, 255, 255, 0.67);
 }
 
 body {
-  background:  url(../images/srilanka.jpg);
-  object-fit: contain;
+  background:  url(../images/overlook.jpg);
+  // object-fit: contain;
+  background-size: cover;
+  // height: 100vh;
+  // width: 100vw;
 }
 
 .hidden {
@@ -24,27 +27,40 @@ body {
   flex-direction: column !important;
 }
 
-.header {
-  height: 9vw;
-  background: $transparent-background;
-  border-radius: 5px;
-  height: 100px;
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
+  justify-content: space-between;
 }
 
 #sign-in-header {
   text-align: center;
+  height: 130px;
 }
 
-header#dashboard-header {
+.header {
+  height: 9vw;
+  background: $transparent-background;
+  border-radius: 2px;
+  height: 100px;
+}
+
+header#dashboard-header, #manager-dashboard-header {
   justify-content: space-between;
 }
 
-#left-dashboard-header {
+.left-dashboard-header {
   margin-left: 20px;
 }
 
 
-h1#main-title {
+h1.main-title {
   margin-bottom: 0;
 }
 
@@ -56,8 +72,8 @@ h1#main-title {
   justify-content: center;
 }
 
-article > p {
-  margin-top: 40px;
+.rooms-card > p {
+  margin-top: 27px;
   margin-bottom: 0px;
 }
 
@@ -66,14 +82,14 @@ article > p {
   width: 275px;
   margin-top: 100px;
   background: $transparent-background;
-  border-radius: 5px;
+  border-radius: 2px;
   align-items: center;
 }
 
-form > input {
+#sign-in-form-box > label {
   display: block;
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-top: 15px;
 }
 
 form > button {
@@ -81,7 +97,7 @@ form > button {
   border-radius: 5px;
   color: black;
   font-size: 16px;
-  margin: 10px;
+  margin: 14px;
   padding: 10px 20px;
 }
 
@@ -103,7 +119,7 @@ button {
 .btn {
   background: white;
   opacity: 0.8;
-  border-radius: 5%;
+  border-radius: 5px;
 }
 
 button, .radio-filter label:hover {
@@ -117,6 +133,14 @@ button, .radio-filter label:hover {
   border-bottom: 1px solid darkgray;
 }
 
+#manager-sign-out-nav {
+  margin: 7px 20px 7px 40px;
+}
+
+.nav-container {
+  align-items: flex-end;
+}
+
 .nav-btn {
   background: none;
   color: black;
@@ -128,27 +152,43 @@ button, .radio-filter label:hover {
   justify-content: space-around;
   width: 500px
 }
+// TO-DO check that manager dash looks okay before deleting
+// input.date {
+//   margin-top: 10px;
+// }
 
-input.date {
-  margin-top: 10px;
-}
-
-#user-filter-containter {
+aside.filter-container {
   background: $transparent-background;
   margin: 20px;
-  max-height: 300px;
+  height: 238px;
+  // Don't want 300 for manager
+  // width: 300px;
+  padding: 20px;
+  border-radius: 2px;
+  justify-content: center;
 }
+
+// #search-form-btns {
+//   justify-content: space-evenly;
+// }
 
 #user-filter {
   flex-wrap: wrap;
 }
 
-#user-availability-container {
- overflow: scroll !important;
+.cards-container {
+  max-height: 700px;
+  overflow: scroll !important;
+  margin-top: 20px;
 }
+// #user-availability-container, #my-bookings-container {
+//  max-height: 700px;
+//  overflow: scroll !important;
+//  margin-top: 20px;
+// }
 
 .rooms-card {
-  margin: 20px;
+  margin: 0px 20px 20px 20px;
   background: $transparent-background;
   max-height: 210px;
   min-width: 850px;
@@ -236,4 +276,113 @@ input.date {
 // shared w Manager and User
 .future-bookings-box {
   border-bottom: 1px solid darkgray;
+}
+
+// Manager dashboard
+
+#manager-cal-container {
+  // margin: 10px;
+  align-items: flex-end;
+  height: 100px;
+}
+
+#manager-cal-container > p {
+  font-size: 14px;
+  margin-top: 23px;
+  margin-bottom: 2px;
+}
+
+#manager-stats-container {
+  border-left: 1px solid darkgray;
+  margin-right: 70px;
+  margin: 10px;
+  height: 80px;
+  justify-content: space-evenly;
+}
+
+.manager-stats {
+  font-size: 12px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+#manager-stats-calendar {
+  height: 15px;
+}
+
+#search-btn-box {
+  border-bottom: 1px solid darkgray;
+}
+
+.search-btns {
+  margin: 12px 0 20px 0;
+}
+
+#mgr-add-booking-btn {
+  margin-top: 20px;
+}
+
+#manager-booking-form {
+  margin-top: 20px;
+}
+
+#manager-booking-form > label {
+  font-size: 14px;
+}
+
+#manager-new-booking-container {
+  border: 1px solid darkgray;
+  height: 40vh;
+}
+
+#manager-results-container {
+  border: 1px solid darkgray;
+  height: 40vh;
+}
+
+.manager-rooms-card {
+  padding: 10px 20px 10px 20px;
+  background: $transparent-background;
+  max-height: 20px;
+  min-width: 800px;
+}
+
+.mgr-room-title {
+  width: 200px;
+
+}
+
+.mgr-card-text {
+  text-align: center;
+  font-size: 14px;
+  margin: 0 10px;
+  width: 120px;
+}
+
+.mgr-card-small {
+  text-align: center;
+  font-size: 14px;
+  margin: 0 10px;
+  width: 60px;
+}
+
+.mgr-card-large {
+  text-align: center;
+  font-size: 14px;
+  margin: 0 13px;
+  width: 130px;
+}
+
+.mgr-cards-container {
+  max-height: 700px;
+  overflow: scroll !important;
+}
+
+.manager-rooms-card-header {
+  position: sticky;
+  text-align: center;
+  border: 1px solid darkgray;
+  background: $transparent-background;
+  padding: 10px 20px 10px 20px;
 }

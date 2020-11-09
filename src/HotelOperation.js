@@ -59,19 +59,30 @@ export default class HotelOperation {
     let searchedUser = this.usersRecord.find(user => {
       return user.id === userID;
     });
-    return searchedUser.name;
+    if (searchedUser) {
+      return searchedUser.name;
+    }
+    return false;
   }
 
-  findUserID(name) {
+  findUserID(userName) {
     let searchedUser = this.usersRecord.find(user => {
-      return user.name === name;
+      return user.name.toLowerCase().includes(userName.toLowerCase())
     });
-    return searchedUser.id;
+    if (searchedUser) {
+      return searchedUser.id;
+    }
+    return false;
   }
 
   filterBookingsByName(name) {
+    let userID = this.findUserID(name);
+
+    if (!userID) {
+      return 'User not in database.'
+    }
+
     let bookingsByName = this.bookingsRecord.filter(booking => {
-      let userID = this.findUserID(name);
       return booking.userID === userID;
     })
     return bookingsByName;
@@ -132,5 +143,16 @@ export default class HotelOperation {
     return this.roomsRecord.find(room => {
       return room.number === roomNumber;
     })
+  }
+
+  calculateUserSpending(name) {
+    let bookings = this.filterBookingsByName(name);
+
+    return bookings.reduce((sum, booking) => {
+      this.roomsRecord.forEach(room => {
+        if (booking.roomNumber === room.number) {sum += room.costPerNight}
+      })
+      return sum;
+    }, 0);
   }
 }
