@@ -389,6 +389,7 @@ function displaySearchSubject(userId) {
   let spent = hotelOperation.calculateUserSpending(userName);
   let html = `<h2>Customer: ${userName}</h2>
   <h3>Total Spent: $${spent}</h3>`
+  document.getElementById('customers-bookings').classList.remove('hidden');
   managerSearchSubject.insertAdjacentHTML('afterbegin', html);
 }
 
@@ -488,7 +489,7 @@ function clearSearchForm() {
 function showMgrAvailableRooms() {
   let date = formatMgrAvailabilityDate();
   let availableRooms = hotelOperation.findAvailableRooms(date);
-  document.querySelector('select-date')
+  document.getElementById('select-date').classList.remove('hidden')
   availableRooms.forEach(room => {
     let html = createManagerRoomCard(room);
     managerNewBookingContainer.insertAdjacentHTML('afterbegin', html)
