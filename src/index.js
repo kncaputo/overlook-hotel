@@ -171,7 +171,7 @@ function displayUserDashboard() {
   // } else {
   //   currentUser = hotelOperation.usersRecord[0];
   // }
-
+  bookRoomNav.disabled = true;
   userCalendar.setAttribute('value', `${todayDashes}`);
   userCalendar.setAttribute('min', `${todayDashes}`);
   signInPage.classList.add('hidden');
@@ -192,6 +192,8 @@ function updateStats() {
 }
 
 function displayBookRoomDash() {
+  bookRoomNav.disabled = true;
+  myBookingsNav.disabled = false;
   availabilityBox.classList.remove('hidden');
   userDashboardContainer.classList.remove('hidden');
   myBookingsContainer.classList.add('hidden');
@@ -376,6 +378,8 @@ function resetRadioForm() {
 }
 
 function displayMyBookingsDash() {
+  bookRoomNav.disabled = false;
+  myBookingsNav.disabled = true;
   availabilityBox.classList.add('hidden');
   userDashboardContainer.classList.add('hidden');
   myBookingsContainer.classList.remove('hidden');
@@ -386,7 +390,6 @@ function displayRoomsToMyBookings() {
   userBookingsContainer.innerHTML = '';
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
   let sortedBookings = sortBookingsByDate(userBookings)
-  console.log(sortedBookings)
   sortedBookings.forEach(booking => {
     let roomCardHtml = createBookingCard(booking)
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);

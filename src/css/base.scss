@@ -120,6 +120,10 @@ button:active {
   outline: none;
 }
 
+button:disabled {
+  color: gray;
+}
+
 button {
   border: none;
   outline: none;
@@ -171,8 +175,6 @@ aside.filter-container {
   margin: 20px;
   height: 190px;
   width: 150px;
-  // Don't want 300 for manager
-  // width: 300px;
   padding: 20px;
   border-radius: 2px;
   justify-content: center;
@@ -182,19 +184,14 @@ aside.filter-container {
   margin: 5px;
 }
 
-.manager-filter-container{
+#manager-filter-container{
   background: $transparent-background;
   margin: 20px;
   height: 238px;
-  // Don't want 300 for manager
-  // width: 300px;
   padding: 20px;
   border-radius: 2px;
   justify-content: center;
 }
-// #search-form-btns {
-//   justify-content: space-evenly;
-// }
 
 #user-filter {
   flex-wrap: wrap;
