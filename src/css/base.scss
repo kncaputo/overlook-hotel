@@ -350,5 +350,22 @@ aside.filter-container {
 
 .mgr-card-text {
   font-size: 14px;
-  margin: 0;
+  margin: 0 10px;
+  width: 120px;
+}
+
+.mgr-card-small {
+  font-size: 14px;
+  margin: 0 10px;
+  width: 60px;
+}
+
+.mgr-cards-container {
+  max-height: 700px;
+  overflow: scroll !important;
+}
+
+.manager-rooms-card-header {
+  position: sticky;
+  border: 1px solid darkgray;
 }

@@ -174,17 +174,35 @@
         </aside>
         <section class="flex-column">
 
-          <section class="flex-row hidden space-between cards-container" id="manager-search-subject">
+          <section class="flex-row hidden space-between mgr-cards-container" id="manager-search-subject">
             <!-- User's Name and spending gets inserted here -->
           </section>
           <section class="flex-column hidden" id="select-date">
             <p>Select a date to make a booking</p>
-            <section class="cards-container" id="manager-new-booking-container">
+            <article class="flex-row space-around manager-rooms-card-header">
+              <p class="mgr-card-text">Room Type</hp>
+              <p class="mgr-card-small">Room Number</p>
+              <p class="mgr-card-small">Beds<br>
+              <p class="mgr-card-small">Bidet</p>
+              <p class="mgr-card-small">Cost/night</p>
+              <p class="mgr-card-text">Click to Book</p>
+            </article>
+            <section class="mgr-cards-container" id="manager-new-booking-container">
             </section>
           </section>
           <section class="flex-column hidden" id="customers-bookings">
             <p>Customer's Bookings</p>
-            <section class="cards-container" id="manager-results-container">
+            <article class="flex-row space-around manager-rooms-card-header">
+              <p class="mgr-card-text">Date</hp>
+              <p class="mgr-card-text">Room Type</hp>
+              <p class="mgr-card-small">Room Number</p>
+              <p class="mgr-card-text">Booking Id</p>
+              <p class="mgr-card-small">Beds<br>
+              <p class="mgr-card-small">Bidet</p>
+              <p class="mgr-card-small">Cost/night</p>
+              <p class="mgr-card-text">Delete</p>
+            </article>
+            <section class="mgr-cards-container" id="manager-results-container">
             </section>
           </section>
         </section>

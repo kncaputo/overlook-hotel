@@ -433,12 +433,13 @@ function createManagerBookingCard(booking) {
   }
 
   return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="${booking.id}">
-    <p class="mgr-card-text">${booking.date}</p>
+    <p class="mgr-card-small">${booking.date}</p>
     <p class="mgr-card-text">${roomBooked.roomType.toUpperCase()}</p>
-    <p class="mgr-card-text">Booking id: ${booking.id}</p>
-    <p class="mgr-card-text">${roomBooked.numBeds} ${roomBooked.bedSize} bed/s<br>
-    <p class="mgr-card-text">Bidet: ${determineBidet(roomBooked)}</p>
-    <p class="mgr-card-text">${roomBooked.costPerNight}/night</p>
+    <p class="mgr-card-small">${roomBooked.number}</p>
+    <p class="mgr-card-text">${booking.id}</p>
+    <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}<br>
+    <p class="mgr-card-small">${determineBidet(roomBooked)}</p>
+    <p class="mgr-card-small">${roomBooked.costPerNight}</p>
     ${determineFutureBooking(booking)}
   </article>`
 }
@@ -501,17 +502,17 @@ function showMgrAvailableRooms() {
   managerNewBookingContainer.classList.remove('hidden');
   availableRooms.forEach(room => {
     let html = createManagerRoomCard(room);
-    managerNewBookingContainer.insertAdjacentHTML('afterbegin', html)
+    managerNewBookingContainer.insertAdjacentHTML('beforeend', html)
   })
 }
 
 function createManagerRoomCard(room) {
-  return `<article class="flex-row space-around manager-rooms-card mgr-card-text primary-details-text" id="container${room.number}">
-    <p>${room.roomType.toUpperCase()}</hp>
-    <p>Room Number ${room.number}</p>
-    <p>${room.numBeds} ${room.bedSize} bed/s<br>
-    <p>Bidet: ${determineBidet(room)}</p>
-    <p>${room.costPerNight}/night</p>
+  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="container${room.number}">
+    <p class="mgr-card-text">${room.roomType.toUpperCase()}</hp>
+    <p class="mgr-card-text">${room.number}</p>
+    <p class="mgr-card-text">${room.numBeds} ${room.bedSize} bed/s<br>
+    <p class="mgr-card-text">${determineBidet(room)}</p>
+    <p class="mgr-card-text">${room.costPerNight}</p>
     <button class="card-btn-book-room" id="${room.number}">Book Room</button>
   </article>`
 }
