@@ -40,10 +40,18 @@ let todayDashes = moment().format('YYYY-MM-DD');
 
 let availabilityBox = document.getElementById('availability-box');
 let bookRoomNav = document.getElementById('book-room-nav');
+let customersBookings = document.getElementById('customers-bookings');
+let managerBookingCal = document.getElementById('manager-booking-cal');
+let managerBookingForm = document.getElementById('manager-booking-form');
 let managerClearBtn = document.getElementById('manager-clear-btn');
 let managerDashboard = document.getElementById('manager-dashboard');
+let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
 let managerResultsContainer = document.getElementById('manager-results-container');
 let managerSearchBtn = document.getElementById('manager-search-btn');
+let managerSearchSubject = document.getElementById('manager-search-subject');
+let managerSelectRoom = document.getElementById('manager-select-room');
+let managerStatsCal = document.getElementById('manager-stats-calendar');
+let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
 let modal = document.getElementById('modal');
 let myBookingsContainer = document.getElementById('my-bookings-container');
 let myBookingsNav = document.getElementById('my-bookings-nav');
@@ -52,6 +60,7 @@ let radioJunior = document.getElementById('radio-junior');
 let radioResidential = document.getElementById('radio-residential');
 let radioSingle = document.getElementById('radio-single');
 let radioSuite = document.getElementById('radio-suite');
+let searchInput = document.getElementById('search-input');
 let signInPage = document.getElementById('sign-in-page');
 let signOutNav = document.querySelector('.sign-out-nav');
 let submitBtn = document.getElementById('submit-btn');
@@ -65,21 +74,12 @@ let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
-let managerStatsCal = document.getElementById('manager-stats-calendar');
-let managerBookingForm = document.getElementById('manager-booking-form');
-let searchInput = document.getElementById('search-input');
-let managerBookingCal = document.getElementById('manager-booking-cal');
-let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
-let managerSearchSubject = document.getElementById('manager-search-subject');
-let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
-let customersBookings = document.getElementById('customers-bookings');
-let managerSelectRoom = document.getElementById('manager-select-room');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
-// submitBtn.addEventListener('click', verifyLogin);
+submitBtn.addEventListener('click', verifyLogin);
 // --------------------------------------------------------------
-submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
+// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
 // submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
 bookRoomNav.addEventListener('click', displayBookRoomDash);
@@ -166,11 +166,11 @@ function deliverLoginError() {
 
 function displayUserDashboard() {
   // ------ Just for dev mode
-  if (!hotelOperation.usersRecord[0]) {
-    currentUser = {name: 'User'};
-  } else {
-    currentUser = hotelOperation.usersRecord[0];
-  }
+  // if (!hotelOperation.usersRecord[0]) {
+  //   currentUser = {name: 'User'};
+  // } else {
+  //   currentUser = hotelOperation.usersRecord[0];
+  // }
 
   userCalendar.setAttribute('value', `${todayDashes}`);
   userCalendar.setAttribute('min', `${todayDashes}`);
@@ -201,7 +201,7 @@ function displayRoomsToUserAvailability(roomsToDisplay) {
   userAvailabilityContainer.innerHTML = '';
   roomsToDisplay.forEach(room => {
     let roomCardHtml = createRoomCard(room)
-    userAvailabilityContainer.insertAdjacentHTML('beforeend', roomCardHtml);
+    userAvailabilityContainer.insertAdjacentHTML('afterbegin', roomCardHtml);
   })
 }
 
@@ -218,8 +218,8 @@ function createRoomCard(room) {
     </section>
     <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
-        <h3>${room.costPerNight}</h3>
-        <p>Per night</p>
+        <h3>$${room.costPerNight.toFixed(2)}</h3>
+        <p>per night</p>
         <button class="card-btn-book-room" id="${room.number}">Book Room</button>
       </article>
     </section>
@@ -250,47 +250,45 @@ function updateBookings() {
 }
 
 function bookRoom(event) {
-  // modal.classList.remove('hidden');
-  console.log("Pre Post", hotelOperation.bookingsRecord.length)
-  let bookingDate = getFormatDate();
-  let onSuccess = () => {
-    removeRoomBooked(event)
-    console.log("Post Post", hotelOperation.bookingsRecord.length)
-  }
+  if (event.target.id) {
+    let bookingDate = getFormatDate();
+    let onSuccess = () => {
+      removeRoomBooked(event)
+    }
 
-  let roomToBook = hotelOperation.roomsRecord.find(room => {
-    return room.number == event.target.id;
-  })
+    let roomToBook = hotelOperation.roomsRecord.find(room => {
+      return room.number == event.target.id;
+    })
 
-  let bookingData = {
-    userID: currentUser.id,
-    date: bookingDate,
-    roomNumber: roomToBook.number
+    let bookingData = {
+      userID: currentUser.id,
+      date: bookingDate,
+      roomNumber: roomToBook.number
+    }
+    apiCalls.postData(bookingData, onSuccess)
+    updateBookings();
   }
-  apiCalls.postData(bookingData, onSuccess)
-  updateBookings();
 }
 
 function managerBookRoom(event) {
-  // modal.classList.remove('hidden');
-  console.log("Pre Post", hotelOperation.bookingsRecord.length)
-  let bookingDate = formatMgrAvailabilityDate();
-  let onSuccess = () => {
-    managerRemoveRoomBooked(event)
-    console.log("Post Post", hotelOperation.bookingsRecord.length)
-  }
+  if (event.target.id) {
+    let bookingDate = formatMgrAvailabilityDate();
+    let onSuccess = () => {
+      managerRemoveRoomBooked(event)
+    }
 
-  let roomToBook = hotelOperation.roomsRecord.find(room => {
-    return room.number == event.target.id;
-  })
-  let userId = getSearchedUserId();
-  let bookingData = {
-    userID: userId,
-    date: bookingDate,
-    roomNumber: roomToBook.number
+    let roomToBook = hotelOperation.roomsRecord.find(room => {
+      return room.number == event.target.id;
+    })
+    let userId = getSearchedUserId();
+    let bookingData = {
+      userID: userId,
+      date: bookingDate,
+      roomNumber: roomToBook.number
+    }
+    apiCalls.postData(bookingData, onSuccess)
+    updateBookings();
   }
-  apiCalls.postData(bookingData, onSuccess)
-  updateBookings();
 }
 
 function getSearchedUserId() {
@@ -341,12 +339,6 @@ function getFormatDate() {
   }
 }
 
-// function formatTodayCalendarDate() {
-//   let formatDate = today.split('/');
-//   let formattedDate = formatDate.join('-');
-//   return formattedDate;
-// }
-
 function formatMgrAvailabilityDate() {
   if (!managerBookingCal.value) {
     return today;
@@ -394,6 +386,7 @@ function displayRoomsToMyBookings() {
   userBookingsContainer.innerHTML = '';
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
   let sortedBookings = sortBookingsByDate(userBookings)
+  console.log(sortedBookings)
   sortedBookings.forEach(booking => {
     let roomCardHtml = createBookingCard(booking)
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
@@ -416,8 +409,8 @@ function createBookingCard(booking) {
     </section>
     <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
-        <h3>${roomBooked.costPerNight}</h3>
-        <p>Per night</p>
+        <h3>$${roomBooked.costPerNight}</h3>
+        <p>per night</p>
       </article>
     </section>
   </article>`
@@ -472,8 +465,6 @@ function showManagerCalendar() {
   managerBookingCal.setAttribute('min', `${todayDashes}`);
 }
 
-// TO DO - THIS IS NOT BEING CALLED
-
 function displayManagerSearchError(error) {
   managerSearchSubject.innerHTML = '';
   managerSearchSubject.classList.remove('hidden');
@@ -512,21 +503,12 @@ function createManagerBookingCard(booking) {
     <p class="mgr-card-text">${booking.id}</p>
     <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(roomBooked)}</p>
-    <p class="mgr-card-small">${roomBooked.costPerNight}</p>
+    <p class="mgr-card-small">$${roomBooked.costPerNight}</p>
     <div class="mgr-card-text">
     ${determineFutureBooking(booking)}
     </div>
   </article>`
 }
-//
-// `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
-//   <p class="mgr-room-title primary-details-text">${room.roomType.toUpperCase()}</hp>
-//   <p class="primary-details-text">Room Number ${room.number}</p>
-//   <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
-//   <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
-//   <p class="primary-details-text">${room.costPerNight}/night</p>
-//   <button class="card-btn-book-room" id="${room.number}">Book Room</button>
-// </article>`
 
 function determineFutureBooking(booking) {
   if (booking.date > today) {
@@ -538,7 +520,6 @@ function determineFutureBooking(booking) {
 
 function deleteBooking(event) {
   let bookingId = event.target.id;
-  console.log(bookingId)
   let deleteRequest;
 
   let onSuccess = () => {
@@ -592,8 +573,8 @@ function createManagerRoomCard(room) {
     <p class="mgr-card-small">${room.number}</p>
     <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(room)}</p>
-    <p class="mgr-card-small">${room.costPerNight}</p>
-    <button class="card-btn-book-room" id="${room.number}">Book Room</button>
+    <p class="mgr-card-small">$${room.costPerNight}</p>
+    <button class="btn card-btn-book-room" id="${room.number}">Book Room</button>
   </article>`
 }
 

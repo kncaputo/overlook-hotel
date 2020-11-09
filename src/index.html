@@ -15,7 +15,7 @@
       </header>
       <!-- Sign in Container -->
       <section class="flex-row" id="sign-in-container">
-        <article class="flex-column space-around" id="sign-in-box">
+        <article class="flex-column center" id="sign-in-box">
           <p>Please Sign In</p>
           <form class="flex-column" id="sign-in-form-box">
             <label for="username">Username:</label>
@@ -55,70 +55,21 @@
         <!-- Filters -->
         <aside class="flex-column filter-container" id="user-filter-container">
           <p>Filter Rooms:</p>
-          <form class="flex-row" id="user-filter">
-            <label class="label"><input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single">Single Room</label>
-            <label class="label"><input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior">Junior</label>
-            <label class="label"><input class="user-radio suite" type="radio" name="choice" value="suite" id="radio-suite">Suite</label>
-            <label class="label"><input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential">Residential</label>
+          <form class="flex-column" id="user-filter">
+            <label class="radio-label"><input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single">Single Room</label>
+            <label class="radio-label"><input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior">Junior</label>
+            <label class="radio-label"><input class="user-radio suite" type="radio" name="choice" value="suite" id="radio-suite">Suite</label>
+            <label class="radio-label"><input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential">Residential</label>
           </form>
           <button class="btn" id="user-reset-btn">Reset</button>
         </aside>
 
         <section class="flex-column cards-container" id="user-availability-container">
-
-          <!-- Room Card -->
-          <!-- <article class="flex-row rooms-card">
-            <section class="flex-column" id="room-img-box">
-              <img class="room-card-photo" src="images/presidential-villa-hottub.jpg" alt="">
-            </section>
-            <section class="flex-column" id="room-card-details">
-              <h6>Room Type</h6>
-              <p>Room details</p>
-              <p>Room details</p>
-              <p>Room details</p>
-            </section>
-            <section class="flex-column" id="room-card-price">
-              <article class="flex-column card-inner-contents">
-                <h3>$Price</h3>
-                <p>Per night</p>
-                <button id="card-btn-book-room">Book Room</button>
-              </article>
-            </section>
-          </article> -->
-
-        <!-- Book Room Modal -->
-        <div class="modal hidden" id="modal">
-          <div class="modal-content flex-column">
-            <div class="modal-header">
-              <div>
-                <img id="modal-img" src="" alt="recipe image" class="modal-banner">
-              </div>
-            </div>
-            <div class="modal-body flex-column">
-            <div class="modal-header-text flex-row">
-              <h1>Book Room</h1>
-            </div>
-              <div class="flex-row">
-              <div class="card-effect"
-                <h2>Ingredients</h2>
-                <p class="ingredients-display"></p>
-                <p><b>Total Cost of Ingredients</b></p>
-                <p class="ingredients-display"></p>
-              </div>
-                <div class="card-effect"
-                  <h2>How To Cook This</h2>
-                  <p>ARE YOU SURE YOU WANT TO DO A MODAL?<p>
-                </div>
-              </div>
-            </div>
-           </div>
-         </div>
-
         </section>
       </section>
       <!-- User My Bookings Container -->
         <section class="flex-column cards-container" id="my-bookings-container">
-          <section class="flex-column future-bookings-box" id="user-future-bookings">
+          <section class="flex-column" id="user-future-bookings">
             <p>Future and Past bookings:</p>
           </section>
           <section class="flex-column past-bookings-box" id="user-bookings-container">
@@ -152,7 +103,7 @@
       <!-- User Dashboard Container / Book a Room -->
       <section class="flex-row" id="user-dashboard-container">
         <!-- Filters -->
-        <aside class="flex-column filter-container" id="manager-filter-container">
+        <aside class="flex-column" id="manager-filter-container">
           <form class="flex-column" id="search-form">
             <label name="search-users">Search Customers:</label>
             <input class="" type="text" name="search-users" id="search-input" required>
