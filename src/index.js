@@ -378,18 +378,19 @@ function searchUserBookings() {
   }
   let sortedBookings = sortBookingsByDate(userBookings);
   mgrAddBookingBtn.classList.remove('hidden');
-  managerNewBookingContainer.classList.remove('hidden');
   managerResultsContainer.innerHTML = '';
+  managerResultsContainer.classList.remove('hidden');
   displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
 }
 
 function displaySearchSubject(userId) {
   let userName = hotelOperation.findUserName(userId);
-  let spent = hotelOperation.calculateUserSpending(userName);
-  let html = `<h2>Customer: ${userName}</h2>
+  let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
+  let html = `<h3>Customer: ${userName}</h3>
   <h3>Total Spent: $${spent}</h3>`
   document.getElementById('customers-bookings').classList.remove('hidden');
+  managerSearchSubject.classList.remove('hidden');
   managerSearchSubject.insertAdjacentHTML('afterbegin', html);
 }
 
@@ -401,6 +402,7 @@ function showManagerCalendar() {
 
 function displayManagerSearchError(error) {
   managerResultsContainer.innerHTML = '';
+  managerResultsContainer.classList.remove('hidden');
   managerResultsContainer.insertAdjacentHTML('beforeend', error);
 }
 
@@ -484,12 +486,15 @@ function clearSearchForm() {
   }
   managerResultsContainer.innerHTML = '';
   managerBookingForm.classList.add('hidden');
+  managerResultsContainer.classList.add('hidden');
+  managerNewBookingContainer.classList.remove('hidden');
 }
 
 function showMgrAvailableRooms() {
   let date = formatMgrAvailabilityDate();
   let availableRooms = hotelOperation.findAvailableRooms(date);
-  document.getElementById('select-date').classList.remove('hidden')
+  document.getElementById('select-date').classList.remove('hidden');
+  managerNewBookingContainer.classList.remove('hidden');
   availableRooms.forEach(room => {
     let html = createManagerRoomCard(room);
     managerNewBookingContainer.insertAdjacentHTML('afterbegin', html)
@@ -498,29 +503,14 @@ function showMgrAvailableRooms() {
 
 function createManagerRoomCard(room) {
   return `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
-    <h3>${room.roomType.toUpperCase()}</h3>
+    <p class="mgr-room-title primary-details-text">${room.roomType.toUpperCase()}</hp>
     <p class="primary-details-text">Room Number ${room.number}</p>
     <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
     <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
-    <h4>${room.costPerNight}/night</h4>
+    <p class="primary-details-text">${room.costPerNight}/night</p>
     <button class="card-btn-book-room" id="${room.number}">Book Room</button>
   </article>`
 }
-
-// `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
-//   <section class="flex-row space-around room-card-details">
-//     <h3>${room.roomType.toUpperCase()}</h3>
-//     <p class="primary-details-text">Room Number ${room.number}</p>
-//     <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
-//     <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
-//   </section>
-//   <section class="flex-row room-card-price">
-//     <article class="flex-row space-around">
-//       <h4>${room.costPerNight}/night</h4>
-//       <button class="card-btn-book-room" id="${room.number}">Book Room</button>
-//     </article>
-//   </section>
-// </article>`
 
 function signOut() {
   currentUser = "";

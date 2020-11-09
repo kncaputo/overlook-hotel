@@ -327,10 +327,12 @@ aside.filter-container {
 
 #manager-new-booking-container {
   border: 1px solid darkgray;
+  height: 40vh;
 }
 
 #manager-results-container {
   border: 1px solid darkgray;
+  height: 40vh;
 }
 
 .manager-rooms-card {
@@ -338,4 +340,8 @@ aside.filter-container {
   background: $transparent-background;
   max-height: 60px;
   min-width: 400px;
+}
+
+.mgr-room-title {
+  width: 200px;
 }
