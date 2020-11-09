@@ -47,7 +47,7 @@ body {
 .header {
   height: 9vw;
   background: $transparent-background;
-  // border-radius: 5px;
+  border-radius: 2px;
   height: 100px;
 }
 
@@ -72,8 +72,8 @@ h1.main-title {
   justify-content: center;
 }
 
-article > p {
-  margin-top: 40px;
+.rooms-card > p {
+  margin-top: 27px;
   margin-bottom: 0px;
 }
 
@@ -82,14 +82,14 @@ article > p {
   width: 275px;
   margin-top: 100px;
   background: $transparent-background;
-  border-radius: 5px;
+  border-radius: 2px;
   align-items: center;
 }
 
-form > input {
+#sign-in-form-box > label {
   display: block;
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-top: 15px;
 }
 
 form > button {
@@ -97,7 +97,7 @@ form > button {
   border-radius: 5px;
   color: black;
   font-size: 16px;
-  margin: 10px;
+  margin: 14px;
   padding: 10px 20px;
 }
 
@@ -119,7 +119,7 @@ button {
 .btn {
   background: white;
   opacity: 0.8;
-  border-radius: 5%;
+  border-radius: 5px;
 }
 
 button, .radio-filter label:hover {
@@ -160,6 +160,7 @@ aside.filter-container {
   // Don't want 300 for manager
   // width: 300px;
   padding: 20px;
+  justify-content: center;
 }
 
 // #search-form-btns {
@@ -310,7 +311,7 @@ aside.filter-container {
 }
 
 .search-btns {
-  margin-bottom: 20px;
+  margin: 12px 0 20px 0;
 }
 
 #mgr-add-booking-btn {
@@ -336,12 +337,18 @@ aside.filter-container {
 }
 
 .manager-rooms-card {
-  margin: 0px 20px 20px 20px;
+  padding: 10px 20px 10px 20px;
   background: $transparent-background;
-  max-height: 60px;
-  min-width: 400px;
+  max-height: 20px;
+  min-width: 800px;
 }
 
 .mgr-room-title {
   width: 200px;
+
+}
+
+.mgr-card-text {
+  font-size: 14px;
+  margin: 0;
 }

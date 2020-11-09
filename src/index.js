@@ -47,6 +47,7 @@ let managerBookingCal = document.getElementById('manager-booking-cal');
 let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
 let managerSearchSubject = document.getElementById('manager-search-subject');
 let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
+let customersBookings = document.getElementById('customers-bookings');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -379,6 +380,7 @@ function searchUserBookings() {
   let sortedBookings = sortBookingsByDate(userBookings);
   mgrAddBookingBtn.classList.remove('hidden');
   managerResultsContainer.innerHTML = '';
+  managerSearchSubject.innerHTML = '';
   managerResultsContainer.classList.remove('hidden');
   displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
@@ -389,7 +391,7 @@ function displaySearchSubject(userId) {
   let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
   let html = `<h3>Customer: ${userName}</h3>
   <h3>Total Spent: $${spent}</h3>`
-  document.getElementById('customers-bookings').classList.remove('hidden');
+  customersBookings.classList.remove('hidden');
   managerSearchSubject.classList.remove('hidden');
   managerSearchSubject.insertAdjacentHTML('afterbegin', html);
 }
@@ -430,23 +432,25 @@ function createManagerBookingCard(booking) {
       roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
   }
 
-  return `<article class="flex-row rooms-card" id="${booking.id}">
-    <section class="flex-column room-card-details">
-      <h3>${booking.date}</h3>
-      <p class="primary-details-text">${roomBooked.roomType.toUpperCase()}</p>
-      <p class="primary-details-text">Booking id: ${booking.id}</p>
-      <p class="secondary-details-text">${roomBooked.numBeds} ${roomBooked.bedSize} bed/s<br>
-      <p class="secondary-details-text">Bidet: ${determineBidet(roomBooked)}</p>
-    </section>
-    <section class="flex-column room-card-price">
-      <article class="flex-column card-inner-contents">
-        <h3>${roomBooked.costPerNight}</h3>
-        <p>Per night</p>
-        ${determineFutureBooking(booking)}
-      </article>
-    </section>
+  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="${booking.id}">
+    <p class="mgr-card-text">${booking.date}</p>
+    <p class="mgr-card-text">${roomBooked.roomType.toUpperCase()}</p>
+    <p class="mgr-card-text">Booking id: ${booking.id}</p>
+    <p class="mgr-card-text">${roomBooked.numBeds} ${roomBooked.bedSize} bed/s<br>
+    <p class="mgr-card-text">Bidet: ${determineBidet(roomBooked)}</p>
+    <p class="mgr-card-text">${roomBooked.costPerNight}/night</p>
+    ${determineFutureBooking(booking)}
   </article>`
 }
+//
+// `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
+//   <p class="mgr-room-title primary-details-text">${room.roomType.toUpperCase()}</hp>
+//   <p class="primary-details-text">Room Number ${room.number}</p>
+//   <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
+//   <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
+//   <p class="primary-details-text">${room.costPerNight}/night</p>
+//   <button class="card-btn-book-room" id="${room.number}">Book Room</button>
+// </article>`
 
 function determineFutureBooking(booking) {
   if (booking.date > today) {
@@ -502,12 +506,12 @@ function showMgrAvailableRooms() {
 }
 
 function createManagerRoomCard(room) {
-  return `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
-    <p class="mgr-room-title primary-details-text">${room.roomType.toUpperCase()}</hp>
-    <p class="primary-details-text">Room Number ${room.number}</p>
-    <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
-    <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
-    <p class="primary-details-text">${room.costPerNight}/night</p>
+  return `<article class="flex-row space-around manager-rooms-card mgr-card-text primary-details-text" id="container${room.number}">
+    <p>${room.roomType.toUpperCase()}</hp>
+    <p>Room Number ${room.number}</p>
+    <p>${room.numBeds} ${room.bedSize} bed/s<br>
+    <p>Bidet: ${determineBidet(room)}</p>
+    <p>${room.costPerNight}/night</p>
     <button class="card-btn-book-room" id="${room.number}">Book Room</button>
   </article>`
 }
