@@ -35,6 +35,10 @@ body {
   justify-content: space-around;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 #sign-in-header {
   text-align: center;
   height: 130px;
@@ -152,7 +156,7 @@ input.date {
 aside.filter-container {
   background: $transparent-background;
   margin: 20px;
-  height: 200px;
+  height: 238px;
   // Don't want 300 for manager
   // width: 300px;
   padding: 20px;
@@ -269,6 +273,7 @@ aside.filter-container {
 }
 
 // Manager dashboard
+
 #manager-cal-container {
   // margin: 10px;
   align-items: flex-end;
@@ -300,10 +305,37 @@ aside.filter-container {
   height: 15px;
 }
 
+#search-btn-box {
+  border-bottom: 1px solid darkgray;
+}
+
+.search-btns {
+  margin-bottom: 20px;
+}
+
+#mgr-add-booking-btn {
+  margin-top: 20px;
+}
+
 #manager-booking-form {
   margin-top: 20px;
-  border-top: 1px solid darkgray;
 }
+
 #manager-booking-form > label {
   font-size: 14px;
+}
+
+#manager-new-booking-container {
+  border: 1px solid darkgray;
+}
+
+#manager-results-container {
+  border: 1px solid darkgray;
+}
+
+.manager-rooms-card {
+  margin: 0px 20px 20px 20px;
+  background: $transparent-background;
+  max-height: 60px;
+  min-width: 400px;
 }

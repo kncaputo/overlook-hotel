@@ -162,21 +162,26 @@
             <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
             <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
           </form> -->
-          <section class="flex-row space-around">
-            <button class="btn" id="manager-clear-btn">Clear</button>
-            <button class="btn" id="manager-search-btn">Search</button>
+          <section class="flex-row space-around" id="search-btn-box">
+            <button class="btn search-btns" id="manager-clear-btn">Clear</button>
+            <button class="btn search-btns" id="manager-search-btn">Search</button>
           </section>
+          <button class="btn hidden" id="mgr-add-booking-btn">Add Booking</button>
           <form class="flex-column hidden" id="manager-booking-form">
             <label name="search-availability">Add new booking for user:</label>
             <input class="date" type="date" name="manager-booking-cal" id="manager-booking-cal">
           </form>
         </aside>
-        <section class="flex-column cards-container" id="manager-search-subject">
-          
-        </section>
-        <section class="flex-column cards-container" id="manager-new-booking-container">
-        </section>
-        <section class="flex-column cards-container" id="manager-results-container">
+        <section class="flex-column">
+
+          <h2 class="hidden" id="select">Select a date to make a booking</h2>
+          <section class="flex-row space-between cards-container" id="manager-search-subject">
+
+          </section>
+          <section class="flex-column cards-container" id="manager-new-booking-container">
+          </section>
+          <section class="flex-column cards-container" id="manager-results-container">
+          </section>
         </section>
       </section>
     </main>

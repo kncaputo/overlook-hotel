@@ -46,6 +46,7 @@ let searchInput = document.getElementById('search-input');
 let managerBookingCal = document.getElementById('manager-booking-cal');
 let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
 let managerSearchSubject = document.getElementById('manager-search-subject');
+let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -63,6 +64,8 @@ userCalendar.addEventListener('change', findRooms);
 userFilter.addEventListener('click', findRooms);
 userResetBtn.addEventListener('click', resetRadioForm);
 managerStatsCal.addEventListener('change', updateStats);
+mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
+managerBookingCal.addEventListener('change', showMgrAvailableRooms);
 managerResultsContainer.addEventListener('click', () => {
   deleteBooking(event);
 });
@@ -280,6 +283,16 @@ function getFormatDate() {
 //   return formattedDate;
 // }
 
+function formatMgrAvailabilityDate() {
+  if (!managerBookingCal.value) {
+    return today;
+  } else {
+    let formatDate = managerBookingCal.value.split('-');
+    let formattedDate = formatDate.join('/');
+    return formattedDate;
+  }
+}
+
 function formatDateForStats() {
   if (!managerStatsCal.value) {
     return today;
@@ -364,9 +377,8 @@ function searchUserBookings() {
 
   }
   let sortedBookings = sortBookingsByDate(userBookings);
-  let userName = hotelOperation.
-  revealManagerCalendar();
-  managerNewBookingsContainer.classList.remove('hidden');
+  mgrAddBookingBtn.classList.remove('hidden');
+  managerNewBookingContainer.classList.remove('hidden');
   managerResultsContainer.innerHTML = '';
   displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
@@ -374,12 +386,13 @@ function searchUserBookings() {
 
 function displaySearchSubject(userId) {
   let userName = hotelOperation.findUserName(userId);
-  let html = `<h2>Bookings for ${userName}</h2>
-  <h3>Total Spent: $${}`
-  managerSearchSubject.insertAdjacentHTML('beforeend', );
+  let spent = hotelOperation.calculateUserSpending(userName);
+  let html = `<h2>Customer: ${userName}</h2>
+  <h3>Total Spent: $${spent}</h3>`
+  managerSearchSubject.insertAdjacentHTML('afterbegin', html);
 }
 
-function revealManagerCalendar() {
+function showManagerCalendar() {
   managerBookingForm.classList.remove('hidden');
   managerBookingCal.setAttribute('value', `${todayDashes}`);
   managerBookingCal.setAttribute('min', `${todayDashes}`);
@@ -471,6 +484,42 @@ function clearSearchForm() {
   managerResultsContainer.innerHTML = '';
   managerBookingForm.classList.add('hidden');
 }
+
+function showMgrAvailableRooms() {
+  let date = formatMgrAvailabilityDate();
+  let availableRooms = hotelOperation.findAvailableRooms(date);
+  document.querySelector('select-date')
+  availableRooms.forEach(room => {
+    let html = createManagerRoomCard(room);
+    managerNewBookingContainer.insertAdjacentHTML('afterbegin', html)
+  })
+}
+
+function createManagerRoomCard(room) {
+  return `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
+    <h3>${room.roomType.toUpperCase()}</h3>
+    <p class="primary-details-text">Room Number ${room.number}</p>
+    <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
+    <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
+    <h4>${room.costPerNight}/night</h4>
+    <button class="card-btn-book-room" id="${room.number}">Book Room</button>
+  </article>`
+}
+
+// `<article class="flex-row space-around manager-rooms-card" id="container${room.number}">
+//   <section class="flex-row space-around room-card-details">
+//     <h3>${room.roomType.toUpperCase()}</h3>
+//     <p class="primary-details-text">Room Number ${room.number}</p>
+//     <p class="primary-details-text">${room.numBeds} ${room.bedSize} bed/s<br>
+//     <p class="primary-details-text">Bidet: ${determineBidet(room)}</p>
+//   </section>
+//   <section class="flex-row room-card-price">
+//     <article class="flex-row space-around">
+//       <h4>${room.costPerNight}/night</h4>
+//       <button class="card-btn-book-room" id="${room.number}">Book Room</button>
+//     </article>
+//   </section>
+// </article>`
 
 function signOut() {
   currentUser = "";
