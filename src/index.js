@@ -283,11 +283,7 @@ function managerBookRoom(event) {
   if (event.target.id) {
     let bookingDate = formatMgrAvailabilityDate();
     let onSuccess = () => {
-      // managerRemoveRoomBooked(event)
-
-      document.getElementById(`${event.target.id}`).disabled = true;
-      document.getElementById(`${event.target.id}`).innerText = 'Booked!';
-      document.getElementById(`${event.target.id}`).classList.add('bookedBtn');
+      managerRemoveRoomBooked(event);
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
