@@ -280,16 +280,18 @@ function bookRoom(event) {
 }
 
 function managerBookRoom(event) {
+  let userId;
   if (event.target.id) {
     let bookingDate = formatMgrAvailabilityDate();
     let onSuccess = () => {
       managerRemoveRoomBooked(event);
+      updateMgrTotalSpent(userId);
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
       return room.number == event.target.id;
     })
-    let userId = getSearchedUserId();
+    userId = getSearchedUserId();
     let bookingData = {
       userID: userId,
       date: bookingDate,
@@ -423,7 +425,7 @@ function createBookingCard(booking) {
     </section>
     <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
-        <h3>$${roomBooked.costPerNight}</h3>
+        <h3>$${roomBooked.costPerNight.toFixed(2)}</h3>
         <p>per night</p>
       </article>
     </section>
@@ -517,7 +519,7 @@ function createManagerBookingCard(booking) {
     <p class="mgr-card-text">${booking.id}</p>
     <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(roomBooked)}</p>
-    <p class="mgr-card-small">$${roomBooked.costPerNight}</p>
+    <p class="mgr-card-small">$${roomBooked.costPerNight.toFixed(2)}</p>
     <div class="mgr-card-text">
     ${determineFutureBooking(booking)}
     </div>
