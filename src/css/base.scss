@@ -1,7 +1,10 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$transparent-background: rgba(255, 255, 255, 0.67);
-$border-radius: 2px;
-$border-line: 1px solid darkgray;
+@import 'variables';
+
+@mixin aside-small-btns($margin, $padding) {
+  margin: $margin;
+  padding: $padding;
+}
 @mixin btn($border, $outline) {
   border: $border;
   outline: $outline;
@@ -167,7 +170,6 @@ button, .radio-filter label:hover {
 
 #nav-box {
   width: 300px;
-  // align-content: space-between;
   justify-content: space-around;
   border-bottom: $border-line;
 }
@@ -191,10 +193,6 @@ button, .radio-filter label:hover {
   justify-content: space-around;
   width: 500px
 }
-// TO-DO check that manager dash looks okay before deleting
-// input.date {
-//   margin-top: 10px;
-// }
 
 aside.filter-container {
   background: $transparent-background;
@@ -208,6 +206,12 @@ aside.filter-container {
 
 .radio-label {
   margin: 5px;
+}
+
+#user-reset-btn {
+  width: 70px;
+  align-self: center;
+  @include aside-small-btns(5px, 5px);
 }
 
 #manager-filter-container{
@@ -228,11 +232,7 @@ aside.filter-container {
   overflow: scroll !important;
   margin-top: 20px;
 }
-// #user-availability-container, #my-bookings-container {
-//  max-height: 700px;
-//  overflow: scroll !important;
-//  margin-top: 20px;
-// }
+
 #user-bookings-title, #user-total-spent {
   padding: 20px;
 }
@@ -247,10 +247,6 @@ aside.filter-container {
   max-height: 210px;
   min-width: 800px;
   max-width: fit-content;
-}
-
-.room-img-box {
-
 }
 
 .room-card-photo {
@@ -332,11 +328,13 @@ aside.filter-container {
 }
 
 #search-btn-box {
+  @include aside-small-btns(12px 0 20px 0, 5px);
   border-bottom: $border-line;
 }
 
 .search-btns {
-  margin: 12px 0 20px 0;
+  @include aside-small-btns(12px 0 20px 0, 5px)
+  // margin: $aside-small-btns;
 }
 
 #mgr-add-booking-btn {
@@ -370,7 +368,6 @@ aside.filter-container {
 
 .mgr-room-title {
   width: 200px;
-
 }
 
 .mgr-card-text {
