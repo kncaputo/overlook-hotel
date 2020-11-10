@@ -467,7 +467,7 @@ function displaySearchSubject(userId) {
 
   let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
   let html = `<h3>Customer: ${userName}</h3>
-  <h3>Total Spent: $${spent}</h3>`
+  <h3 id="mgr-total-spent">Total Spent: $${spent}</h3>`
   customersBookings.classList.remove('hidden');
   managerSearchSubject.classList.remove('hidden');
   managerSearchSubject.insertAdjacentHTML('afterbegin', html);
@@ -535,9 +535,11 @@ function determineFutureBooking(booking) {
 function deleteBooking(event) {
   let bookingId = event.target.id;
   let deleteRequest;
+  let searchedUserId = hotelOperation.findUserID(searchInput.value);
 
   let onSuccess = () => {
     document.getElementById(`booking-${event.target.id}`).remove();
+    updateMgrTotalSpent(searchedUserId);
   }
   let parsedInt = parseInt(bookingId);
   if (typeof parsedInt === 'number') {
@@ -552,6 +554,11 @@ function deleteBooking(event) {
 
   apiCalls.deleteData(deleteRequest, onSuccess);
   updateBookings();
+}
+
+function updateMgrTotalSpent(id) {
+  let spending = hotelOperation.calculateUserSpending(hotelOperation.findUserName(id));
+  document.getElementById('mgr-total-spent').innerText = `Total Spent: $${spending.toFixed(2)}`;
 }
 
 function clearSearchForm() {
