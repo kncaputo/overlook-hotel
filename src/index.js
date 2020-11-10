@@ -539,27 +539,30 @@ function deleteBooking(event) {
   let bookingId = event.target.id;
   let deleteRequest;
 
-  let onSuccess = () => {
-    // removeDeletedBooking(bookingId)
-    document.getElementById(`${event.target.id}`).disabled = true;
-    document.getElementById(`${event.target.id}`).innerText = 'Deleted!'
-    document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+  if (bookingId !== null) {
+    let onSuccess = () => {
+      // removeDeletedBooking(bookingId)
+      document.getElementById(`${event.target.id}`).disabled = true;
+      document.getElementById(`${event.target.id}`).innerText = 'Deleted!'
+      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
 
-  }
-  let parsedInt = parseInt(bookingId);
-  if (typeof parsedInt === 'number') {
-    deleteRequest = {
-      id: parsedInt
     }
-  } else {
-    deleteRequest = {
-      id: bookingId
+    let parsedInt = parseInt(bookingId);
+    if (typeof parsedInt === 'number') {
+      deleteRequest = {
+        id: parsedInt
+      }
+    } else {
+      deleteRequest = {
+        id: bookingId
+      }
     }
+
+    apiCalls.deleteData(deleteRequest, onSuccess);
+    updateBookings();
+    // document.getElementById(`${bookingId}`).remove();
   }
 
-  apiCalls.deleteData(deleteRequest, onSuccess);
-  updateBookings();
-  // document.getElementById(`${bookingId}`).remove();
 }
 
 function clearSearchForm() {
