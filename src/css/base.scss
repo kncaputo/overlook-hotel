@@ -1,7 +1,7 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 @import 'variables';
 @import 'mixins';
-
+@import 'buttons';
 
 * {
   font-family: 'Open Sans', sans-serif;
@@ -66,7 +66,6 @@ header#dashboard-header, #manager-dashboard-header {
   margin-left: 20px;
 }
 
-
 h1.main-title {
   margin-bottom: 0;
 }
@@ -99,62 +98,6 @@ h1.main-title {
   margin-top: 15px;
 }
 
-form > button {
-  border: none;
-  border-radius: $border-radius;
-  color: black;
-  font-size: 16px;
-  margin: 14px;
-  padding: 10px 20px;
-}
-
-button:hover {
-  background: gray;
-  color: white;
-  @include btn(none, none);
-}
-
-button:active {
-  border: none;
-  outline: none;
-}
-
-button.card-btn-book-room:disabled {
-  cursor: default;
-  outline: none;
-  color: white;
-  font-weight: bolder;
-}
-
-button:disabled {
-  color: gray;
-  cursor: default;
-  outline: none;
-}
-
-button {
-  @include btn(none, none);
-}
-
-.bookedBtn {
-  outline: 1px gray solid;
-  color: white;
-  font-weight: bolder;
-  width: 89px;
-  border-radius: $border-radius;
-  background-color: #1ac7f5;
-}
-
-.btn {
-  background: white;
-  opacity: 0.8;
-  border-radius: $border-radius;
-}
-
-button, .radio-filter label:hover {
-  cursor: pointer;
-}
-
 #nav-box {
   width: 300px;
   justify-content: space-around;
@@ -167,13 +110,6 @@ button, .radio-filter label:hover {
 
 .nav-container {
   align-items: flex-end;
-}
-
-.nav-btn {
-  background: none;
-  color: black;
-  margin: 10px 5px 7px 10px;
-
 }
 
 #availability-box {
@@ -193,12 +129,6 @@ aside.filter-container {
 
 .radio-label {
   margin: 5px;
-}
-
-#user-reset-btn {
-  width: 70px;
-  align-self: center;
-  @include aside-small-btns(5px, 5px);
 }
 
 #manager-filter-container{
@@ -313,20 +243,6 @@ aside.filter-container {
 
 #manager-stats-calendar {
   height: 15px;
-}
-
-#search-btn-box {
-  @include aside-small-btns(12px 0 20px 0, 5px);
-  border-bottom: $border-line;
-}
-
-.search-btns {
-  @include aside-small-btns(12px 0 20px 0, 5px)
-  // margin: $aside-small-btns;
-}
-
-#mgr-add-booking-btn {
-  margin-top: 20px;
 }
 
 #manager-booking-form {
