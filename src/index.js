@@ -75,6 +75,7 @@ let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
 let userTotalSpent = document.getElementById('user-total-spent');
+let loginError = document.getElementById('login-error');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -94,6 +95,9 @@ userResetBtn.addEventListener('click', resetRadioForm);
 managerStatsCal.addEventListener('change', updateStats);
 mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
 managerBookingCal.addEventListener('change', showMgrAvailableRooms);
+usernameInput.addEventListener('click', hideError);
+passwordInput.addEventListener('click', hideError);
+
 managerSelectRoom.addEventListener('click', () => {
   managerBookRoom(event);
 });
@@ -128,7 +132,10 @@ function verifyLogin() {
       passwordInput.value = "";
       return displayManagerDashboard();
     }
-    deliverLoginError();
+    return deliverLoginError();
+  }
+  if (usernameInput.value.length < 9) {
+    return deliverLoginError();
   }
 
   let attemptedUser = hotelOperation.usersRecord.find(user => {
@@ -163,6 +170,11 @@ function verifyPassword(attemptedUser) {
 
 function deliverLoginError() {
   console.log('Login Error');
+  loginError.classList.remove('hidden');
+}
+
+function hideError() {
+  loginError.classList.add('hidden');
 }
 
 function displayUserDashboard() {
