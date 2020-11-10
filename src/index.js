@@ -41,6 +41,7 @@ let todayDashes = moment().format('YYYY-MM-DD');
 let availabilityBox = document.getElementById('availability-box');
 let bookRoomNav = document.getElementById('book-room-nav');
 let customersBookings = document.getElementById('customers-bookings');
+let loginError = document.getElementById('login-error');
 let managerBookingCal = document.getElementById('manager-booking-cal');
 let managerBookingForm = document.getElementById('manager-booking-form');
 let managerClearBtn = document.getElementById('manager-clear-btn');
@@ -73,9 +74,9 @@ let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
-let userWelcome = document.querySelector('.user-welcome');
 let userTotalSpent = document.getElementById('user-total-spent');
-let loginError = document.getElementById('login-error');
+let userWelcome = document.querySelector('.user-welcome');
+let managerSignOutNav = document.getElementById('manager-sign-out-nav');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -97,6 +98,7 @@ mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
 managerBookingCal.addEventListener('change', showMgrAvailableRooms);
 usernameInput.addEventListener('click', hideError);
 passwordInput.addEventListener('click', hideError);
+managerSignOutNav.addEventListener('click', signOut);
 
 managerSelectRoom.addEventListener('click', () => {
   managerBookRoom(event);
@@ -633,5 +635,6 @@ function createManagerRoomCard(room) {
 function signOut() {
   currentUser = "";
   userDashboard.classList.add('hidden');
+  managerDashboard.classList.add('hidden');
   signInPage.classList.remove('hidden')
 }
