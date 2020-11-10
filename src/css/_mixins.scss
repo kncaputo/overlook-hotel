@@ -1,0 +1,14 @@
+@mixin aside-small-btns($margin, $padding) {
+  margin: $margin;
+  padding: $padding;
+}
+@mixin btn($border, $outline) {
+  border: $border;
+  outline: $outline;
+}
+@mixin cardText($margin, $text-align, $font-size, $width) {
+  margin: $margin;
+  text-align: $text-align;
+  font-size: $font-size;
+  width: $width;
+}
