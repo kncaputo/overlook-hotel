@@ -74,6 +74,7 @@ let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
+let userTotalSpent = document.getElementById('user-total-spent');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -258,7 +259,7 @@ function bookRoom(event) {
       document.getElementById(`${event.target.id}`).disabled = true;
       document.getElementById(`${event.target.id}`).innerText = 'Booked!'
       document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
-      
+
       // removeRoomBooked(event)
     }
 
@@ -392,10 +393,13 @@ function displayMyBookingsDash() {
 
 function displayRoomsToMyBookings() {
   userBookingsContainer.innerHTML = '';
+  userTotalSpent.innerHTML = '';
+  let total = hotelOperation.calculateUserSpending(currentUser.name).toFixed(2);
+  userTotalSpent.innerHTML = `Total Spent: $${total}`;
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
-  let sortedBookings = sortBookingsByDate(userBookings)
+  let sortedBookings = sortBookingsByDate(userBookings);
   sortedBookings.forEach(booking => {
-    let roomCardHtml = createBookingCard(booking)
+    let roomCardHtml = createBookingCard(booking);
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
   })
 }
