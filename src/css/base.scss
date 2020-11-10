@@ -1,20 +1,7 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 @import 'variables';
+@import 'mixins';
 
-@mixin aside-small-btns($margin, $padding) {
-  margin: $margin;
-  padding: $padding;
-}
-@mixin btn($border, $outline) {
-  border: $border;
-  outline: $outline;
-}
-@mixin cardText($margin, $text-align, $font-size, $width) {
-  margin: $margin;
-  text-align: $text-align;
-  font-size: $font-size;
-  width: $width;
-}
 
 * {
   font-family: 'Open Sans', sans-serif;
@@ -244,6 +231,7 @@ aside.filter-container {
 .rooms-card {
   margin: 0px 20px 20px 20px;
   background: $transparent-background;
+  border-radius: $border-radius;
   max-height: 210px;
   min-width: 800px;
   max-width: fit-content;
