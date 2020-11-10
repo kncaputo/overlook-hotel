@@ -186,7 +186,7 @@ function displayUserDashboard() {
 function updateStats() {
   let date = formatDateForStats()
   let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(date)}</p>
-  <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
+  <p class="manager-stats"><strong>Total Revenue for Date:</strong> $${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
   <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(date)}%</p>`
   document.getElementById('manager-stats-container').innerHTML = '';
   document.getElementById('manager-stats-container').insertAdjacentHTML('afterbegin', html);

@@ -122,7 +122,8 @@ button:active {
 
 button:disabled {
   color: gray;
-  cursor: pointer;
+  cursor: default;
+  outline: none;
 }
 
 button {
