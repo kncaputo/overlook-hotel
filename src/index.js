@@ -156,9 +156,9 @@ function verifyPassword(attemptedUser) {
     currentUser = attemptedUser;
     usernameInput.value = "";
     passwordInput.value = "";
-    displayUserDashboard()
+    displayUserDashboard();
   }
-  deliverLoginError()
+  deliverLoginError();
 }
 
 function deliverLoginError() {
@@ -166,12 +166,6 @@ function deliverLoginError() {
 }
 
 function displayUserDashboard() {
-  // ------ Just for dev mode
-  // if (!hotelOperation.usersRecord[0]) {
-  //   currentUser = {name: 'User'};
-  // } else {
-  //   currentUser = hotelOperation.usersRecord[0];
-  // }
   bookRoomNav.disabled = true;
   userCalendar.setAttribute('value', `${todayDashes}`);
   userCalendar.setAttribute('min', `${todayDashes}`);
@@ -180,7 +174,6 @@ function displayUserDashboard() {
   myBookingsContainer.classList.add('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
-  // TODO - add styles for that Book A Room nav looks highlighted
 }
 
 function updateStats() {
