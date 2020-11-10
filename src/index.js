@@ -290,6 +290,7 @@ function managerBookRoom(event) {
     let bookingDate = formatMgrAvailabilityDate();
     let onSuccess = () => {
       managerRemoveRoomBooked(event);
+      displayMgrBookingNotification(event.target.id, 'booking');
       updateMgrTotalSpent(userId);
     }
 
@@ -302,10 +303,32 @@ function managerBookRoom(event) {
       date: bookingDate,
       roomNumber: roomToBook.number
     }
-    apiCalls.postData(bookingData, onSuccess)
+    apiCalls.postData(bookingData, onSuccess);
     updateBookings();
   }
 }
+
+function displayMgrBookingNotification(idOrNum, command) {
+  let bookingMsg = `Room ${idOrNum} booked for ${managerBookingCal.value}.`;
+  let deletionMsg = `Booking ${idOrNum} has been deleted.`;
+  document.getElementById('mgr-msg').innerHTML = '';
+
+  if (command === 'booking') {
+    document.getElementById('mgr-msg').innerHTML = bookingMsg;
+  } else {
+    document.getElementById('mgr-msg').innerHTML = deletionMsg;
+  }
+  // command === 'booking' ? :
+  // document.getElementById('mgr-msg').innerHTML = '';
+  // let message = `Room ${roomNumber} booked for ${managerBookingCal.value}.`
+  // document.getElementById('mgr-msg').innerHTML = message;
+}
+//
+// function displayMgrDeletionNotification(bookingId) {
+//   document.getElementById('mgr-msg').innerHTML = '';
+//   let message = `Room ${roomNumber} booked for ${managerBookingCal.value}.`
+//   document.getElementById('mgr-msg').innerHTML = message;
+// }
 
 function getSearchedUserId() {
   let query = searchInput.value;
@@ -473,7 +496,8 @@ function displaySearchSubject(userId) {
   let userName = hotelOperation.findUserName(userId);
 
   let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
-  let html = `<h3>Customer: ${userName}</h3>
+  let html = `<h3 id="user-name">Customer: ${userName}</h3>
+  <p id="mgr-msg"></p>
   <h3 id="mgr-total-spent">Total Spent: $${spent}</h3>`
   customersBookings.classList.remove('hidden');
   managerSearchSubject.classList.remove('hidden');
@@ -546,6 +570,7 @@ function deleteBooking(event) {
 
   let onSuccess = () => {
     document.getElementById(`booking-${event.target.id}`).remove();
+    displayMgrBookingNotification(event.target.id, 'delete');
     updateMgrTotalSpent(searchedUserId);
   }
   let parsedInt = parseInt(bookingId);
