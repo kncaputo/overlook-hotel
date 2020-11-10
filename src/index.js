@@ -281,7 +281,12 @@ function managerBookRoom(event) {
   if (event.target.id) {
     let bookingDate = formatMgrAvailabilityDate();
     let onSuccess = () => {
-      managerRemoveRoomBooked(event)
+      // managerRemoveRoomBooked(event)
+
+      document.getElementById(`${event.target.id}`).disabled = true;
+      document.getElementById(`${event.target.id}`).innerText = 'Booked!'
+      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -508,7 +513,7 @@ function createManagerBookingCard(booking) {
       roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
   }
 
-  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="${booking.id}">
+  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="booking-${booking.id}">
     <p class="mgr-card-small">${booking.date}</p>
     <p class="mgr-card-large">${roomBooked.roomType.toUpperCase()}</p>
     <p class="mgr-card-small">${roomBooked.number}</p>
@@ -535,7 +540,11 @@ function deleteBooking(event) {
   let deleteRequest;
 
   let onSuccess = () => {
-    removeDeletedBooking(bookingId)
+    // removeDeletedBooking(bookingId)
+    document.getElementById(`${event.target.id}`).disabled = true;
+    document.getElementById(`${event.target.id}`).innerText = 'Deleted!'
+    document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+
   }
   let parsedInt = parseInt(bookingId);
   if (typeof parsedInt === 'number') {
@@ -550,7 +559,7 @@ function deleteBooking(event) {
 
   apiCalls.deleteData(deleteRequest, onSuccess);
   updateBookings();
-  document.getElementById(`${bookingId}`).remove();
+  // document.getElementById(`${bookingId}`).remove();
 }
 
 function clearSearchForm() {
