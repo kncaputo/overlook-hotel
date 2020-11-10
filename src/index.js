@@ -253,27 +253,29 @@ function updateBookings() {
 }
 
 function bookRoom(event) {
-  if (event.target.id) {
-    let bookingDate = getFormatDate();
-    let onSuccess = () => {
-      document.getElementById(`${event.target.id}`).disabled = true;
-      document.getElementById(`${event.target.id}`).innerText = 'Booked!'
-      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+  if (document.getElementById(`${event.target.id}`) !== null) {
+    if (document.getElementById(`${event.target.id}`).diasbled !== true) {
+      let bookingDate = getFormatDate();
+      let onSuccess = () => {
+        document.getElementById(`${event.target.id}`).disabled = true;
+        document.getElementById(`${event.target.id}`).innerText = 'Booked!'
+        document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
 
-      // removeRoomBooked(event)
+        // removeRoomBooked(event)
+      }
+
+      let roomToBook = hotelOperation.roomsRecord.find(room => {
+        return room.number == event.target.id;
+      })
+
+      let bookingData = {
+        userID: currentUser.id,
+        date: bookingDate,
+        roomNumber: roomToBook.number
+      }
+      apiCalls.postData(bookingData, onSuccess);
+      updateBookings();
     }
-
-    let roomToBook = hotelOperation.roomsRecord.find(room => {
-      return room.number == event.target.id;
-    })
-
-    let bookingData = {
-      userID: currentUser.id,
-      date: bookingDate,
-      roomNumber: roomToBook.number
-    }
-    apiCalls.postData(bookingData, onSuccess)
-    updateBookings();
   }
 }
 
@@ -284,9 +286,8 @@ function managerBookRoom(event) {
       // managerRemoveRoomBooked(event)
 
       document.getElementById(`${event.target.id}`).disabled = true;
-      document.getElementById(`${event.target.id}`).innerText = 'Booked!'
-      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
-
+      document.getElementById(`${event.target.id}`).innerText = 'Booked!';
+      document.getElementById(`${event.target.id}`).classList.add('bookedBtn');
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -590,7 +591,7 @@ function createManagerRoomCard(room) {
     <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(room)}</p>
     <p class="mgr-card-small">$${room.costPerNight}</p>
-    <button class="btn card-btn-book-room" id="${room.number}">Book Room</button>
+    <button class="btn mgr-card-btn" id="${room.number}">Book Room</button>
   </article>`
 }
 
