@@ -255,7 +255,11 @@ function bookRoom(event) {
   if (event.target.id) {
     let bookingDate = getFormatDate();
     let onSuccess = () => {
-      removeRoomBooked(event)
+      document.getElementById(`${event.target.id}`).disabled = true;
+      document.getElementById(`${event.target.id}`).innerText = 'Booked!'
+      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+      
+      // removeRoomBooked(event)
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -395,6 +399,7 @@ function displayRoomsToMyBookings() {
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
   })
 }
+// <p class="primary-details-text">Room number ${booking.roomNumber}</p>
 
 function createBookingCard(booking) {
   let roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
@@ -405,7 +410,7 @@ function createBookingCard(booking) {
     </section>
     <section class="flex-column room-card-details">
       <h3>${booking.date}</h3>
-      <p class="primary-details-text">${roomBooked.roomType.toUpperCase()}</p>
+      <p class="primary-details-text">${roomBooked.roomType.toUpperCase()} #${booking.roomNumber}</p>
       <p class="primary-details-text">Booking id: ${booking.id}</p>
       <p class="secondary-details-text">${determineBedHtml(roomBooked)}<br>
       <p class="secondary-details-text">Bidet: ${determineBidet(roomBooked)}</p>

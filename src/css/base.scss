@@ -122,11 +122,19 @@ button:active {
 
 button:disabled {
   color: gray;
+  cursor: pointer;
 }
 
 button {
   border: none;
   outline: none;
+}
+
+.bookedBtn {
+  outline: 1px gray solid;
+  width: 89px;
+  border-radius: 2px;
+  background-color: #1ac7f5;
 }
 
 .btn {
