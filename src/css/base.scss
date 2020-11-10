@@ -48,6 +48,11 @@ body {
   margin-top: 45px;
 }
 
+#login-error {
+  font-size: 12px;
+  margin-top: 0px;
+}
+
 .header {
   height: 9vw;
   background: $transparent-background;
@@ -122,7 +127,8 @@ button:active {
 
 button:disabled {
   color: gray;
-  cursor: pointer;
+  cursor: default;
+  outline: none;
 }
 
 button {
@@ -215,7 +221,7 @@ aside.filter-container {
 //  overflow: scroll !important;
 //  margin-top: 20px;
 // }
-#user-bookings-title {
+#user-bookings-title, #user-total-spent {
   padding: 20px;
 }
 
@@ -274,10 +280,13 @@ aside.filter-container {
   // flex-grow: 3;
 }
 
+.mgr-card-btn {
+  padding: 0;
+}
+
 .card-btn-book-room {
   padding: 10px;
   border-radius: 2px;
-
 }
 
 // shared w Manager and User

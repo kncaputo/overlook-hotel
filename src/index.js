@@ -74,6 +74,8 @@ let usernameInput = document.getElementById('username-input');
 let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userWelcome = document.querySelector('.user-welcome');
+let userTotalSpent = document.getElementById('user-total-spent');
+let loginError = document.getElementById('login-error');
 
 window.onload = fetchAllData();
 // --------- This is event listener wanted for production -------
@@ -93,6 +95,9 @@ userResetBtn.addEventListener('click', resetRadioForm);
 managerStatsCal.addEventListener('change', updateStats);
 mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
 managerBookingCal.addEventListener('change', showMgrAvailableRooms);
+usernameInput.addEventListener('click', hideError);
+passwordInput.addEventListener('click', hideError);
+
 managerSelectRoom.addEventListener('click', () => {
   managerBookRoom(event);
 });
@@ -127,7 +132,10 @@ function verifyLogin() {
       passwordInput.value = "";
       return displayManagerDashboard();
     }
-    deliverLoginError();
+    return deliverLoginError();
+  }
+  if (usernameInput.value.length < 9) {
+    return deliverLoginError();
   }
 
   let attemptedUser = hotelOperation.usersRecord.find(user => {
@@ -155,22 +163,21 @@ function verifyPassword(attemptedUser) {
     currentUser = attemptedUser;
     usernameInput.value = "";
     passwordInput.value = "";
-    displayUserDashboard()
+    displayUserDashboard();
   }
-  deliverLoginError()
+  deliverLoginError();
 }
 
 function deliverLoginError() {
   console.log('Login Error');
+  loginError.classList.remove('hidden');
+}
+
+function hideError() {
+  loginError.classList.add('hidden');
 }
 
 function displayUserDashboard() {
-  // ------ Just for dev mode
-  // if (!hotelOperation.usersRecord[0]) {
-  //   currentUser = {name: 'User'};
-  // } else {
-  //   currentUser = hotelOperation.usersRecord[0];
-  // }
   bookRoomNav.disabled = true;
   userCalendar.setAttribute('value', `${todayDashes}`);
   userCalendar.setAttribute('min', `${todayDashes}`);
@@ -179,13 +186,12 @@ function displayUserDashboard() {
   myBookingsContainer.classList.add('hidden');
   userWelcome.innerHTML = `Welcome back, ${currentUser.name}`;
   displayRoomsToUserAvailability(hotelOperation.findAvailableRooms(today));
-  // TODO - add styles for that Book A Room nav looks highlighted
 }
 
 function updateStats() {
   let date = formatDateForStats()
   let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(date)}</p>
-  <p class="manager-stats"><strong>Total Revenue for Date:</strong> ${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
+  <p class="manager-stats"><strong>Total Revenue for Date:</strong> $${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
   <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(date)}%</p>`
   document.getElementById('manager-stats-container').innerHTML = '';
   document.getElementById('manager-stats-container').insertAdjacentHTML('afterbegin', html);
@@ -252,41 +258,45 @@ function updateBookings() {
 }
 
 function bookRoom(event) {
-  if (event.target.id) {
-    let bookingDate = getFormatDate();
-    let onSuccess = () => {
-      document.getElementById(`${event.target.id}`).disabled = true;
-      document.getElementById(`${event.target.id}`).innerText = 'Booked!'
-      document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
-      
-      // removeRoomBooked(event)
-    }
+  if (document.getElementById(`${event.target.id}`) !== null) {
+    if (document.getElementById(`${event.target.id}`).diasbled !== true) {
+      let bookingDate = getFormatDate();
+      let onSuccess = () => {
+        document.getElementById(`${event.target.id}`).disabled = true;
+        document.getElementById(`${event.target.id}`).innerText = 'Booked!'
+        document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
 
-    let roomToBook = hotelOperation.roomsRecord.find(room => {
-      return room.number == event.target.id;
-    })
+        // removeRoomBooked(event)
+      }
 
-    let bookingData = {
-      userID: currentUser.id,
-      date: bookingDate,
-      roomNumber: roomToBook.number
+      let roomToBook = hotelOperation.roomsRecord.find(room => {
+        return room.number == event.target.id;
+      })
+
+      let bookingData = {
+        userID: currentUser.id,
+        date: bookingDate,
+        roomNumber: roomToBook.number
+      }
+      apiCalls.postData(bookingData, onSuccess);
+      updateBookings();
     }
-    apiCalls.postData(bookingData, onSuccess)
-    updateBookings();
   }
 }
 
 function managerBookRoom(event) {
+  let userId;
   if (event.target.id) {
     let bookingDate = formatMgrAvailabilityDate();
     let onSuccess = () => {
-      managerRemoveRoomBooked(event)
+      managerRemoveRoomBooked(event);
+      updateMgrTotalSpent(userId);
     }
 
     let roomToBook = hotelOperation.roomsRecord.find(room => {
       return room.number == event.target.id;
     })
-    let userId = getSearchedUserId();
+    userId = getSearchedUserId();
     let bookingData = {
       userID: userId,
       date: bookingDate,
@@ -392,10 +402,13 @@ function displayMyBookingsDash() {
 
 function displayRoomsToMyBookings() {
   userBookingsContainer.innerHTML = '';
+  userTotalSpent.innerHTML = '';
+  let total = hotelOperation.calculateUserSpending(currentUser.name).toFixed(2);
+  userTotalSpent.innerHTML = `Total Spent: $${total}`;
   let userBookings = hotelOperation.filterBookingsByName(currentUser.name);
-  let sortedBookings = sortBookingsByDate(userBookings)
+  let sortedBookings = sortBookingsByDate(userBookings);
   sortedBookings.forEach(booking => {
-    let roomCardHtml = createBookingCard(booking)
+    let roomCardHtml = createBookingCard(booking);
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
   })
 }
@@ -417,7 +430,7 @@ function createBookingCard(booking) {
     </section>
     <section class="flex-column room-card-price">
       <article class="flex-column card-inner-contents">
-        <h3>$${roomBooked.costPerNight}</h3>
+        <h3>$${roomBooked.costPerNight.toFixed(2)}</h3>
         <p>per night</p>
       </article>
     </section>
@@ -461,7 +474,7 @@ function displaySearchSubject(userId) {
 
   let spent = hotelOperation.calculateUserSpending(userName).toFixed(2);
   let html = `<h3>Customer: ${userName}</h3>
-  <h3>Total Spent: $${spent}</h3>`
+  <h3 id="mgr-total-spent">Total Spent: $${spent}</h3>`
   customersBookings.classList.remove('hidden');
   managerSearchSubject.classList.remove('hidden');
   managerSearchSubject.insertAdjacentHTML('afterbegin', html);
@@ -504,14 +517,14 @@ function createManagerBookingCard(booking) {
       roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
   }
 
-  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="${booking.id}">
+  return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="booking-${booking.id}">
     <p class="mgr-card-small">${booking.date}</p>
     <p class="mgr-card-large">${roomBooked.roomType.toUpperCase()}</p>
     <p class="mgr-card-small">${roomBooked.number}</p>
     <p class="mgr-card-text">${booking.id}</p>
     <p class="mgr-card-small">${roomBooked.numBeds} ${roomBooked.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(roomBooked)}</p>
-    <p class="mgr-card-small">$${roomBooked.costPerNight}</p>
+    <p class="mgr-card-small">$${roomBooked.costPerNight.toFixed(2)}</p>
     <div class="mgr-card-text">
     ${determineFutureBooking(booking)}
     </div>
@@ -529,9 +542,11 @@ function determineFutureBooking(booking) {
 function deleteBooking(event) {
   let bookingId = event.target.id;
   let deleteRequest;
+  let searchedUserId = hotelOperation.findUserID(searchInput.value);
 
   let onSuccess = () => {
-    removeDeletedBooking(bookingId)
+    document.getElementById(`booking-${event.target.id}`).remove();
+    updateMgrTotalSpent(searchedUserId);
   }
   let parsedInt = parseInt(bookingId);
   if (typeof parsedInt === 'number') {
@@ -546,7 +561,11 @@ function deleteBooking(event) {
 
   apiCalls.deleteData(deleteRequest, onSuccess);
   updateBookings();
-  document.getElementById(`${bookingId}`).remove();
+}
+
+function updateMgrTotalSpent(id) {
+  let spending = hotelOperation.calculateUserSpending(hotelOperation.findUserName(id));
+  document.getElementById('mgr-total-spent').innerText = `Total Spent: $${spending.toFixed(2)}`;
 }
 
 function clearSearchForm() {
@@ -582,7 +601,7 @@ function createManagerRoomCard(room) {
     <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(room)}</p>
     <p class="mgr-card-small">$${room.costPerNight}</p>
-    <button class="btn card-btn-book-room" id="${room.number}">Book Room</button>
+    <button class="btn mgr-card-btn" id="${room.number}">Book Room</button>
   </article>`
 }
 
