@@ -486,6 +486,9 @@ function searchUserBookings() {
 
 function populateUserDropdown() {
   let dropdown = document.getElementById('customers');
+  let customersAToZ = hotelOperation.usersRecord.sort((a, b) => {
+    return a.name < b.name ? -1: 1;
+  })
   let customerNames = hotelOperation.usersRecord.map(user => {
     return `<option value="${user.name}">`;
   }).join('');
