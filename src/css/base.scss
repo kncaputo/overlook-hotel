@@ -1,5 +1,7 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$transparent-background: rgba(255, 255, 255, 0.67);
+@import 'variables';
+@import 'mixins';
+@import 'buttons';
 
 * {
   font-family: 'Open Sans', sans-serif;
@@ -7,10 +9,7 @@ $transparent-background: rgba(255, 255, 255, 0.67);
 
 body {
   background:  url(../images/overlook.jpg);
-  // object-fit: contain;
   background-size: cover;
-  // height: 100vh;
-  // width: 100vw;
 }
 
 .hidden {
@@ -54,9 +53,8 @@ body {
 }
 
 .header {
-  height: 9vw;
   background: $transparent-background;
-  border-radius: 2px;
+  border-radius: $border-radius;
   height: 100px;
 }
 
@@ -67,7 +65,6 @@ header#dashboard-header, #manager-dashboard-header {
 .left-dashboard-header {
   margin-left: 20px;
 }
-
 
 h1.main-title {
   margin-bottom: 0;
@@ -91,7 +88,7 @@ h1.main-title {
   width: 275px;
   margin-top: 100px;
   background: $transparent-background;
-  border-radius: 2px;
+  border-radius: $border-radius;
   align-items: center;
 }
 
@@ -101,63 +98,10 @@ h1.main-title {
   margin-top: 15px;
 }
 
-form > button {
-  border: none;
-  border-radius: 5px;
-  color: black;
-  font-size: 16px;
-  margin: 14px;
-  padding: 10px 20px;
-}
-
-// form > button:hover {
-//   background: gray;
-//   color: white;
-// }
-
-button:hover {
-  background: gray;
-  color: white;
-}
-
-button:active {
-  border: none;
-  outline: none;
-}
-
-button:disabled {
-  color: gray;
-  cursor: default;
-  outline: none;
-}
-
-button {
-  border: none;
-  outline: none;
-}
-
-.bookedBtn {
-  outline: 1px gray solid;
-  width: 89px;
-  border-radius: 2px;
-  background-color: #1ac7f5;
-}
-
-.btn {
-  background: white;
-  opacity: 0.8;
-  border-radius: 5px;
-}
-
-button, .radio-filter label:hover {
-  cursor: pointer;
-}
-
 #nav-box {
   width: 300px;
-  // align-content: space-between;
   justify-content: space-around;
-  border-bottom: 1px solid darkgray;
+  border-bottom: $border-line;
 }
 
 #manager-sign-out-nav {
@@ -168,21 +112,10 @@ button, .radio-filter label:hover {
   align-items: flex-end;
 }
 
-.nav-btn {
-  background: none;
-  color: black;
-  margin: 10px 5px 7px 10px;
-
-}
-
 #availability-box {
   justify-content: space-around;
   width: 500px
 }
-// TO-DO check that manager dash looks okay before deleting
-// input.date {
-//   margin-top: 10px;
-// }
 
 aside.filter-container {
   background: $transparent-background;
@@ -190,7 +123,7 @@ aside.filter-container {
   height: 190px;
   width: 150px;
   padding: 20px;
-  border-radius: 2px;
+  border-radius: $border-radius;
   justify-content: center;
 }
 
@@ -203,7 +136,7 @@ aside.filter-container {
   margin: 20px;
   height: 238px;
   padding: 20px;
-  border-radius: 2px;
+  border-radius: $border-radius;
   justify-content: center;
 }
 
@@ -216,11 +149,7 @@ aside.filter-container {
   overflow: scroll !important;
   margin-top: 20px;
 }
-// #user-availability-container, #my-bookings-container {
-//  max-height: 700px;
-//  overflow: scroll !important;
-//  margin-top: 20px;
-// }
+
 #user-bookings-title, #user-total-spent {
   padding: 20px;
 }
@@ -232,13 +161,10 @@ aside.filter-container {
 .rooms-card {
   margin: 0px 20px 20px 20px;
   background: $transparent-background;
+  border-radius: $border-radius;
   max-height: 210px;
   min-width: 800px;
   max-width: fit-content;
-}
-
-.room-img-box {
-
 }
 
 .room-card-photo {
@@ -255,8 +181,7 @@ aside.filter-container {
 }
 
 .card-inner-contents {
-  padding-top: 30px;
-  padding-right: 10px;
+  padding: 30px 10px 0 0;
   align-items: center;
 }
 
@@ -276,63 +201,44 @@ aside.filter-container {
 .room-card-price {
   margin-left: 10px;
   width: 150px;
-  border-left: 1px solid darkgray;
-  // flex-grow: 3;
+  border-left: $border-line;
 }
 
 .card-btn-book-room {
   padding: 10px;
-  border-radius: 2px;
+  border-radius: $border-radius;
 }
 
 // shared w Manager and User
 .future-bookings-box {
-  border-bottom: 1px solid darkgray;
+  border-bottom: $border-line;
 }
 
 // Manager dashboard
 
 #manager-cal-container {
-  // margin: 10px;
   align-items: flex-end;
   height: 100px;
 }
 
 #manager-cal-container > p {
   font-size: 14px;
-  margin-top: 23px;
-  margin-bottom: 2px;
+  margin: 23px 0 2px 0;
 }
 
 #manager-stats-container {
-  border-left: 1px solid darkgray;
-  margin-right: 70px;
-  margin: 10px;
-  height: 80px;
+  border-left: $border-line;
+  margin: 10px 10px 10px 10px;
   justify-content: space-evenly;
 }
 
 .manager-stats {
   font-size: 12px;
-  margin-bottom: 5px;
-  margin-top: 0px;
-  margin-left: 10px;
+  margin: 0 0 5px 10px;
 }
 
 #manager-stats-calendar {
   height: 15px;
-}
-
-#search-btn-box {
-  border-bottom: 1px solid darkgray;
-}
-
-.search-btns {
-  margin: 12px 0 20px 0;
-}
-
-#mgr-add-booking-btn {
-  margin-top: 20px;
 }
 
 #manager-booking-form {
@@ -344,12 +250,12 @@ aside.filter-container {
 }
 
 #manager-new-booking-container {
-  border: 1px solid darkgray;
+  border: $border-line;
   height: 40vh;
 }
 
 #manager-results-container {
-  border: 1px solid darkgray;
+  border: $border-line;
   height: 40vh;
 }
 
@@ -362,28 +268,18 @@ aside.filter-container {
 
 .mgr-room-title {
   width: 200px;
-
 }
 
 .mgr-card-text {
-  text-align: center;
-  font-size: 14px;
-  margin: 0 10px;
-  width: 120px;
+  @include cardText(0 10px, center, 14px, 120px);
 }
 
 .mgr-card-small {
-  text-align: center;
-  font-size: 14px;
-  margin: 0 10px;
-  width: 60px;
+  @include cardText(0 10px, center, 14px, 60px);
 }
 
 .mgr-card-large {
-  text-align: center;
-  font-size: 14px;
-  margin: 0 13px;
-  width: 130px;
+  @include cardText(0 13px, center, 14px, 130px);
 }
 
 .mgr-cards-container {
@@ -394,7 +290,7 @@ aside.filter-container {
 .manager-rooms-card-header {
   position: sticky;
   text-align: center;
-  border: 1px solid darkgray;
+  border: $border-line;
   background: $transparent-background;
   padding: 10px 20px 10px 20px;
 }
