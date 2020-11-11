@@ -4,12 +4,10 @@ import Booking from '../src/Booking';
 
 describe('Booking', () => {
   let booking;
-  let booking2;
   let bookingData = {"id":"1abcde2f3h11ij4lm","userID":1,"date":"2020/01/01","roomNumber":11,"roomServiceCharges":[]};
 
   beforeEach(() => {
     booking = new Booking(bookingData, 'Carlton');
-    booking2 = new Booking(bookingData);
   });
 
   describe('Constructor', () => {

@@ -488,8 +488,9 @@ function populateUserDropdown() {
   let dropdown = document.getElementById('customers');
   let customersAToZ = hotelOperation.usersRecord.sort((a, b) => {
     return a.name < b.name ? -1: 1;
-  })
-  let customerNames = hotelOperation.usersRecord.map(user => {
+  });
+  
+  let customerNames = customersAToZ.map(user => {
     return `<option value="${user.name}">`;
   }).join('');
   dropdown.insertAdjacentHTML('afterbegin', customerNames);
@@ -541,7 +542,7 @@ function createManagerBookingCard(booking) {
       src: './images/honeymoon-suite.jpg'
     }
   } else {
-      roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
+    roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
   }
 
   return `<article class="flex-row space-around manager-rooms-card primary-details-text" id="booking-${booking.id}">
