@@ -151,6 +151,7 @@ function displayManagerDashboard() {
   managerStatsCal.setAttribute('value', `${todayDashes}`);
   managerStatsCal.setAttribute('max', `${todayDashes}`);
   updateStats();
+  populateUserDropdown();
   signInPage.classList.add('hidden');
   managerDashboard.classList.remove('hidden');
 
@@ -481,6 +482,14 @@ function searchUserBookings() {
   managerResultsContainer.classList.remove('hidden');
   displaySearchSubject(userId);
   displaySearchedBookings(sortedBookings);
+}
+
+function populateUserDropdown() {
+  let dropdown = document.getElementById('customers');
+  let customerNames = hotelOperation.usersRecord.map(user => {
+    return `<option value="${user.name}">`;
+  }).join('');
+  dropdown.insertAdjacentHTML('afterbegin', customerNames);
 }
 
 function displaySearchSubject(userId) {
