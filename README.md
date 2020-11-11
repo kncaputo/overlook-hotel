@@ -19,8 +19,11 @@ This was the final solo project for Module 2 of the Turing School of Software an
 
 ## GIF of the Working Application
 Customer View
+
 ![Customer View](https://media.giphy.com/media/RfFJxJj983jJA8s9n3/giphy.gif)
+
 Manager View
+
 ![Manager View](https://media.giphy.com/media/AMCHvRTPeRbHLJwUH1/giphy.gif)
 
 ## Setup
