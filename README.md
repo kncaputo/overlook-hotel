@@ -18,6 +18,10 @@ This was the final solo project for Module 2 of the Turing School of Software an
 - Mocha testing framework and Chai assertion library
 
 ## GIF of the Working Application
+Customer View
+![Customer View](https://media.giphy.com/media/RfFJxJj983jJA8s9n3/giphy.gif)
+Manager View
+![Manager View](https://media.giphy.com/media/AMCHvRTPeRbHLJwUH1/giphy.gif)
 
 ## Setup
 Download Instructions 
@@ -31,8 +35,9 @@ To view the test suitee:
 - Run `npm test` in your terminal
 
 ## Links
+- [Deployed Page](https://kncaputo.github.io/overlook-hotel/) (log in with `manager` or `customer1` through `customer50`, password `overlook2020`)
 - Project Repository: https://github.com/kncaputo/overlook-hotel
 - Original Project Spec: https://frontend.turing.io/projects/overlook.html
 
 ## Project By:
-Kara Caputo (GitHub: https://github.com/kncaputo)
+Kara Caputo - GitHub: https://github.com/kncaputo
