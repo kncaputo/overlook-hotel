@@ -16,12 +16,11 @@ let apiCalls = {
       },
       body: JSON.stringify(newPost)
     })
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
-      onSuccess();
-    })
-    .catch(err => console.log(err))
+      .then(response => response.json())
+      .then(json => {
+        onSuccess();
+      })
+      .catch(err => console.log(err))
   },
 
   deleteData(deleteRequest, onSuccess) {
@@ -32,12 +31,12 @@ let apiCalls = {
       },
       body: JSON.stringify(deleteRequest)
     })
-    .then(response => response.json())
-    .then(json => {
+      .then(response => response.json())
+      .then(json => {
       console.log(json);
       onSuccess();
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 }
 

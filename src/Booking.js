@@ -1,5 +1,5 @@
 export default class Booking {
-  constructor(rawData, name) {
+  constructor(rawData) {
     this.id = rawData.id || null;
     this.userID = rawData.userID;
     this.date = rawData.date;

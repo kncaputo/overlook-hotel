@@ -1,5 +1,5 @@
 export default class User {
-  constructor(rawData, managerStatus) {
+  constructor(rawData) {
     this.id = rawData.id;
     this.name = rawData.name;
     this.username = `customer${rawData.id}`;

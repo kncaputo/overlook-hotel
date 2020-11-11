@@ -53,7 +53,6 @@ let managerSearchSubject = document.getElementById('manager-search-subject');
 let managerSelectRoom = document.getElementById('manager-select-room');
 let managerStatsCal = document.getElementById('manager-stats-calendar');
 let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
-let modal = document.getElementById('modal');
 let myBookingsContainer = document.getElementById('my-bookings-container');
 let myBookingsNav = document.getElementById('my-bookings-nav');
 let passwordInput = document.getElementById('password-input');
@@ -72,7 +71,6 @@ let userDashboard = document.getElementById('user-dashboard');
 let userDashboardContainer = document.getElementById('user-dashboard-container');
 let userFilter = document.getElementById('user-filter');
 let usernameInput = document.getElementById('username-input');
-let userRadio = document.querySelectorAll('user-radio');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userTotalSpent = document.getElementById('user-total-spent');
 let userWelcome = document.querySelector('.user-welcome');
@@ -116,9 +114,9 @@ function fetchAllData() {
   let usersPromise = apiCalls.fetchData('users');
 
   Promise.all([roomsPromise, bookingsPromise, usersPromise])
-  .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
-  .then(() => loadPage())
-  .catch(err => console.log(err))
+    .then(data => hotelOperation = new HotelOperation(data[0], data[1], data[2]))
+    .then(() => loadPage())
+    .catch(err => console.log(err))
 }
 
 function loadPage() {
@@ -192,9 +190,9 @@ function displayUserDashboard() {
 
 function updateStats() {
   let date = formatDateForStats()
-  let html = `<p class="manager-stats"><strong>Total Available Rooms:</strong> ${hotelOperation.getNumOfAvailable(date)}</p>
-  <p class="manager-stats"><strong>Total Revenue for Date:</strong> $${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
-  <p class="manager-stats"><strong>Percentage Occupied:</strong> ${hotelOperation.getPercentageOccupied(date)}%</p>`
+  let html = `<p class="manager-stats">Total Available Rooms: ${hotelOperation.getNumOfAvailable(date)}</p>
+  <p class="manager-stats">Total Revenue for Date: $${hotelOperation.getTotalRevenue(date).toFixed(2)}</p>
+  <p class="manager-stats">Percentage Occupied: ${hotelOperation.getPercentageOccupied(date)}%</p>`
   document.getElementById('manager-stats-container').innerHTML = '';
   document.getElementById('manager-stats-container').insertAdjacentHTML('afterbegin', html);
 }
@@ -209,6 +207,10 @@ function displayBookRoomDash() {
 
 function displayRoomsToUserAvailability(roomsToDisplay) {
   userAvailabilityContainer.innerHTML = '';
+  if (roomsToDisplay.length === 0) {
+    let noRoomsMsg = `<p>We're all booked up on ${getFormatDate()}. Please select a different date in the navigation bar.</p>`
+    userAvailabilityContainer.insertAdjacentHTML('afterbegin', noRoomsMsg);
+  }
   roomsToDisplay.forEach(room => {
     let roomCardHtml = createRoomCard(room)
     userAvailabilityContainer.insertAdjacentHTML('afterbegin', roomCardHtml);
@@ -254,9 +256,9 @@ function updateBookings() {
   let bookingsPromise = apiCalls.fetchData('bookings');
 
   Promise.all([bookingsPromise])
-  .then(data => hotelOperation.bookingsData = data[0])
-  .then(() => hotelOperation.createBookingsRecord())
-  .catch(err => console.log(err))
+    .then(data => hotelOperation.bookingsData = data[0])
+    .then(() => hotelOperation.createBookingsRecord())
+    .catch(err => console.log(err))
 }
 
 function bookRoom(event) {
@@ -267,8 +269,6 @@ function bookRoom(event) {
         document.getElementById(`${event.target.id}`).disabled = true;
         document.getElementById(`${event.target.id}`).innerText = 'Booked!'
         document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
-
-        // removeRoomBooked(event)
       }
 
       let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -320,17 +320,7 @@ function displayMgrBookingNotification(idOrNum, command) {
   } else {
     document.getElementById('mgr-msg').innerHTML = deletionMsg;
   }
-  // command === 'booking' ? :
-  // document.getElementById('mgr-msg').innerHTML = '';
-  // let message = `Room ${roomNumber} booked for ${managerBookingCal.value}.`
-  // document.getElementById('mgr-msg').innerHTML = message;
 }
-//
-// function displayMgrDeletionNotification(bookingId) {
-//   document.getElementById('mgr-msg').innerHTML = '';
-//   let message = `Room ${roomNumber} booked for ${managerBookingCal.value}.`
-//   document.getElementById('mgr-msg').innerHTML = message;
-// }
 
 function getSearchedUserId() {
   let query = searchInput.value;
@@ -348,8 +338,9 @@ function removeRoomBooked(event) {
 }
 
 function determineSelection() {
-  if (radioSingle.checked) {return 'single room'}
-  else if (radioJunior.checked) {
+  if (radioSingle.checked) {
+    return 'single room';
+  } else if (radioJunior.checked) {
     return 'junior suite';
   } else if (radioSuite.checked) {
     return 'suite';
@@ -363,7 +354,7 @@ function findRooms() {
   let filteredByDate = filterRoomsByDate();
   let radioFilterValue = determineSelection();
   if (radioFilterValue !== false) {
-    let roomsToDisplay = hotelOperation.filterByRoomType(radioFilterValue, filteredByDate)
+    let roomsToDisplay = hotelOperation.filterByRoomType(radioFilterValue, filteredByDate);
     return displayRoomsToUserAvailability(roomsToDisplay);
   }
   return displayRoomsToUserAvailability(filteredByDate)
@@ -374,9 +365,7 @@ function getFormatDate() {
   if (!userCalendar.value) {
     return today;
   } else {
-    let formatDate = userCalendar.value.split('-');
-    let formattedDate = formatDate.join('/');
-    return formattedDate;
+    return userCalendar.value.split('-').join('/');
   }
 }
 
