@@ -159,7 +159,6 @@ function displayManagerDashboard() {
 }
 
 function verifyPassword(attemptedUser) {
-  console.log('Verifying Password');
   if (passwordInput.value === attemptedUser.password) {
     currentUser = attemptedUser;
     usernameInput.value = "";
@@ -170,7 +169,6 @@ function verifyPassword(attemptedUser) {
 }
 
 function deliverLoginError() {
-  console.log('Login Error');
   loginError.classList.remove('hidden');
 }
 
@@ -489,7 +487,7 @@ function populateUserDropdown() {
   let customersAToZ = hotelOperation.usersRecord.sort((a, b) => {
     return a.name < b.name ? -1: 1;
   });
-  
+
   let customerNames = customersAToZ.map(user => {
     return `<option value="${user.name}">`;
   }).join('');

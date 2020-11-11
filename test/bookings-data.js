@@ -10,13 +10,13 @@ const bookingsData = [
     userID: 1,
     date: "2020/01/02",
     roomNumber: 3,
-    roomServiceCharges:[]
+    roomServiceCharges: []
   }, {
     id: "5fwrgu4i7k55hl6t6",
     userID: 13,
     date: "2020/01/10",
     roomNumber: 12,
-    roomServiceCharges:[]
+    roomServiceCharges: []
   }
 ];
 

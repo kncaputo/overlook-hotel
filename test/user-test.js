@@ -1,10 +1,8 @@
-import chai from 'chai';
-const expect = chai.expect;
+import { expect } from 'chai';
 import User from '../src/User';
 
 describe('User', () => {
   let user;
-  let user2;
   let userData = {
     id: 1,
     name: "Lila Jones"
@@ -12,7 +10,6 @@ describe('User', () => {
 
   beforeEach(() => {
     user = new User(userData, false);
-    user2 = new User(userData);
   });
 
   describe('Constructor', () => {

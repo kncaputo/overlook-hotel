@@ -8,7 +8,7 @@ describe('Booking', () => {
     userID: 1,
     date: "2020/01/01",
     roomNumber: 11,
-    roomServiceCharges:[]
+    roomServiceCharges: []
   };
 
   beforeEach(() => {

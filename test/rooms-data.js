@@ -7,12 +7,12 @@ const roomsData = [
     numBeds: 1,
     costPerNight: 123.4
   }, {
-    number:2,
+    number: 2,
     roomType: "suite",
     bidet: false,
     bedSize: "full",
     numBeds: 2,
-    costPerNight:477.38
+    costPerNight: 477.38
   }, {
     number: 3,
     roomType: "suite",

@@ -10,7 +10,6 @@ import User from '../src/User';
 
 describe('HotelOperation', () => {
   let hotelOperation;
-  let room;
 
   describe('Constructor', () => {
     beforeEach(() => {
@@ -106,7 +105,7 @@ describe('HotelOperation', () => {
     });
 
     it('should have a method to create multiple instances of room when passed data', () => {
-      let result = hotelOperation.createRoomsRecord(roomsData);
+      hotelOperation.createRoomsRecord(roomsData);
 
       expect(hotelOperation.roomsRecord[0]).to.be.an.instanceof(Room);
       expect(hotelOperation.roomsRecord[1]).to.be.an.instanceof(Room);
@@ -114,14 +113,14 @@ describe('HotelOperation', () => {
 
     it('should have a method to create multiple instances of booking when passed data', () => {
       hotelOperation.createUsersRecord(usersData);
-      let result = hotelOperation.createBookingsRecord(roomsData);
+      hotelOperation.createBookingsRecord(roomsData);
 
       expect(hotelOperation.bookingsRecord[0]).to.be.an.instanceof(Booking);
       expect(hotelOperation.bookingsRecord[1]).to.be.an.instanceof(Booking);
     });
 
     it('should have a method to create multiple instances of user when passed data', () => {
-      let result = hotelOperation.createUsersRecord(usersData);
+      hotelOperation.createUsersRecord(usersData);
 
       expect(hotelOperation.usersRecord[0]).to.be.an.instanceof(User);
       expect(hotelOperation.usersRecord[1]).to.be.an.instanceof(User);
