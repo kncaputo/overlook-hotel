@@ -5,7 +5,10 @@ import User from '../src/User';
 describe('User', () => {
   let user;
   let user2;
-  let userData = {"id":1,"name":"Lila Jones"};
+  let userData = {
+    id: 1,
+    name: "Lila Jones"
+  };
 
   beforeEach(() => {
     user = new User(userData, false);

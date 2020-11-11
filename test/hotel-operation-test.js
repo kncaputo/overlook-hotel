@@ -1,5 +1,7 @@
-import chai from 'chai';
-const expect = chai.expect;
+import { expect } from 'chai';
+import roomsData from './rooms-data';
+import bookingsData from './bookings-data';
+import usersData from './users-data';
 import HotelOperation from '../src/HotelOperation';
 import Room from '../src/Room';
 import Booking from '../src/Booking';
@@ -9,56 +11,6 @@ import User from '../src/User';
 describe('HotelOperation', () => {
   let hotelOperation;
   let room;
-  let bookingsData = [{
-    id: "1abcde2f3h11ij4lm",
-    userID: 1,
-    date: "2020/01/01",
-    roomNumber: 1,
-    roomServiceCharges: []
-  }, {
-    id: "5fwrgu4i7k55hl6t6",
-    userID: 1,
-    date: "2020/01/02",
-    roomNumber: 3,
-    roomServiceCharges:[]
-  }, {
-    id: "5fwrgu4i7k55hl6t6",
-    userID: 13,
-    date: "2020/01/10",
-    roomNumber: 12,
-    roomServiceCharges:[]
-  }];
-  let roomsData = [{
-    number: 1,
-    roomType: "residential suite",
-    bidet: true,
-    bedSize: "queen",
-    numBeds: 1,
-    costPerNight: 123.4
-  }, {number:2,
-    roomType: "suite",
-    bidet: false,
-    bedSize: "full",
-    numBeds: 2,
-    costPerNight:477.38
-  }, {
-    number: 3,
-    roomType: "suite",
-    bidet: false,
-    bedSize: "king",
-    numBeds: 1,
-    costPerNight: 491.14
-  }];
-  let usersData = [{
-    id: 1,
-    name: "Anson Aimes"
-  }, {
-    id: 2,
-    name: "Theo Hernandez"
-  }, {
-    id: 3,
-    name: "Jane Schmoe"
-  }];
 
   describe('Constructor', () => {
     beforeEach(() => {

@@ -4,7 +4,13 @@ import Room from '../src/Room';
 
 describe('Room', () => {
   let room;
-  let roomData = {"number":1,"roomType":"residential suite","bidet":true,"bedSize":"queen","numBeds":1,"costPerNight":123.4};
+  const roomData = {
+    number: 1,
+    roomType: "residential suite", bidet: true,
+    bedSize: "queen",
+    numBeds: 1,
+    costPerNight: 123.4
+  };
 
   beforeEach(() => {
     room = new Room(roomData);
