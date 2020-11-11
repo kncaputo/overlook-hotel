@@ -1,8 +1,4 @@
 import './css/base.scss';
-// import {usernameInput, passwordInput, submitBtn} from './domElements.js';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
 import './images/1.jpg';
 import './images/2.jpg';
 import './images/3.jpg';
@@ -51,6 +47,7 @@ let managerResultsContainer = document.getElementById('manager-results-container
 let managerSearchBtn = document.getElementById('manager-search-btn');
 let managerSearchSubject = document.getElementById('manager-search-subject');
 let managerSelectRoom = document.getElementById('manager-select-room');
+let managerSignOutNav = document.getElementById('manager-sign-out-nav');
 let managerStatsCal = document.getElementById('manager-stats-calendar');
 let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
 let myBookingsContainer = document.getElementById('my-bookings-container');
@@ -74,29 +71,24 @@ let usernameInput = document.getElementById('username-input');
 let userResetBtn = document.getElementById('user-reset-btn');
 let userTotalSpent = document.getElementById('user-total-spent');
 let userWelcome = document.querySelector('.user-welcome');
-let managerSignOutNav = document.getElementById('manager-sign-out-nav');
 
 window.onload = fetchAllData();
-// --------- This is event listener wanted for production -------
-submitBtn.addEventListener('click', verifyLogin);
-// --------------------------------------------------------------
-// submitBtn.addEventListener('click', displayUserDashboard); // Just for dev mode
-// submitBtn.addEventListener('click', displayManagerDashboard); // Just for dev mode
 
 bookRoomNav.addEventListener('click', displayBookRoomDash);
+managerBookingCal.addEventListener('change', showMgrAvailableRooms);
 managerClearBtn.addEventListener('click', clearSearchForm);
 managerSearchBtn.addEventListener('click', searchUserBookings);
-myBookingsNav.addEventListener('click', displayMyBookingsDash);
-signOutNav.addEventListener('click', signOut);
-userCalendar.addEventListener('change', findRooms);
-userFilter.addEventListener('click', findRooms);
-userResetBtn.addEventListener('click', resetRadioForm);
+managerSignOutNav.addEventListener('click', signOut);
 managerStatsCal.addEventListener('change', updateStats);
 mgrAddBookingBtn.addEventListener('click', showManagerCalendar);
-managerBookingCal.addEventListener('change', showMgrAvailableRooms);
-usernameInput.addEventListener('click', hideError);
+myBookingsNav.addEventListener('click', displayMyBookingsDash);
 passwordInput.addEventListener('click', hideError);
-managerSignOutNav.addEventListener('click', signOut);
+signOutNav.addEventListener('click', signOut);
+submitBtn.addEventListener('click', verifyLogin);
+userCalendar.addEventListener('change', findRooms);
+userFilter.addEventListener('click', findRooms);
+usernameInput.addEventListener('click', hideError);
+userResetBtn.addEventListener('click', resetRadioForm);
 
 managerSelectRoom.addEventListener('click', () => {
   managerBookRoom(event);
@@ -372,9 +364,7 @@ function formatMgrAvailabilityDate() {
   if (!managerBookingCal.value) {
     return today;
   } else {
-    let formatDate = managerBookingCal.value.split('-');
-    let formattedDate = formatDate.join('/');
-    return formattedDate;
+    return managerBookingCal.value.split('-').join('/');
   }
 }
 
@@ -382,9 +372,8 @@ function formatDateForStats() {
   if (!managerStatsCal.value) {
     return today;
   } else {
-    let formatDate = managerStatsCal.value.split('-');
-    let formattedDate = formatDate.join('/');
-    return formattedDate;
+    managerStatsCal.value.split('-').join('/');
+    return managerStatsCal.value.split('-').join('/');
   }
 }
 // -----------------------------------
@@ -634,6 +623,8 @@ function createManagerRoomCard(room) {
 
 function signOut() {
   currentUser = "";
+  clearSearchForm();
+  managerStatsCal.value = todayDashes;
   userDashboard.classList.add('hidden');
   managerDashboard.classList.add('hidden');
   signInPage.classList.remove('hidden')
