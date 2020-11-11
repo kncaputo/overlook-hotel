@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>The Overlook Hotel</title>
+    <title>The Overlook, Santorini</title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
     </style>
@@ -108,21 +108,17 @@
         <aside class="flex-column" id="manager-filter-container">
           <form class="flex-column" id="search-form">
             <label name="search-users">Search Customers:</label>
-            <input class="" type="text" name="search-users" id="search-input" required>
+            <input list="customers" class="" type="text" name="search-users" id="search-input">
+            <datalist id="customers">
+            </datalist>
           </form>
-          <!-- <p>Filter Rooms:</p>
-          <form class="flex-row" id="user-filter">
-            <input class="user-radio single" type="radio" name="choice" value="single-room" id="radio-single"> Single Room
-            <input class="user-radio junior" type="radio" name="choice" value="junior" id="radio-junior"> Junior
-            <input class="user-radio residential" type="radio" name="choice" value="residential" id="radio-residential"> Residential
-          </form> -->
           <section class="flex-row space-around" id="search-btn-box">
             <button class="btn search-btns" id="manager-clear-btn">Clear</button>
             <button class="btn search-btns" id="manager-search-btn">Search</button>
           </section>
           <button class="btn hidden" id="mgr-add-booking-btn">Add Booking</button>
           <form class="flex-column hidden" id="manager-booking-form">
-            <label name="search-availability">Add new booking for user:</label>
+            <label name="search-availability">Check availability:</label>
             <input class="date" type="date" name="manager-booking-cal" id="manager-booking-cal">
           </form>
         </aside>
@@ -131,6 +127,8 @@
           <section class="flex-row hidden space-between mgr-cards-container" id="manager-search-subject">
             <!-- User's Name and spending gets inserted here -->
           </section>
+          <!-- <section class="flex-row" id="mgr-notification-box">
+          </section> -->
           <section class="flex-column hidden" id="manager-select-room">
             <h4>Select a date to make a booking</h4>
             <article class="flex-row space-around manager-rooms-card-header">

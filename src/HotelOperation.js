@@ -96,13 +96,15 @@ export default class HotelOperation {
   findAvailableRooms(date) {
     let filteredBookings = this.bookingsRecord.filter(booking => {
       return booking.date === date;
-    })
+    });
 
     let availableRooms = this.roomsRecord.reduce((rooms, room) => {
       let isBooked = false;
 
       filteredBookings.forEach(booking => {
-        if (room.number === booking.roomNumber) {isBooked = true}
+        if (room.number === booking.roomNumber) {
+          isBooked = true
+        }
       });
 
       if (!isBooked) {rooms.push(room)}
@@ -134,7 +136,9 @@ export default class HotelOperation {
 
     return filteredBookings.reduce((sum, booking) => {
       this.roomsRecord.forEach(room => {
-        if (booking.roomNumber === room.number) {sum += room.costPerNight}
+        if (booking.roomNumber === room.number) {
+          sum += room.costPerNight
+        }
       })
       return sum;
     }, 0);
@@ -143,7 +147,7 @@ export default class HotelOperation {
   getRoomDetails(roomNumber) {
     return this.roomsRecord.find(room => {
       return room.number === roomNumber;
-    })
+    });
   }
 
   calculateUserSpending(name) {

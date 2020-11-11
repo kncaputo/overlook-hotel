@@ -67,12 +67,12 @@ button, .radio-filter label:hover {
 }
 
 #search-btn-box {
-  @include aside-small-btns(12px 0 20px 0, 5px);
+  @include aside-small-btns(12px 0 12px 0, 5px);
   border-bottom: $border-line;
 }
 
 .search-btns {
-  @include aside-small-btns(12px 0 20px 0, 5px)
+  @include aside-small-btns(12px 0 12px 0, 5px);
   // margin: $aside-small-btns;
 }
 
