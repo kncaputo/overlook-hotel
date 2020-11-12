@@ -586,7 +586,7 @@ function createManagerRoomCard(room) {
     <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(room)}</p>
     <p class="mgr-card-small">$${room.costPerNight}</p>
-    <button class="btn mgr-card-btn" id="${room.number}">Book Room</button>
+    <button class="btn mgr-card-book-btn" id="${room.number}">Book Room</button>
   </article>`
 }
 
