@@ -15,7 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/kncaputo/overlook-hotel.git"
   },
-  "homepage": "https://kncaputo.github.io/overlook-hotel",
   "author": "Turing School of Software and Design",
   "license": "MIT",
   "devDependencies": {
@@ -37,5 +36,6 @@
   },
   "dependencies": {
     "moment": "^2.29.1"
-  }
+  },
+  "homepage": "https://kncaputo.github.io/overlook-hotel"
 }
