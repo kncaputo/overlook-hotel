@@ -37,8 +37,8 @@ Download Instructions
 To view the test suite:
 - Run `npm test` in your terminal
 
-## Links
-- [Deployed Page](https://kncaputo.github.io/overlook-hotel/dist/) (log in with `manager` or `customer1` through `customer50`, password `overlook2020`)
+## Links and Deployed Site
+- [Deployed Site](https://kncaputo.github.io/overlook-hotel/dist/) (log in with `manager` or `customer1` through `customer50`, password `overlook2020`)
 - Project Repository: https://github.com/kncaputo/overlook-hotel
 - Original Project Spec: https://frontend.turing.io/projects/overlook.html
 
