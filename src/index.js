@@ -25,8 +25,8 @@ import './images/23.jpg';
 import './images/24.jpg';
 import './images/25.jpg';
 
-import apiCalls from './apiCalls';
 import moment from 'moment';
+import apiCalls from './apiCalls';
 import HotelOperation from './HotelOperation';
 import {availabilityBox, bookRoomNav, customersBookings, loginError, managerBookingCal,
 managerBookingForm, managerClearBtn, managerDashboard, managerNewBookingContainer,
@@ -96,7 +96,7 @@ function verifyLogin() {
     }
     return deliverLoginError();
   }
-  if (usernameInput.value.length < 9) {
+  if (usernameInput.value.length < 9 || !usernameInput.value.includes('customer')) {
     return deliverLoginError();
   }
 
