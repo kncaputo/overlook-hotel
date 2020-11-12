@@ -2,7 +2,7 @@
 
 
 ## Project Overview 
-This was the final solo project for Module 2 of the Turing School of Software and Design's Front-End Engineering Program. For this project I used OOP and TDD to drive the design of hotel managment tool for hotel customers and staff to manage room bookings and calculatee customer bills. 
+This was the final solo project for Module 2 of the Turing School of Software and Design's Front-End Engineering Program. For this project I used OOP and TDD to drive the design of hotel managment tool for hotel customers and staff to manage room bookings and calculate customer bills. 
 
 ### The goals for this project were:
   - Work with an API to send and receive data 
@@ -34,11 +34,11 @@ Download Instructions
 - In your terminal, run `npm start` to start the server
 - Go to http://localhost:8080/
 
-To view the test suitee:
+To view the test suite:
 - Run `npm test` in your terminal
 
 ## Links
-- [Deployed Page](https://kncaputo.github.io/overlook-hotel/) (log in with `manager` or `customer1` through `customer50`, password `overlook2020`)
+- [Deployed Page](https://kncaputo.github.io/overlook-hotel/dist/) (log in with `manager` or `customer1` through `customer50`, password `overlook2020`)
 - Project Repository: https://github.com/kncaputo/overlook-hotel
 - Original Project Spec: https://frontend.turing.io/projects/overlook.html
 
