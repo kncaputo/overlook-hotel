@@ -28,49 +28,19 @@ import './images/25.jpg';
 import apiCalls from './apiCalls';
 import moment from 'moment';
 import HotelOperation from './HotelOperation';
+import {availabilityBox, bookRoomNav, customersBookings, loginError, managerBookingCal,
+managerBookingForm, managerClearBtn, managerDashboard, managerNewBookingContainer,
+managerResultsContainer, managerSearchBtn, managerSearchSubject, managerSelectRoom,
+managerSignOutNav, managerStatsCal, mgrAddBookingBtn, myBookingsContainer,
+myBookingsNav, passwordInput, radioJunior, radioResidential, radioSingle, radioSuite,
+searchInput, signInPage, signOutNav, submitBtn, userAvailabilityContainer,
+userBookingsContainer, userCalendar, userDashboard, userDashboardContainer,
+userFilter, usernameInput, userResetBtn, userTotalSpent, userWelcome} from './DOMelements';
 
 let hotelOperation;
 let currentUser;
 let today = moment().format('YYYY/MM/DD');
 let todayDashes = moment().format('YYYY-MM-DD');
-
-let availabilityBox = document.getElementById('availability-box');
-let bookRoomNav = document.getElementById('book-room-nav');
-let customersBookings = document.getElementById('customers-bookings');
-let loginError = document.getElementById('login-error');
-let managerBookingCal = document.getElementById('manager-booking-cal');
-let managerBookingForm = document.getElementById('manager-booking-form');
-let managerClearBtn = document.getElementById('manager-clear-btn');
-let managerDashboard = document.getElementById('manager-dashboard');
-let managerNewBookingContainer = document.getElementById('manager-new-booking-container');
-let managerResultsContainer = document.getElementById('manager-results-container');
-let managerSearchBtn = document.getElementById('manager-search-btn');
-let managerSearchSubject = document.getElementById('manager-search-subject');
-let managerSelectRoom = document.getElementById('manager-select-room');
-let managerSignOutNav = document.getElementById('manager-sign-out-nav');
-let managerStatsCal = document.getElementById('manager-stats-calendar');
-let mgrAddBookingBtn = document.getElementById('mgr-add-booking-btn');
-let myBookingsContainer = document.getElementById('my-bookings-container');
-let myBookingsNav = document.getElementById('my-bookings-nav');
-let passwordInput = document.getElementById('password-input');
-let radioJunior = document.getElementById('radio-junior');
-let radioResidential = document.getElementById('radio-residential');
-let radioSingle = document.getElementById('radio-single');
-let radioSuite = document.getElementById('radio-suite');
-let searchInput = document.getElementById('search-input');
-let signInPage = document.getElementById('sign-in-page');
-let signOutNav = document.querySelector('.sign-out-nav');
-let submitBtn = document.getElementById('submit-btn');
-let userAvailabilityContainer = document.getElementById('user-availability-container');
-let userBookingsContainer = document.getElementById('user-bookings-container');
-let userCalendar = document.getElementById('user-calendar');
-let userDashboard = document.getElementById('user-dashboard');
-let userDashboardContainer = document.getElementById('user-dashboard-container');
-let userFilter = document.getElementById('user-filter');
-let usernameInput = document.getElementById('username-input');
-let userResetBtn = document.getElementById('user-reset-btn');
-let userTotalSpent = document.getElementById('user-total-spent');
-let userWelcome = document.querySelector('.user-welcome');
 
 window.onload = fetchAllData();
 
@@ -260,6 +230,7 @@ function bookRoom(event) {
         document.getElementById(`${event.target.id}`).disabled = true;
         document.getElementById(`${event.target.id}`).innerText = 'Booked!'
         document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+        updateBookings();
       }
 
       let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -272,7 +243,6 @@ function bookRoom(event) {
         roomNumber: roomToBook.number
       }
       apiCalls.postData(bookingData, onSuccess);
-      updateBookings();
     }
   }
 }
@@ -414,7 +384,6 @@ function displayRoomsToMyBookings() {
     userBookingsContainer.insertAdjacentHTML('beforeend', roomCardHtml);
   })
 }
-// <p class="primary-details-text">Room number ${booking.roomNumber}</p>
 
 function createBookingCard(booking) {
   let roomBooked = hotelOperation.getRoomDetails(booking.roomNumber);
@@ -617,7 +586,7 @@ function createManagerRoomCard(room) {
     <p class="mgr-card-small">${room.numBeds} ${room.bedSize}</p>
     <p class="mgr-card-small">${determineBidet(room)}</p>
     <p class="mgr-card-small">$${room.costPerNight}</p>
-    <button class="btn mgr-card-btn" id="${room.number}">Book Room</button>
+    <button class="btn mgr-card-book-btn" id="${room.number}">Book Room</button>
   </article>`
 }
 
