@@ -230,6 +230,7 @@ function bookRoom(event) {
         document.getElementById(`${event.target.id}`).disabled = true;
         document.getElementById(`${event.target.id}`).innerText = 'Booked!'
         document.getElementById(`${event.target.id}`).classList.add('bookedBtn')
+        updateBookings();
       }
 
       let roomToBook = hotelOperation.roomsRecord.find(room => {
@@ -242,7 +243,6 @@ function bookRoom(event) {
         roomNumber: roomToBook.number
       }
       apiCalls.postData(bookingData, onSuccess);
-      updateBookings();
     }
   }
 }
